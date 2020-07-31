@@ -15,6 +15,22 @@ namespace NotesWindowsFormsApp
         public MainForm()
         {
             InitializeComponent();
-        }      
+        }
+        Note myNote;
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            myNote = new Note();
+            notesTextBox.Text = myNote.Text;
+            notesTextBox.SelectedText = null;
+            notesPanel.Dock = DockStyle.Fill;
+            notesTextBox.Dock = DockStyle.Fill;
+            todolistPanel.Hide();
+        }
+
+        private void notesTextBox_TextChanged(object sender, EventArgs e)
+        {
+            myNote.Text = notesTextBox.Text;
+            myNote.Save();
+        }
     }
 }

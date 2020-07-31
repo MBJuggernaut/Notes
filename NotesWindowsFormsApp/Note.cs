@@ -8,11 +8,23 @@ namespace NotesWindowsFormsApp
 {
     public class Note
     {
-        string text;
-
+        public string Text;
+        string path = "notes.json";
         public Note()
         {
-            
+            Text = GetText();
+        }
+
+        public string GetText()
+        {
+            string text = FileProvider.Get(path);
+
+            return text;
+        }
+
+        public void Save()
+        {
+            FileProvider.Replace(path, Text);
         }
     }
 }
