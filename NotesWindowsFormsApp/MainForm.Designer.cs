@@ -34,8 +34,10 @@
             this.notesPanel = new System.Windows.Forms.Panel();
             this.notesTextBox = new System.Windows.Forms.TextBox();
             this.todolistPanel = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.notesPanel.SuspendLayout();
+            this.todolistPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -48,21 +50,23 @@
             this.todolistToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(86, 450);
+            this.menuStrip1.Size = new System.Drawing.Size(156, 450);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // notesToolStripMenuItem
             // 
             this.notesToolStripMenuItem.Name = "notesToolStripMenuItem";
-            this.notesToolStripMenuItem.Size = new System.Drawing.Size(118, 24);
+            this.notesToolStripMenuItem.Size = new System.Drawing.Size(143, 24);
             this.notesToolStripMenuItem.Text = "Заметки";
+            this.notesToolStripMenuItem.Click += new System.EventHandler(this.notesToolStripMenuItem_Click);
             // 
             // todolistToolStripMenuItem
             // 
             this.todolistToolStripMenuItem.Name = "todolistToolStripMenuItem";
-            this.todolistToolStripMenuItem.Size = new System.Drawing.Size(118, 24);
+            this.todolistToolStripMenuItem.Size = new System.Drawing.Size(143, 24);
             this.todolistToolStripMenuItem.Text = "Задачи";
+            this.todolistToolStripMenuItem.Click += new System.EventHandler(this.todolistToolStripMenuItem_Click);
             // 
             // notesPanel
             // 
@@ -87,10 +91,20 @@
             // 
             // todolistPanel
             // 
+            this.todolistPanel.Controls.Add(this.label1);
             this.todolistPanel.Location = new System.Drawing.Point(393, 0);
             this.todolistPanel.Name = "todolistPanel";
             this.todolistPanel.Size = new System.Drawing.Size(202, 190);
             this.todolistPanel.TabIndex = 3;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(86, 59);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(51, 17);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "2 окно";
             // 
             // MainForm
             // 
@@ -108,6 +122,8 @@
             this.menuStrip1.PerformLayout();
             this.notesPanel.ResumeLayout(false);
             this.notesPanel.PerformLayout();
+            this.todolistPanel.ResumeLayout(false);
+            this.todolistPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -120,6 +136,7 @@
         private System.Windows.Forms.Panel notesPanel;
         private System.Windows.Forms.TextBox notesTextBox;
         private System.Windows.Forms.Panel todolistPanel;
+        private System.Windows.Forms.Label label1;
     }
 }
 
