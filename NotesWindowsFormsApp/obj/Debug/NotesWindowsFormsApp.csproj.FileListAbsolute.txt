@@ -1,0 +1,10 @@
+C:\Users\markb\source\repos\Notes\NotesWindowsFormsApp\bin\Debug\NotesWindowsFormsApp.exe.config
+C:\Users\markb\source\repos\Notes\NotesWindowsFormsApp\bin\Debug\NotesWindowsFormsApp.exe
+C:\Users\markb\source\repos\Notes\NotesWindowsFormsApp\bin\Debug\NotesWindowsFormsApp.pdb
+C:\Users\markb\source\repos\Notes\NotesWindowsFormsApp\obj\Debug\NotesWindowsFormsApp.csprojAssemblyReference.cache
+C:\Users\markb\source\repos\Notes\NotesWindowsFormsApp\obj\Debug\NotesWindowsFormsApp.MainForm.resources
+C:\Users\markb\source\repos\Notes\NotesWindowsFormsApp\obj\Debug\NotesWindowsFormsApp.Properties.Resources.resources
+C:\Users\markb\source\repos\Notes\NotesWindowsFormsApp\obj\Debug\NotesWindowsFormsApp.csproj.GenerateResource.cache
+C:\Users\markb\source\repos\Notes\NotesWindowsFormsApp\obj\Debug\NotesWindowsFormsApp.csproj.CoreCompileInputs.cache
+C:\Users\markb\source\repos\Notes\NotesWindowsFormsApp\obj\Debug\NotesWindowsFormsApp.exe
+C:\Users\markb\source\repos\Notes\NotesWindowsFormsApp\obj\Debug\NotesWindowsFormsApp.pdb

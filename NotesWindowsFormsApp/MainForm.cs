@@ -15,6 +15,6 @@ namespace NotesWindowsFormsApp
         public MainForm()
         {
             InitializeComponent();
-        }
+        }      
     }
 }
