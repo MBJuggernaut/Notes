@@ -8,3 +8,6 @@ C:\Users\markb\source\repos\Notes\NotesWindowsFormsApp\obj\Debug\NotesWindowsFor
 C:\Users\markb\source\repos\Notes\NotesWindowsFormsApp\obj\Debug\NotesWindowsFormsApp.csproj.CoreCompileInputs.cache
 C:\Users\markb\source\repos\Notes\NotesWindowsFormsApp\obj\Debug\NotesWindowsFormsApp.exe
 C:\Users\markb\source\repos\Notes\NotesWindowsFormsApp\obj\Debug\NotesWindowsFormsApp.pdb
+C:\Users\markb\source\repos\Notes\NotesWindowsFormsApp\bin\Debug\ru\NotesWindowsFormsApp.resources.dll
+C:\Users\markb\source\repos\Notes\NotesWindowsFormsApp\obj\Debug\NotesWindowsFormsApp.MainForm.ru.resources
+C:\Users\markb\source\repos\Notes\NotesWindowsFormsApp\obj\Debug\ru\NotesWindowsFormsApp.resources.dll
