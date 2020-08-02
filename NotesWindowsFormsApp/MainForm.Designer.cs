@@ -36,12 +36,15 @@
             this.notesPanel = new System.Windows.Forms.Panel();
             this.notesTextBox = new System.Windows.Forms.TextBox();
             this.todolistPanel = new System.Windows.Forms.Panel();
-            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
-            this.label1 = new System.Windows.Forms.Label();
+            this.ToDoListDataGridView = new System.Windows.Forms.DataGridView();
+            this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Task = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.myCalendar = new System.Windows.Forms.MonthCalendar();
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.menuStrip.SuspendLayout();
             this.notesPanel.SuspendLayout();
             this.todolistPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ToDoListDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip
@@ -82,20 +85,42 @@
             // 
             // todolistPanel
             // 
-            this.todolistPanel.Controls.Add(this.monthCalendar1);
-            this.todolistPanel.Controls.Add(this.label1);
+            this.todolistPanel.Controls.Add(this.ToDoListDataGridView);
+            this.todolistPanel.Controls.Add(this.myCalendar);
             resources.ApplyResources(this.todolistPanel, "todolistPanel");
             this.todolistPanel.Name = "todolistPanel";
             // 
-            // monthCalendar1
+            // ToDoListDataGridView
             // 
-            resources.ApplyResources(this.monthCalendar1, "monthCalendar1");
-            this.monthCalendar1.Name = "monthCalendar1";
+            this.ToDoListDataGridView.AllowUserToOrderColumns = true;
+            this.ToDoListDataGridView.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.ToDoListDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ToDoListDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Time,
+            this.Task});
+            resources.ApplyResources(this.ToDoListDataGridView, "ToDoListDataGridView");
+            this.ToDoListDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.ToDoListDataGridView.GridColor = System.Drawing.SystemColors.Window;
+            this.ToDoListDataGridView.Name = "ToDoListDataGridView";
+            this.ToDoListDataGridView.RowTemplate.Height = 24;
+            this.ToDoListDataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.ToDoListDataGridView_CellEndEdit);
             // 
-            // label1
+            // Time
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
+            resources.ApplyResources(this.Time, "Time");
+            this.Time.Name = "Time";
+            // 
+            // Task
+            // 
+            resources.ApplyResources(this.Task, "Task");
+            this.Task.Name = "Task";
+            // 
+            // myCalendar
+            // 
+            this.myCalendar.BackColor = System.Drawing.SystemColors.Control;
+            resources.ApplyResources(this.myCalendar, "myCalendar");
+            this.myCalendar.Name = "myCalendar";
+            this.myCalendar.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.myCalendar_DateSelected);
             // 
             // trayIcon
             // 
@@ -110,7 +135,6 @@
             this.Controls.Add(this.todolistPanel);
             this.Controls.Add(this.notesPanel);
             this.Controls.Add(this.menuStrip);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip;
             this.MaximizeBox = false;
             this.Name = "MainForm";
@@ -121,7 +145,7 @@
             this.notesPanel.ResumeLayout(false);
             this.notesPanel.PerformLayout();
             this.todolistPanel.ResumeLayout(false);
-            this.todolistPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ToDoListDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -134,9 +158,11 @@
         private System.Windows.Forms.Panel notesPanel;
         private System.Windows.Forms.TextBox notesTextBox;
         private System.Windows.Forms.Panel todolistPanel;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.MonthCalendar monthCalendar1;
+        private System.Windows.Forms.MonthCalendar myCalendar;
         private System.Windows.Forms.NotifyIcon trayIcon;
+        private System.Windows.Forms.DataGridView ToDoListDataGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Time;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Task;
     }
 }
 

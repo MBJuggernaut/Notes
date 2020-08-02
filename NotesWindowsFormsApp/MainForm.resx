@@ -141,7 +141,7 @@
     <value>0, 0</value>
   </data>
   <data name="menuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 450</value>
+    <value>86, 400</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="menuStrip.TabIndex" type="System.Int32, mscorlib">
@@ -160,6 +160,24 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;menuStrip.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="notesTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="notesTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="notesTextBox.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="notesTextBox.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
+    <value>Vertical</value>
+  </data>
+  <data name="notesTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>250, 77</value>
+  </data>
+  <data name="notesTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="&gt;&gt;notesTextBox.Name" xml:space="preserve">
@@ -195,65 +213,89 @@
   <data name="&gt;&gt;notesPanel.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="notesTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
+  <metadata name="Time.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="Time.HeaderText" xml:space="preserve">
+    <value>Время</value>
   </data>
-  <data name="notesTextBox.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="Time.MinimumWidth" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="Time.Width" type="System.Int32, mscorlib">
+    <value>125</value>
+  </data>
+  <metadata name="Task.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="Task.HeaderText" xml:space="preserve">
+    <value>Задача</value>
+  </data>
+  <data name="Task.MinimumWidth" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="Task.Width" type="System.Int32, mscorlib">
+    <value>125</value>
+  </data>
+  <data name="ToDoListDataGridView.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="ToDoListDataGridView.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="notesTextBox.Multiline" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="ToDoListDataGridView.RowHeadersWidth" type="System.Int32, mscorlib">
+    <value>51</value>
   </data>
-  <data name="notesTextBox.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
-    <value>Vertical</value>
+  <data name="ToDoListDataGridView.Size" type="System.Drawing.Size, System.Drawing">
+    <value>522, 400</value>
   </data>
-  <data name="notesTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>250, 77</value>
+  <data name="ToDoListDataGridView.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
   </data>
-  <data name="notesTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="&gt;&gt;ToDoListDataGridView.Name" xml:space="preserve">
+    <value>ToDoListDataGridView</value>
   </data>
-  <data name="&gt;&gt;notesTextBox.Name" xml:space="preserve">
-    <value>notesTextBox</value>
+  <data name="&gt;&gt;ToDoListDataGridView.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;notesTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;notesTextBox.Parent" xml:space="preserve">
-    <value>notesPanel</value>
-  </data>
-  <data name="&gt;&gt;notesTextBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;monthCalendar1.Name" xml:space="preserve">
-    <value>monthCalendar1</value>
-  </data>
-  <data name="&gt;&gt;monthCalendar1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MonthCalendar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;monthCalendar1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;ToDoListDataGridView.Parent" xml:space="preserve">
     <value>todolistPanel</value>
   </data>
-  <data name="&gt;&gt;monthCalendar1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;ToDoListDataGridView.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
+  <data name="myCalendar.CalendarDimensions" type="System.Drawing.Size, System.Drawing">
+    <value>1, 2</value>
   </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="myCalendar.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Right</value>
   </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>todolistPanel</value>
+  <data name="myCalendar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>522, 0</value>
   </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+  <data name="myCalendar.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
+  <data name="&gt;&gt;myCalendar.Name" xml:space="preserve">
+    <value>myCalendar</value>
+  </data>
+  <data name="&gt;&gt;myCalendar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MonthCalendar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;myCalendar.Parent" xml:space="preserve">
+    <value>todolistPanel</value>
+  </data>
+  <data name="&gt;&gt;myCalendar.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="todolistPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
   <data name="todolistPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>393, 0</value>
+    <value>86, 0</value>
   </data>
   <data name="todolistPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>217, 251</value>
+    <value>714, 400</value>
   </data>
   <data name="todolistPanel.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -269,51 +311,6 @@
   </data>
   <data name="&gt;&gt;todolistPanel.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="monthCalendar1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="monthCalendar1.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;monthCalendar1.Name" xml:space="preserve">
-    <value>monthCalendar1</value>
-  </data>
-  <data name="&gt;&gt;monthCalendar1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MonthCalendar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;monthCalendar1.Parent" xml:space="preserve">
-    <value>todolistPanel</value>
-  </data>
-  <data name="&gt;&gt;monthCalendar1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>86, 59</value>
-  </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>51, 17</value>
-  </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>2 окно</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>todolistPanel</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <metadata name="trayIcon.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>144, 17</value>
@@ -606,7 +603,7 @@
     <value>8, 16</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>800, 450</value>
+    <value>800, 400</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -900,6 +897,18 @@
   </data>
   <data name="&gt;&gt;todolistToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Time.Name" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="&gt;&gt;Time.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Task.Name" xml:space="preserve">
+    <value>Task</value>
+  </data>
+  <data name="&gt;&gt;Task.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;trayIcon.Name" xml:space="preserve">
     <value>trayIcon</value>

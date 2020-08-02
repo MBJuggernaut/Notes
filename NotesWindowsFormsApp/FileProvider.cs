@@ -6,30 +6,42 @@ namespace NotesWindowsFormsApp
     {
         public static void Add(string path, string text)
         {
-            var userResultsaver = new StreamWriter(path, true, System.Text.Encoding.UTF8);
+            var textsaver = new StreamWriter(path, true, System.Text.Encoding.UTF8);
             {
-                userResultsaver.WriteLine(text);
-                userResultsaver.Close();
+                textsaver.WriteLine(text);
+                textsaver.Close();
             }
         }
         public static void Replace(string path, string text)
         {
-            var userResultsaver = new StreamWriter(path, false, System.Text.Encoding.UTF8);
+            var textsaver = new StreamWriter(path, false, System.Text.Encoding.UTF8);
             {
-                userResultsaver.WriteLine(text);
-                userResultsaver.Close();
+                textsaver.WriteLine(text);
+                textsaver.Close();
             }
         }
         public static string Get(string path)
-        {
+        {            
+            string allLines;
             if (!File.Exists(path))
             {
                 File.Create(path);
                 return "";
             }
-            var userResultreader = new StreamReader(path);
-            var allLines = File.ReadAllText(path);
-            userResultreader.Close();
+            var text = new StreamReader(path);
+            try
+            {                
+                allLines = File.ReadAllText(path);
+            }
+            catch
+            {
+                text.Close();
+                allLines = File.ReadAllText(path);
+            }
+           
+
+            
+            text.Close();
             return allLines;
         }
     }
