@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace NotesWindowsFormsApp
@@ -14,8 +15,7 @@ namespace NotesWindowsFormsApp
         Note myNote;
         string chosenDate;
         string today;
-        List<Task> listOfAllTasks;        
-        int indexOEditedTask;
+        List<Task> listOfAllTasks;                
         readonly string tasksPath = "tasks.json";
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -36,13 +36,13 @@ namespace NotesWindowsFormsApp
             todolistPanel.Show();
             notesPanel.Hide();
             today = DateTime.Today.ToShortDateString();
-            chosenDate = today;
-            //myCalendar.SetSelectionRange(Convert.ToDateTime(today), Convert.ToDateTime(today));
+            chosenDate = today;            
 
             Task task = new Task();
             listOfAllTasks = task.GetAll(tasksPath);
 
             ShowTasksForDay();
+            ColorDates();
         }
 
         private void NotesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -75,19 +75,17 @@ namespace NotesWindowsFormsApp
             chosenDate = myCalendar.SelectionRange.Start.ToShortDateString();
             ShowTasksForDay();
         }
-        private void ToDoListDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void ToDoListDataGridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
-            
             ToDoListDataGridView.CurrentRow.Cells[0].Value += "";
             ToDoListDataGridView.CurrentRow.Cells[1].Value += "";
             if (listOfAllTasks != null)
             {
-                indexOEditedTask = listOfAllTasks.Count + 1;
                 foreach (var task in listOfAllTasks)
                 {
-                    if (task.Time == ToDoListDataGridView.CurrentRow.Cells[0].Value.ToString()&&task.Text == ToDoListDataGridView.CurrentRow.Cells[1].Value.ToString())
+                    if (task.Time == ToDoListDataGridView.CurrentRow.Cells[0].Value.ToString() || task.Text == ToDoListDataGridView.CurrentRow.Cells[1].Value.ToString())
                     {
-                        indexOEditedTask = listOfAllTasks.IndexOf(task);
+                        listOfAllTasks.Remove(task);
                         break;
                     }
                 }
@@ -104,15 +102,16 @@ namespace NotesWindowsFormsApp
             if (listOfAllTasks == null)
             {
                 listOfAllTasks = new List<Task>();
-            }
-            if (listOfAllTasks.Count < indexOEditedTask|| listOfAllTasks.Count==0)
-                listOfAllTasks.Add(editedTask);
-            else
-                listOfAllTasks[indexOEditedTask] = editedTask;
+            }            
+                listOfAllTasks.Add(editedTask);            
 
             var jsonTasks = JsonConvert.SerializeObject(listOfAllTasks, Formatting.Indented);
             
             FileProvider.Replace(tasksPath, jsonTasks);
+
+            ColorDates();
+
+
         }
 
         private void ShowTasksForDay()
@@ -121,7 +120,7 @@ namespace NotesWindowsFormsApp
             if (listOfAllTasks != null)
             {
                 foreach (var taskfromlist in listOfAllTasks)
-                {
+                {                    
                     if (taskfromlist.Date == chosenDate)
                     {
                         ToDoListDataGridView.Rows.Add(taskfromlist.Time, taskfromlist.Text);
@@ -131,6 +130,17 @@ namespace NotesWindowsFormsApp
             }
         }
 
-       
+        private void ColorDates()
+        {
+            var coloreddates = myCalendar.BoldedDates.ToList();
+
+            foreach (var taskfromlist in listOfAllTasks)
+            {
+                coloreddates.Add(Convert.ToDateTime(taskfromlist.Date));                
+            }
+                        
+            myCalendar.BoldedDates = coloreddates.ToArray();
+        }
+        
     }
 }

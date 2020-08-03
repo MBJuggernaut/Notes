@@ -103,7 +103,7 @@
             this.ToDoListDataGridView.GridColor = System.Drawing.SystemColors.Window;
             this.ToDoListDataGridView.Name = "ToDoListDataGridView";
             this.ToDoListDataGridView.RowTemplate.Height = 24;
-            this.ToDoListDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ToDoListDataGridView_CellClick);
+            this.ToDoListDataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.ToDoListDataGridView_CellBeginEdit);
             this.ToDoListDataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.ToDoListDataGridView_CellEndEdit);
             // 
             // Time

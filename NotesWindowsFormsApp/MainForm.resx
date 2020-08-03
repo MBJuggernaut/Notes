@@ -162,6 +162,24 @@
   <data name="&gt;&gt;menuStrip.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="notesTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="notesTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="notesTextBox.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="notesTextBox.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
+    <value>Vertical</value>
+  </data>
+  <data name="notesTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>250, 77</value>
+  </data>
+  <data name="notesTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
   <data name="&gt;&gt;notesTextBox.Name" xml:space="preserve">
     <value>notesTextBox</value>
   </data>
@@ -194,36 +212,6 @@
   </data>
   <data name="&gt;&gt;notesPanel.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="notesTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="notesTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="notesTextBox.Multiline" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="notesTextBox.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
-    <value>Vertical</value>
-  </data>
-  <data name="notesTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>250, 77</value>
-  </data>
-  <data name="notesTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;notesTextBox.Name" xml:space="preserve">
-    <value>notesTextBox</value>
-  </data>
-  <data name="&gt;&gt;notesTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;notesTextBox.Parent" xml:space="preserve">
-    <value>notesPanel</value>
-  </data>
-  <data name="&gt;&gt;notesTextBox.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <metadata name="Time.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -328,7 +316,7 @@
     <value>144, 17</value>
   </metadata>
   <data name="trayIcon.BalloonTipText" xml:space="preserve">
-    <value>Notes in in tray now</value>
+    <value>Notes is in tray now</value>
   </data>
   <data name="trayIcon.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
