@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Threading;
 
 namespace NotesWindowsFormsApp
 {
@@ -21,26 +22,27 @@ namespace NotesWindowsFormsApp
             }
         }
         public static string Get(string path)
-        {            
+        {
+            StreamReader text;  
             string allLines;
             if (!File.Exists(path))
             {
                 File.Create(path);
                 return "";
             }
-            var text = new StreamReader(path);
+            
             try
-            {                
+            {
+                text = new StreamReader(path);
                 allLines = File.ReadAllText(path);
             }
             catch
             {
-                text.Close();
+                Thread.Sleep(100);
+                text = new StreamReader(path);
                 allLines = File.ReadAllText(path);
             }
-           
 
-            
             text.Close();
             return allLines;
         }

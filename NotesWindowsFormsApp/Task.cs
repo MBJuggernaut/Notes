@@ -18,15 +18,13 @@ namespace NotesWindowsFormsApp
 
         }
 
-        public List<Task> GetAll()
-        {
-            var path = Date + ".json";
-
-            string jsonListOfResults = FileProvider.Get(path);
-            var tasks = JsonConvert.DeserializeObject<List<Task>>(jsonListOfResults);
+        public List<Task> GetAll(string path)
+        {            
+            var tasks = JsonConvert.DeserializeObject<List<Task>>(FileProvider.Get(path));
 
             return tasks;
         }
+
 
 
     }

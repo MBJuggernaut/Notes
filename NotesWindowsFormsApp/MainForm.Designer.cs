@@ -61,13 +61,13 @@
             // 
             this.notesToolStripMenuItem.Name = "notesToolStripMenuItem";
             resources.ApplyResources(this.notesToolStripMenuItem, "notesToolStripMenuItem");
-            this.notesToolStripMenuItem.Click += new System.EventHandler(this.notesToolStripMenuItem_Click);
+            this.notesToolStripMenuItem.Click += new System.EventHandler(this.NotesToolStripMenuItem_Click);
             // 
             // todolistToolStripMenuItem
             // 
             this.todolistToolStripMenuItem.Name = "todolistToolStripMenuItem";
             resources.ApplyResources(this.todolistToolStripMenuItem, "todolistToolStripMenuItem");
-            this.todolistToolStripMenuItem.Click += new System.EventHandler(this.todolistToolStripMenuItem_Click);
+            this.todolistToolStripMenuItem.Click += new System.EventHandler(this.TodolistToolStripMenuItem_Click);
             // 
             // notesPanel
             // 
@@ -81,7 +81,7 @@
             resources.ApplyResources(this.notesTextBox, "notesTextBox");
             this.notesTextBox.Name = "notesTextBox";
             this.notesTextBox.TabStop = false;
-            this.notesTextBox.TextChanged += new System.EventHandler(this.notesTextBox_TextChanged);
+            this.notesTextBox.TextChanged += new System.EventHandler(this.NotesTextBox_TextChanged);
             // 
             // todolistPanel
             // 
@@ -103,6 +103,7 @@
             this.ToDoListDataGridView.GridColor = System.Drawing.SystemColors.Window;
             this.ToDoListDataGridView.Name = "ToDoListDataGridView";
             this.ToDoListDataGridView.RowTemplate.Height = 24;
+            this.ToDoListDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ToDoListDataGridView_CellClick);
             this.ToDoListDataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.ToDoListDataGridView_CellEndEdit);
             // 
             // Time
@@ -120,13 +121,13 @@
             this.myCalendar.BackColor = System.Drawing.SystemColors.Control;
             resources.ApplyResources(this.myCalendar, "myCalendar");
             this.myCalendar.Name = "myCalendar";
-            this.myCalendar.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.myCalendar_DateSelected);
+            this.myCalendar.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.MyCalendar_DateSelected);
             // 
             // trayIcon
             // 
             this.trayIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             resources.ApplyResources(this.trayIcon, "trayIcon");
-            this.trayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.trayIcon_MouseDoubleClick);
+            this.trayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TrayIcon_MouseDoubleClick);
             // 
             // MainForm
             // 

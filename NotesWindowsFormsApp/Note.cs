@@ -3,7 +3,7 @@
     public class Note
     {
         public string Text;
-        string path = "notes.json";
+        readonly string path = "notes.json";
         public Note()
         {
             Text = GetText();
