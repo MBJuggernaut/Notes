@@ -41,6 +41,7 @@
             this.Task = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.myCalendar = new System.Windows.Forms.MonthCalendar();
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.AddTaskButton = new System.Windows.Forms.Button();
             this.menuStrip.SuspendLayout();
             this.notesPanel.SuspendLayout();
             this.todolistPanel.SuspendLayout();
@@ -85,6 +86,7 @@
             // 
             // todolistPanel
             // 
+            this.todolistPanel.Controls.Add(this.AddTaskButton);
             this.todolistPanel.Controls.Add(this.ToDoListDataGridView);
             this.todolistPanel.Controls.Add(this.myCalendar);
             resources.ApplyResources(this.todolistPanel, "todolistPanel");
@@ -129,6 +131,13 @@
             resources.ApplyResources(this.trayIcon, "trayIcon");
             this.trayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TrayIcon_MouseDoubleClick);
             // 
+            // AddTaskButton
+            // 
+            resources.ApplyResources(this.AddTaskButton, "AddTaskButton");
+            this.AddTaskButton.Name = "AddTaskButton";
+            this.AddTaskButton.UseVisualStyleBackColor = true;
+            this.AddTaskButton.Click += new System.EventHandler(this.AddTaskButton_Click);
+            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
@@ -164,6 +173,7 @@
         private System.Windows.Forms.DataGridView ToDoListDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn Time;
         private System.Windows.Forms.DataGridViewTextBoxColumn Task;
+        private System.Windows.Forms.Button AddTaskButton;
     }
 }
 

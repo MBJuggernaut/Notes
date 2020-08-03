@@ -14,3 +14,4 @@ C:\Users\markb\source\repos\Notes\NotesWindowsFormsApp\obj\Debug\ru\NotesWindows
 C:\Users\markb\source\repos\Notes\NotesWindowsFormsApp\bin\Debug\Newtonsoft.Json.dll
 C:\Users\markb\source\repos\Notes\NotesWindowsFormsApp\bin\Debug\Newtonsoft.Json.xml
 C:\Users\markb\source\repos\Notes\NotesWindowsFormsApp\obj\Debug\NotesWindowsFormsApp.csproj.CopyComplete
+C:\Users\markb\source\repos\Notes\NotesWindowsFormsApp\obj\Debug\NotesWindowsFormsApp.TaskForm.resources

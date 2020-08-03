@@ -139,6 +139,23 @@ namespace NotesWindowsFormsApp
 
             myCalendar.BoldedDates = coloreddates.ToArray();
         }
-        
+
+        private void AddTaskButton_Click(object sender, EventArgs e)
+        {            
+            TaskForm taskform = new TaskForm();
+
+            if(taskform.ShowDialog(this) == DialogResult.OK)
+            {
+                var editedTask = new Task
+                {
+                    Time = taskform.HoursComboBox.Text + taskform.MinutesComboBox.Text,
+                    Text = taskform.CommentTextBox.Text,
+                    Date = taskform.TaskDateTimePicker.Value.ToString()
+                };
+                MessageBox.Show(editedTask.Date);
+            }
+
+            
+        }        
     }
 }

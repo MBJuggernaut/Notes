@@ -126,13 +126,13 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="notesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 24</value>
+    <value>143, 24</value>
   </data>
   <data name="notesToolStripMenuItem.Text" xml:space="preserve">
     <value>Заметки</value>
   </data>
   <data name="todolistToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 24</value>
+    <value>143, 24</value>
   </data>
   <data name="todolistToolStripMenuItem.Text" xml:space="preserve">
     <value>Задачи</value>
@@ -141,7 +141,7 @@
     <value>0, 0</value>
   </data>
   <data name="menuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 400</value>
+    <value>156, 457</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="menuStrip.TabIndex" type="System.Int32, mscorlib">
@@ -213,6 +213,30 @@
   <data name="&gt;&gt;notesPanel.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="AddTaskButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>547, 410</value>
+  </data>
+  <data name="AddTaskButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>153, 35</value>
+  </data>
+  <data name="AddTaskButton.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="AddTaskButton.Text" xml:space="preserve">
+    <value>Добавить задание</value>
+  </data>
+  <data name="&gt;&gt;AddTaskButton.Name" xml:space="preserve">
+    <value>AddTaskButton</value>
+  </data>
+  <data name="&gt;&gt;AddTaskButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AddTaskButton.Parent" xml:space="preserve">
+    <value>todolistPanel</value>
+  </data>
+  <data name="&gt;&gt;AddTaskButton.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <metadata name="Time.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -247,7 +271,7 @@
     <value>51</value>
   </data>
   <data name="ToDoListDataGridView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>522, 400</value>
+    <value>452, 457</value>
   </data>
   <data name="ToDoListDataGridView.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -262,7 +286,7 @@
     <value>todolistPanel</value>
   </data>
   <data name="&gt;&gt;ToDoListDataGridView.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="myCalendar.CalendarDimensions" type="System.Drawing.Size, System.Drawing">
     <value>1, 2</value>
@@ -271,7 +295,7 @@
     <value>Right</value>
   </data>
   <data name="myCalendar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>522, 0</value>
+    <value>452, 0</value>
   </data>
   <data name="myCalendar.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -286,16 +310,16 @@
     <value>todolistPanel</value>
   </data>
   <data name="&gt;&gt;myCalendar.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="todolistPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
   <data name="todolistPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>86, 0</value>
+    <value>156, 0</value>
   </data>
   <data name="todolistPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>714, 400</value>
+    <value>644, 457</value>
   </data>
   <data name="todolistPanel.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -603,7 +627,7 @@
     <value>8, 16</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>800, 400</value>
+    <value>800, 457</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
