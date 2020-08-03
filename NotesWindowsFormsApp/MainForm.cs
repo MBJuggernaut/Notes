@@ -40,6 +40,10 @@ namespace NotesWindowsFormsApp
 
             Task task = new Task();
             listOfAllTasks = task.GetAll(tasksPath);
+            if (listOfAllTasks == null)
+            {
+                listOfAllTasks = new List<Task>();
+            }
 
             ShowTasksForDay();
             ColorDates();
@@ -99,21 +103,15 @@ namespace NotesWindowsFormsApp
                 Text = Convert.ToString(ToDoListDataGridView.CurrentRow.Cells[1].Value),
                 Date = chosenDate
             };
-            if (listOfAllTasks == null)
+            if (editedTask.Time != "" || editedTask.Text != "")
             {
-                listOfAllTasks = new List<Task>();
-            }            
-                listOfAllTasks.Add(editedTask);            
-
-            var jsonTasks = JsonConvert.SerializeObject(listOfAllTasks, Formatting.Indented);
-            
-            FileProvider.Replace(tasksPath, jsonTasks);
+                listOfAllTasks.Add(editedTask);
+            }
+                var jsonTasks = JsonConvert.SerializeObject(listOfAllTasks, Formatting.Indented);
+                FileProvider.Replace(tasksPath, jsonTasks);            
 
             ColorDates();
-
-
         }
-
         private void ShowTasksForDay()
         {
             ToDoListDataGridView.Rows.Clear();
@@ -129,16 +127,16 @@ namespace NotesWindowsFormsApp
                 
             }
         }
-
         private void ColorDates()
         {
-            var coloreddates = myCalendar.BoldedDates.ToList();
+            myCalendar.BoldedDates = null;
+               var coloreddates = myCalendar.BoldedDates.ToList();
 
             foreach (var taskfromlist in listOfAllTasks)
             {
                 coloreddates.Add(Convert.ToDateTime(taskfromlist.Date));                
             }
-                        
+
             myCalendar.BoldedDates = coloreddates.ToArray();
         }
         
