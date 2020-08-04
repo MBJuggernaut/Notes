@@ -29,7 +29,6 @@ namespace NotesWindowsFormsApp
             myNote.Text = notesTextBox.Text;
             myNote.Save();
         }
-
         private void TodolistToolStripMenuItem_Click(object sender, EventArgs e)
         {
             todolistPanel.Show();
@@ -157,7 +156,7 @@ namespace NotesWindowsFormsApp
         private void SortTasks()
         {
             var sortedTasks = from t in listOfAllTasks
-                              orderby t.Time ascending
+                              orderby t.Date, t.Time ascending
                               select t;
             
             listOfAllTasks = sortedTasks.ToList();
