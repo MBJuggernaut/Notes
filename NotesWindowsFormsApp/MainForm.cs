@@ -43,8 +43,9 @@ namespace NotesWindowsFormsApp
             {
                 listOfAllTasks = new List<Task>();
             }
-            ShowTasksForDay();
             UpdateMyTasks();
+            ShowTasksForDay();
+            
         }
         private void NotesToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -74,11 +75,7 @@ namespace NotesWindowsFormsApp
             ShowTasksForDay();
         }
         private void ToDoListDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if(ToDoListDataGridView.CurrentRow.Index == 0)
-            {
-                return;
-            }
+        {           
             ToDoListDataGridView.CurrentRow.Cells[1].Value += "";
             if (ToDoListDataGridView.CurrentRow.Cells[0].Value != null)
             {
@@ -148,7 +145,7 @@ namespace NotesWindowsFormsApp
         {
             myCalendar.BoldedDates = null;
             var coloreddates = myCalendar.BoldedDates.ToList();
-
+            SortTasks();
             foreach (var taskfromlist in listOfAllTasks)
             {
                 coloreddates.Add(Convert.ToDateTime(taskfromlist.Date));
@@ -156,6 +153,14 @@ namespace NotesWindowsFormsApp
 
             myCalendar.BoldedDates = coloreddates.ToArray();
             ShowTasksForDay();
-        }       
+        }
+        private void SortTasks()
+        {
+            var sortedTasks = from t in listOfAllTasks
+                              orderby t.Time ascending
+                              select t;
+            
+            listOfAllTasks = sortedTasks.ToList();
+        }
     }
 }

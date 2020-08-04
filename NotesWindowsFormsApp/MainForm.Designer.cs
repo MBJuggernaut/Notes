@@ -106,7 +106,9 @@
             this.ToDoListDataGridView.AllowUserToOrderColumns = true;
             this.ToDoListDataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.ToDoListDataGridView.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.ToDoListDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ToDoListDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ToDoListDataGridView.ColumnHeadersVisible = false;
             this.ToDoListDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Time,
             this.Task});
@@ -122,6 +124,10 @@
             this.ToDoListDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.ToDoListDataGridView.RowTemplate.Height = 24;
             this.ToDoListDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.ToDoListDataGridView.ShowCellErrors = false;
+            this.ToDoListDataGridView.ShowCellToolTips = false;
+            this.ToDoListDataGridView.ShowEditingIcon = false;
+            this.ToDoListDataGridView.ShowRowErrors = false;
             this.ToDoListDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ToDoListDataGridView_CellClick);
             // 
             // myCalendar
