@@ -15,7 +15,7 @@ namespace NotesWindowsFormsApp
         Note myNote;
         string chosenDate;
         string today;
-        List<Task> listOfAllTasks;                
+        List<Task> listOfAllTasks;
         readonly string tasksPath = "tasks.json";
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -24,7 +24,6 @@ namespace NotesWindowsFormsApp
             notesTextBox.SelectedText = null;
             notesToolStripMenuItem.PerformClick();
         }
-
         private void NotesTextBox_TextChanged(object sender, EventArgs e)
         {
             myNote.Text = notesTextBox.Text;
@@ -36,7 +35,7 @@ namespace NotesWindowsFormsApp
             todolistPanel.Show();
             notesPanel.Hide();
             today = DateTime.Today.ToShortDateString();
-            chosenDate = today;            
+            chosenDate = today;
 
             Task task = new Task();
             listOfAllTasks = task.GetAll(tasksPath);
@@ -44,11 +43,9 @@ namespace NotesWindowsFormsApp
             {
                 listOfAllTasks = new List<Task>();
             }
-
             ShowTasksForDay();
-            ColorDates();
+            UpdateMyTasks();
         }
-
         private void NotesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             notesPanel.Show();
@@ -56,7 +53,6 @@ namespace NotesWindowsFormsApp
             notesTextBox.Dock = DockStyle.Fill;
             todolistPanel.Hide();
         }
-
         private void MainForm_Resize(object sender, EventArgs e)
         {
             if (this.WindowState == FormWindowState.Minimized)
@@ -66,51 +62,72 @@ namespace NotesWindowsFormsApp
                 trayIcon.ShowBalloonTip(1000);
             }
         }
-
         private void TrayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             Show();
             this.WindowState = FormWindowState.Normal;
             trayIcon.Visible = false;
         }
-
         private void MyCalendar_DateSelected(object sender, DateRangeEventArgs e)
         {
             chosenDate = myCalendar.SelectionRange.Start.ToShortDateString();
             ShowTasksForDay();
         }
-        private void ToDoListDataGridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        private void ToDoListDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            ToDoListDataGridView.CurrentRow.Cells[0].Value += "";
+            if(ToDoListDataGridView.CurrentRow.Index == 0)
+            {
+                return;
+            }
             ToDoListDataGridView.CurrentRow.Cells[1].Value += "";
-            if (listOfAllTasks != null)
+            if (ToDoListDataGridView.CurrentRow.Cells[0].Value != null)
             {
                 foreach (var task in listOfAllTasks)
                 {
-                    if (task.Time == ToDoListDataGridView.CurrentRow.Cells[0].Value.ToString() || task.Text == ToDoListDataGridView.CurrentRow.Cells[1].Value.ToString())
+                    if (task.Date == chosenDate && task.Time == ToDoListDataGridView.CurrentRow.Cells[0].Value.ToString() && task.Text == ToDoListDataGridView.CurrentRow.Cells[1].Value.ToString())
                     {
-                        listOfAllTasks.Remove(task);
+                        TaskForm taskform = new TaskForm();
+                        var time = ToDoListDataGridView.CurrentRow.Cells[0].Value.ToString().Split(':');
+                        taskform.HoursComboBox.Text = time[0];
+                        taskform.MinutesComboBox.Text = time[1];
+                        taskform.CommentTextBox.Text = task.Text;
+
+                        if (taskform.ShowDialog(this) == DialogResult.OK)
+                        {
+                            task.Time = taskform.HoursComboBox.Text + ":" + taskform.MinutesComboBox.Text;
+                            task.Text = taskform.CommentTextBox.Text;
+                            task.Date = taskform.TaskDateTimePicker.Value.ToShortDateString();
+
+                            var jsontasks = JsonConvert.SerializeObject(listOfAllTasks, Formatting.Indented);
+                            FileProvider.Replace(tasksPath, jsontasks);
+                            UpdateMyTasks();
+                        }
                         break;
                     }
                 }
             }
-        }
-        private void ToDoListDataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            var editedTask = new Task
+            else
             {
-                Time = Convert.ToString(ToDoListDataGridView.CurrentRow.Cells[0].Value),
-                Text = Convert.ToString(ToDoListDataGridView.CurrentRow.Cells[1].Value),
-                Date = chosenDate
-            };
-            if (editedTask.Time != "" || editedTask.Text != "")
-            {
-                listOfAllTasks.Add(editedTask);
+                AddTaskButton.PerformClick();
             }
+        }
+        private void AddTaskButton_Click(object sender, EventArgs e)
+        {
+            TaskForm taskform = new TaskForm();
+            
+            if (taskform.ShowDialog(this) == DialogResult.OK)
+            {
+                var editedTask = new Task
+                {
+                    Time = taskform.HoursComboBox.Text + ":" + taskform.MinutesComboBox.Text,
+                    Text = taskform.CommentTextBox.Text,
+                    Date = taskform.TaskDateTimePicker.Value.ToShortDateString()
+                };
+                listOfAllTasks.Add(editedTask);
                 var jsonTasks = JsonConvert.SerializeObject(listOfAllTasks, Formatting.Indented);
-                FileProvider.Replace(tasksPath, jsonTasks);            
-
-            ColorDates();
+                FileProvider.Replace(tasksPath, jsonTasks);
+                UpdateMyTasks();
+            }
         }
         private void ShowTasksForDay()
         {
@@ -118,44 +135,27 @@ namespace NotesWindowsFormsApp
             if (listOfAllTasks != null)
             {
                 foreach (var taskfromlist in listOfAllTasks)
-                {                    
+                {
                     if (taskfromlist.Date == chosenDate)
                     {
                         ToDoListDataGridView.Rows.Add(taskfromlist.Time, taskfromlist.Text);
                     }
                 }
-                
+
             }
         }
-        private void ColorDates()
+        private void UpdateMyTasks()
         {
             myCalendar.BoldedDates = null;
-               var coloreddates = myCalendar.BoldedDates.ToList();
+            var coloreddates = myCalendar.BoldedDates.ToList();
 
             foreach (var taskfromlist in listOfAllTasks)
             {
-                coloreddates.Add(Convert.ToDateTime(taskfromlist.Date));                
+                coloreddates.Add(Convert.ToDateTime(taskfromlist.Date));
             }
 
             myCalendar.BoldedDates = coloreddates.ToArray();
-        }
-
-        private void AddTaskButton_Click(object sender, EventArgs e)
-        {            
-            TaskForm taskform = new TaskForm();
-
-            if(taskform.ShowDialog(this) == DialogResult.OK)
-            {
-                var editedTask = new Task
-                {
-                    Time = taskform.HoursComboBox.Text + taskform.MinutesComboBox.Text,
-                    Text = taskform.CommentTextBox.Text,
-                    Date = taskform.TaskDateTimePicker.Value.ToString()
-                };
-                MessageBox.Show(editedTask.Date);
-            }
-
-            
-        }        
+            ShowTasksForDay();
+        }       
     }
 }

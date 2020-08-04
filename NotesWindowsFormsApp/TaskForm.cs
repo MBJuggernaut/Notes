@@ -15,11 +15,13 @@ namespace NotesWindowsFormsApp
         public TaskForm()
         {
             InitializeComponent();
+            HoursComboBox.Text = "00";
+            MinutesComboBox.Text = "00";
         }
 
         private void OkButton_Click(object sender, EventArgs e)
         {
             Close();
-        }
+        }       
     }
 }

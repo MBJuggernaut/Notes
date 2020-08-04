@@ -69,6 +69,7 @@
             // 
             // HoursComboBox
             // 
+            this.HoursComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.HoursComboBox.FormattingEnabled = true;
             this.HoursComboBox.Items.AddRange(new object[] {
             "00",
@@ -104,6 +105,7 @@
             // 
             // MinutesComboBox
             // 
+            this.MinutesComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.MinutesComboBox.FormattingEnabled = true;
             this.MinutesComboBox.Items.AddRange(new object[] {
             "00",
@@ -148,7 +150,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TaskForm";
-            this.Text = "TaskForm";
+            this.Text = "Задача";            
             this.ResumeLayout(false);
             this.PerformLayout();
 
