@@ -87,6 +87,15 @@ namespace NotesWindowsFormsApp
         {
             TaskForm taskform = new TaskForm();
 
+            taskform.TaskDateTimePicker.Value = Convert.ToDateTime(chosenDate);
+
+            if (chosenDate == today)
+            {
+                var nexthour = Convert.ToInt32(DateTime.Now.ToString("HH")) + 1;
+                taskform.HoursComboBox.Text = nexthour.ToString();
+            }
+
+
             if (taskform.ShowDialog(this) == DialogResult.OK)
             {
                 var editedTask = new Task
@@ -145,7 +154,6 @@ namespace NotesWindowsFormsApp
             ShowTasksForDay();
             ColorDates();
         }
-
         private void TasksForDayDataGridView_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -159,12 +167,10 @@ namespace NotesWindowsFormsApp
                 TasksForDayDataGridView.Rows[hit.RowIndex].Cells[hit.ColumnIndex].Selected = true;
             }
         }
-
         private void TasksContextMenuStrip_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (TasksForDayDataGridView.SelectedCells.Count != 1) e.Cancel = true;
         }
-
         private void ChangeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             foreach (var task in listOfAllTasks)
@@ -188,7 +194,6 @@ namespace NotesWindowsFormsApp
                 }
             }
         }
-
         private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             foreach (var task in listOfAllTasks)
