@@ -30,12 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.notesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TasksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notesPanel = new System.Windows.Forms.Panel();
-            this.notesTextBox = new System.Windows.Forms.TextBox();
             this.todolistPanel = new System.Windows.Forms.Panel();
             this.AddTaskButton = new System.Windows.Forms.Button();
             this.TasksForDayDataGridView = new System.Windows.Forms.DataGridView();
@@ -47,6 +46,8 @@
             this.myCalendar = new System.Windows.Forms.MonthCalendar();
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.EverySecondTimer = new System.Windows.Forms.Timer(this.components);
+            this.thisisTasksForTheDayLabel = new System.Windows.Forms.Label();
+            this.notesRichTextBox = new System.Windows.Forms.RichTextBox();
             this.menuStrip.SuspendLayout();
             this.notesPanel.SuspendLayout();
             this.todolistPanel.SuspendLayout();
@@ -78,21 +79,14 @@
             // 
             // notesPanel
             // 
-            this.notesPanel.Controls.Add(this.notesTextBox);
+            this.notesPanel.Controls.Add(this.notesRichTextBox);
             resources.ApplyResources(this.notesPanel, "notesPanel");
             this.notesPanel.Name = "notesPanel";
-            // 
-            // notesTextBox
-            // 
-            this.notesTextBox.BackColor = System.Drawing.SystemColors.Info;
-            resources.ApplyResources(this.notesTextBox, "notesTextBox");
-            this.notesTextBox.Name = "notesTextBox";
-            this.notesTextBox.TabStop = false;
-            this.notesTextBox.TextChanged += new System.EventHandler(this.NotesTextBox_TextChanged);
             // 
             // todolistPanel
             // 
             this.todolistPanel.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.todolistPanel.Controls.Add(this.thisisTasksForTheDayLabel);
             this.todolistPanel.Controls.Add(this.AddTaskButton);
             this.todolistPanel.Controls.Add(this.TasksForDayDataGridView);
             this.todolistPanel.Controls.Add(this.myCalendar);
@@ -109,6 +103,7 @@
             // TasksForDayDataGridView
             // 
             this.TasksForDayDataGridView.AllowUserToOrderColumns = true;
+            this.TasksForDayDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.TasksForDayDataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.TasksForDayDataGridView.BackgroundColor = System.Drawing.SystemColors.Window;
             this.TasksForDayDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -118,16 +113,16 @@
             this.Time,
             this.Task});
             this.TasksForDayDataGridView.ContextMenuStrip = this.TasksContextMenuStrip;
-            resources.ApplyResources(this.TasksForDayDataGridView, "TasksForDayDataGridView");
             this.TasksForDayDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.TasksForDayDataGridView.GridColor = System.Drawing.SystemColors.Window;
+            resources.ApplyResources(this.TasksForDayDataGridView, "TasksForDayDataGridView");
             this.TasksForDayDataGridView.MultiSelect = false;
             this.TasksForDayDataGridView.Name = "TasksForDayDataGridView";
             this.TasksForDayDataGridView.ReadOnly = true;
             this.TasksForDayDataGridView.RowHeadersVisible = false;
             this.TasksForDayDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Silver;
-            this.TasksForDayDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Silver;
+            this.TasksForDayDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.TasksForDayDataGridView.RowTemplate.Height = 24;
             this.TasksForDayDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.TasksForDayDataGridView.ShowCellErrors = false;
@@ -191,6 +186,19 @@
             this.EverySecondTimer.Interval = 1000;
             this.EverySecondTimer.Tick += new System.EventHandler(this.EverySecondTimer_Tick);
             // 
+            // thisisTasksForTheDayLabel
+            // 
+            resources.ApplyResources(this.thisisTasksForTheDayLabel, "thisisTasksForTheDayLabel");
+            this.thisisTasksForTheDayLabel.Name = "thisisTasksForTheDayLabel";
+            // 
+            // notesRichTextBox
+            // 
+            this.notesRichTextBox.BackColor = System.Drawing.SystemColors.Info;
+            this.notesRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            resources.ApplyResources(this.notesRichTextBox, "notesRichTextBox");
+            this.notesRichTextBox.Name = "notesRichTextBox";
+            this.notesRichTextBox.TextChanged += new System.EventHandler(this.notesRichTextBox_TextChanged);
+            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
@@ -206,8 +214,8 @@
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.notesPanel.ResumeLayout(false);
-            this.notesPanel.PerformLayout();
             this.todolistPanel.ResumeLayout(false);
+            this.todolistPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TasksForDayDataGridView)).EndInit();
             this.TasksContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -220,7 +228,6 @@
         private System.Windows.Forms.ToolStripMenuItem notesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem TasksToolStripMenuItem;
         private System.Windows.Forms.Panel notesPanel;
-        private System.Windows.Forms.TextBox notesTextBox;
         private System.Windows.Forms.Panel todolistPanel;
         private System.Windows.Forms.MonthCalendar myCalendar;
         private System.Windows.Forms.NotifyIcon trayIcon;
@@ -232,6 +239,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Time;
         private System.Windows.Forms.DataGridViewTextBoxColumn Task;
         private System.Windows.Forms.Timer EverySecondTimer;
+        private System.Windows.Forms.Label thisisTasksForTheDayLabel;
+        private System.Windows.Forms.RichTextBox notesRichTextBox;
     }
 }
 

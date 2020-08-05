@@ -21,9 +21,10 @@ namespace NotesWindowsFormsApp
         private void MainForm_Load(object sender, EventArgs e)
         {
             myNote = new Note();
-            notesTextBox.Text = myNote.Text;
-            notesTextBox.SelectedText = null;
+            notesRichTextBox.Text = myNote.Text;
+            //notesRichTextBox.SelectedText = null;
             notesToolStripMenuItem.PerformClick();
+            
 
             Task task = new Task();
             listOfAllTasks = task.GetAll(tasksPath);
@@ -33,9 +34,10 @@ namespace NotesWindowsFormsApp
             }
             GetTodayTasks();
         }
-        private void NotesTextBox_TextChanged(object sender, EventArgs e)
+
+        private void notesRichTextBox_TextChanged(object sender, EventArgs e)
         {
-            myNote.Text = notesTextBox.Text;
+            myNote.Text = notesRichTextBox.Text;
             myNote.Save();
         }
         private void TasksToolStripMenuItem_Click(object sender, EventArgs e)
@@ -50,7 +52,7 @@ namespace NotesWindowsFormsApp
         {
             notesPanel.Show();
             notesPanel.Dock = DockStyle.Fill;
-            notesTextBox.Dock = DockStyle.Fill;
+            notesRichTextBox.Dock = DockStyle.Fill;
             todolistPanel.Hide();
         }
         private void MainForm_Resize(object sender, EventArgs e)
@@ -183,6 +185,7 @@ namespace NotesWindowsFormsApp
                     taskform.HoursComboBox.Text = time[0];
                     taskform.MinutesComboBox.Text = time[1];
                     taskform.CommentTextBox.Text = task.Text;
+                    taskform.TaskDateTimePicker.Value = Convert.ToDateTime(chosenDate);
 
                     if (taskform.ShowDialog(this) == DialogResult.OK)
                     {
@@ -226,9 +229,10 @@ namespace NotesWindowsFormsApp
         private void EverySecondTimer_Tick(object sender, EventArgs e)
         {
             var currenttime = DateTime.Now.ToString("HH:mm");
+            
             if (currenttime == "00:00")
-            {
-                GetTodayTasks();
+            {                
+                GetTodayTasks();                
             }
             if (listOfTodayTasks.Count != 0)
             {
@@ -244,7 +248,9 @@ namespace NotesWindowsFormsApp
                     }
                 }
             }
-        }        
+        }
+
+        
     }
 
 }

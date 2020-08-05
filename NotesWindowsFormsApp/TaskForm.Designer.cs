@@ -35,6 +35,9 @@
             this.HoursComboBox = new System.Windows.Forms.ComboBox();
             this.MinutesComboBox = new System.Windows.Forms.ComboBox();
             this.TaskDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.thisisDateChooseLabel = new System.Windows.Forms.Label();
+            this.thisisTimeLabel = new System.Windows.Forms.Label();
+            this.thisisCommentLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // OkButton
@@ -60,7 +63,7 @@
             // 
             // CommentTextBox
             // 
-            this.CommentTextBox.Location = new System.Drawing.Point(44, 227);
+            this.CommentTextBox.Location = new System.Drawing.Point(36, 230);
             this.CommentTextBox.Multiline = true;
             this.CommentTextBox.Name = "CommentTextBox";
             this.CommentTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -97,7 +100,7 @@
             "22",
             "23",
             ""});
-            this.HoursComboBox.Location = new System.Drawing.Point(44, 135);
+            this.HoursComboBox.Location = new System.Drawing.Point(130, 125);
             this.HoursComboBox.Name = "HoursComboBox";
             this.HoursComboBox.Size = new System.Drawing.Size(57, 24);
             this.HoursComboBox.TabIndex = 7;
@@ -168,7 +171,7 @@
             "57",
             "58",
             "59"});
-            this.MinutesComboBox.Location = new System.Drawing.Point(130, 135);
+            this.MinutesComboBox.Location = new System.Drawing.Point(211, 125);
             this.MinutesComboBox.Name = "MinutesComboBox";
             this.MinutesComboBox.Size = new System.Drawing.Size(54, 24);
             this.MinutesComboBox.TabIndex = 8;
@@ -178,10 +181,37 @@
             // 
             this.TaskDateTimePicker.CustomFormat = "dd/MM/yyyy";
             this.TaskDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.TaskDateTimePicker.Location = new System.Drawing.Point(44, 58);
+            this.TaskDateTimePicker.Location = new System.Drawing.Point(130, 58);
             this.TaskDateTimePicker.Name = "TaskDateTimePicker";
-            this.TaskDateTimePicker.Size = new System.Drawing.Size(200, 22);
+            this.TaskDateTimePicker.Size = new System.Drawing.Size(114, 22);
             this.TaskDateTimePicker.TabIndex = 9;
+            // 
+            // thisisDateChooseLabel
+            // 
+            this.thisisDateChooseLabel.AutoSize = true;
+            this.thisisDateChooseLabel.Location = new System.Drawing.Point(12, 58);
+            this.thisisDateChooseLabel.Name = "thisisDateChooseLabel";
+            this.thisisDateChooseLabel.Size = new System.Drawing.Size(106, 17);
+            this.thisisDateChooseLabel.TabIndex = 10;
+            this.thisisDateChooseLabel.Text = "Дата события:";
+            // 
+            // thisisTimeLabel
+            // 
+            this.thisisTimeLabel.AutoSize = true;
+            this.thisisTimeLabel.Location = new System.Drawing.Point(19, 128);
+            this.thisisTimeLabel.Name = "thisisTimeLabel";
+            this.thisisTimeLabel.Size = new System.Drawing.Size(106, 17);
+            this.thisisTimeLabel.TabIndex = 11;
+            this.thisisTimeLabel.Text = "Время начала:";
+            // 
+            // thisisCommentLabel
+            // 
+            this.thisisCommentLabel.AutoSize = true;
+            this.thisisCommentLabel.Location = new System.Drawing.Point(19, 199);
+            this.thisisCommentLabel.Name = "thisisCommentLabel";
+            this.thisisCommentLabel.Size = new System.Drawing.Size(134, 17);
+            this.thisisCommentLabel.TabIndex = 12;
+            this.thisisCommentLabel.Text = "Краткое описание:";
             // 
             // TaskForm
             // 
@@ -189,6 +219,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(309, 450);
+            this.Controls.Add(this.thisisCommentLabel);
+            this.Controls.Add(this.thisisTimeLabel);
+            this.Controls.Add(this.thisisDateChooseLabel);
             this.Controls.Add(this.TaskDateTimePicker);
             this.Controls.Add(this.MinutesComboBox);
             this.Controls.Add(this.HoursComboBox);
@@ -214,5 +247,8 @@
         public System.Windows.Forms.ComboBox HoursComboBox;
         public System.Windows.Forms.ComboBox MinutesComboBox;
         public System.Windows.Forms.DateTimePicker TaskDateTimePicker;
+        private System.Windows.Forms.Label thisisDateChooseLabel;
+        private System.Windows.Forms.Label thisisTimeLabel;
+        private System.Windows.Forms.Label thisisCommentLabel;
     }
 }
