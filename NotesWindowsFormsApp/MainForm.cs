@@ -238,8 +238,7 @@ namespace NotesWindowsFormsApp
                     {
                         EverySecondTimer.Stop();
                         MessageBox.Show(taskfromlist.Text);
-                        listOfTodayTasks.Remove(taskfromlist);
-                        //WaitAMinuteTimer.Start();
+                        listOfTodayTasks.Remove(taskfromlist);                        
                         EverySecondTimer.Start();
                         return;
                     }
