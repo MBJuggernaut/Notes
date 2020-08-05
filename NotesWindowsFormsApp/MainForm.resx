@@ -160,7 +160,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;menuStrip.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="notesTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -211,7 +211,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;notesPanel.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="AddTaskButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>560, 409</value>
@@ -259,33 +259,57 @@
     <value>6</value>
   </data>
   <data name="Task.Width" type="System.Int32, mscorlib">
-    <value>600</value>
+    <value>200</value>
   </data>
-  <data name="ToDoListDataGridView.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <metadata name="TasksContextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>255, 17</value>
+  </metadata>
+  <data name="ChangeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 24</value>
+  </data>
+  <data name="ChangeToolStripMenuItem.Text" xml:space="preserve">
+    <value>Изменить</value>
+  </data>
+  <data name="DeleteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 24</value>
+  </data>
+  <data name="DeleteToolStripMenuItem.Text" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="TasksContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>148, 52</value>
+  </data>
+  <data name="&gt;&gt;TasksContextMenuStrip.Name" xml:space="preserve">
+    <value>TasksContextMenuStrip</value>
+  </data>
+  <data name="&gt;&gt;TasksContextMenuStrip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="TasksForDayDataGridView.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Left</value>
   </data>
-  <data name="ToDoListDataGridView.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="TasksForDayDataGridView.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="ToDoListDataGridView.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
+  <data name="TasksForDayDataGridView.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
     <value>Vertical</value>
   </data>
-  <data name="ToDoListDataGridView.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="TasksForDayDataGridView.Size" type="System.Drawing.Size, System.Drawing">
     <value>510, 457</value>
   </data>
-  <data name="ToDoListDataGridView.TabIndex" type="System.Int32, mscorlib">
+  <data name="TasksForDayDataGridView.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="&gt;&gt;ToDoListDataGridView.Name" xml:space="preserve">
-    <value>ToDoListDataGridView</value>
+  <data name="&gt;&gt;TasksForDayDataGridView.Name" xml:space="preserve">
+    <value>TasksForDayDataGridView</value>
   </data>
-  <data name="&gt;&gt;ToDoListDataGridView.Type" xml:space="preserve">
+  <data name="&gt;&gt;TasksForDayDataGridView.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ToDoListDataGridView.Parent" xml:space="preserve">
+  <data name="&gt;&gt;TasksForDayDataGridView.Parent" xml:space="preserve">
     <value>todolistPanel</value>
   </data>
-  <data name="&gt;&gt;ToDoListDataGridView.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;TasksForDayDataGridView.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="myCalendar.CalendarDimensions" type="System.Drawing.Size, System.Drawing">
@@ -334,7 +358,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;todolistPanel.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <metadata name="trayIcon.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>144, 17</value>
@@ -920,6 +944,18 @@
     <value>todolistToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;todolistToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ChangeToolStripMenuItem.Name" xml:space="preserve">
+    <value>ChangeToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;ChangeToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DeleteToolStripMenuItem.Name" xml:space="preserve">
+    <value>DeleteToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;DeleteToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;trayIcon.Name" xml:space="preserve">

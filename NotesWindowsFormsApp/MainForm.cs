@@ -44,7 +44,8 @@ namespace NotesWindowsFormsApp
             }
             UpdateMyTasks();
             ShowTasksForDay();
-            
+
+            //TasksContextMenuStrip.Enabled = true;
         }
         private void NotesToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -73,34 +74,12 @@ namespace NotesWindowsFormsApp
             chosenDate = myCalendar.SelectionRange.Start.ToShortDateString();
             ShowTasksForDay();
         }
-        private void ToDoListDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
-        {           
-            ToDoListDataGridView.CurrentRow.Cells[1].Value += "";
-            if (ToDoListDataGridView.CurrentRow.Cells[0].Value != null)
+        private void TasksForDayDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            TasksForDayDataGridView.CurrentRow.Cells[1].Value += "";
+            if (TasksForDayDataGridView.CurrentRow.Cells[0].Value != null)
             {
-                foreach (var task in listOfAllTasks)
-                {
-                    if (task.Date == chosenDate && task.Time == ToDoListDataGridView.CurrentRow.Cells[0].Value.ToString() && task.Text == ToDoListDataGridView.CurrentRow.Cells[1].Value.ToString())
-                    {
-                        TaskForm taskform = new TaskForm();
-                        var time = ToDoListDataGridView.CurrentRow.Cells[0].Value.ToString().Split(':');
-                        taskform.HoursComboBox.Text = time[0];
-                        taskform.MinutesComboBox.Text = time[1];
-                        taskform.CommentTextBox.Text = task.Text;
-
-                        if (taskform.ShowDialog(this) == DialogResult.OK)
-                        {
-                            task.Time = taskform.HoursComboBox.Text + ":" + taskform.MinutesComboBox.Text;
-                            task.Text = taskform.CommentTextBox.Text;
-                            task.Date = taskform.TaskDateTimePicker.Value.ToShortDateString();
-
-                            var jsontasks = JsonConvert.SerializeObject(listOfAllTasks, Formatting.Indented);
-                            FileProvider.Replace(tasksPath, jsontasks);
-                            UpdateMyTasks();
-                        }
-                        break;
-                    }
-                }
+                ChangeToolStripMenuItem.PerformClick();
             }
             else
             {
@@ -110,7 +89,7 @@ namespace NotesWindowsFormsApp
         private void AddTaskButton_Click(object sender, EventArgs e)
         {
             TaskForm taskform = new TaskForm();
-            
+
             if (taskform.ShowDialog(this) == DialogResult.OK)
             {
                 var editedTask = new Task
@@ -127,39 +106,90 @@ namespace NotesWindowsFormsApp
         }
         private void ShowTasksForDay()
         {
-            ToDoListDataGridView.Rows.Clear();
+            TasksForDayDataGridView.Rows.Clear();
             if (listOfAllTasks != null)
             {
                 foreach (var taskfromlist in listOfAllTasks)
                 {
                     if (taskfromlist.Date == chosenDate)
                     {
-                        ToDoListDataGridView.Rows.Add(taskfromlist.Time, taskfromlist.Text);
+                        TasksForDayDataGridView.Rows.Add(taskfromlist.Time, taskfromlist.Text);
                     }
                 }
 
             }
         }
-        private void UpdateMyTasks()
+        private void ColorDates()
         {
             myCalendar.BoldedDates = null;
             var coloreddates = myCalendar.BoldedDates.ToList();
-            SortTasks();
             foreach (var taskfromlist in listOfAllTasks)
             {
                 coloreddates.Add(Convert.ToDateTime(taskfromlist.Date));
             }
 
             myCalendar.BoldedDates = coloreddates.ToArray();
-            ShowTasksForDay();
         }
         private void SortTasks()
         {
             var sortedTasks = from t in listOfAllTasks
                               orderby t.Date, t.Time ascending
                               select t;
-            
+
             listOfAllTasks = sortedTasks.ToList();
         }
+        private void UpdateMyTasks()
+        {
+            SortTasks();
+            ShowTasksForDay();
+            ColorDates();
+        }
+
+        private void TasksForDayDataGridView_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                DataGridView.HitTestInfo hit = TasksForDayDataGridView.HitTest(e.X, e.Y);
+                if (hit.Type != DataGridViewHitTestType.Cell)
+                {
+                    TasksForDayDataGridView.ClearSelection();
+                    return;
+                }
+                TasksForDayDataGridView.Rows[hit.RowIndex].Cells[hit.ColumnIndex].Selected = true;
+            }
+        }
+
+        private void TasksContextMenuStrip_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (TasksForDayDataGridView.SelectedCells.Count != 1) e.Cancel = true;
+        }
+
+        private void ChangeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (var task in listOfAllTasks)
+            {
+                if (task.Date == chosenDate && task.Time == TasksForDayDataGridView.CurrentRow.Cells[0].Value.ToString() && task.Text == TasksForDayDataGridView.CurrentRow.Cells[1].Value.ToString())
+                {
+                    TaskForm taskform = new TaskForm();
+                    var time = TasksForDayDataGridView.CurrentRow.Cells[0].Value.ToString().Split(':');
+                    taskform.HoursComboBox.Text = time[0];
+                    taskform.MinutesComboBox.Text = time[1];
+                    taskform.CommentTextBox.Text = task.Text;
+
+                    if (taskform.ShowDialog(this) == DialogResult.OK)
+                    {
+                        task.Time = taskform.HoursComboBox.Text + ":" + taskform.MinutesComboBox.Text;
+                        task.Text = taskform.CommentTextBox.Text;
+                        task.Date = taskform.TaskDateTimePicker.Value.ToShortDateString();
+
+                        var jsontasks = JsonConvert.SerializeObject(listOfAllTasks, Formatting.Indented);
+                        FileProvider.Replace(tasksPath, jsontasks);
+                        UpdateMyTasks();
+                    }
+                    break;
+                }
+            }
+        }
     }
+
 }
