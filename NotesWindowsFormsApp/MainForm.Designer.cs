@@ -33,19 +33,20 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.notesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.todolistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TasksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notesPanel = new System.Windows.Forms.Panel();
             this.notesTextBox = new System.Windows.Forms.TextBox();
             this.todolistPanel = new System.Windows.Forms.Panel();
             this.AddTaskButton = new System.Windows.Forms.Button();
             this.TasksForDayDataGridView = new System.Windows.Forms.DataGridView();
+            this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Task = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TasksContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ChangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.myCalendar = new System.Windows.Forms.MonthCalendar();
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Task = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EverySecondTimer = new System.Windows.Forms.Timer(this.components);
             this.menuStrip.SuspendLayout();
             this.notesPanel.SuspendLayout();
             this.todolistPanel.SuspendLayout();
@@ -60,7 +61,7 @@
             this.menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.notesToolStripMenuItem,
-            this.todolistToolStripMenuItem});
+            this.TasksToolStripMenuItem});
             this.menuStrip.Name = "menuStrip";
             // 
             // notesToolStripMenuItem
@@ -69,11 +70,11 @@
             resources.ApplyResources(this.notesToolStripMenuItem, "notesToolStripMenuItem");
             this.notesToolStripMenuItem.Click += new System.EventHandler(this.NotesToolStripMenuItem_Click);
             // 
-            // todolistToolStripMenuItem
+            // TasksToolStripMenuItem
             // 
-            this.todolistToolStripMenuItem.Name = "todolistToolStripMenuItem";
-            resources.ApplyResources(this.todolistToolStripMenuItem, "todolistToolStripMenuItem");
-            this.todolistToolStripMenuItem.Click += new System.EventHandler(this.TodolistToolStripMenuItem_Click);
+            this.TasksToolStripMenuItem.Name = "TasksToolStripMenuItem";
+            resources.ApplyResources(this.TasksToolStripMenuItem, "TasksToolStripMenuItem");
+            this.TasksToolStripMenuItem.Click += new System.EventHandler(this.TasksToolStripMenuItem_Click);
             // 
             // notesPanel
             // 
@@ -136,6 +137,19 @@
             this.TasksForDayDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.TasksForDayDataGridView_CellDoubleClick);
             this.TasksForDayDataGridView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TasksForDayDataGridView_MouseDown);
             // 
+            // Time
+            // 
+            resources.ApplyResources(this.Time, "Time");
+            this.Time.Name = "Time";
+            this.Time.ReadOnly = true;
+            // 
+            // Task
+            // 
+            resources.ApplyResources(this.Task, "Task");
+            this.Task.Name = "Task";
+            this.Task.ReadOnly = true;
+            this.Task.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
             // TasksContextMenuStrip
             // 
             this.TasksContextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -171,18 +185,11 @@
             resources.ApplyResources(this.trayIcon, "trayIcon");
             this.trayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TrayIcon_MouseDoubleClick);
             // 
-            // Time
+            // EverySecondTimer
             // 
-            resources.ApplyResources(this.Time, "Time");
-            this.Time.Name = "Time";
-            this.Time.ReadOnly = true;
-            // 
-            // Task
-            // 
-            resources.ApplyResources(this.Task, "Task");
-            this.Task.Name = "Task";
-            this.Task.ReadOnly = true;
-            this.Task.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.EverySecondTimer.Enabled = true;
+            this.EverySecondTimer.Interval = 1000;
+            this.EverySecondTimer.Tick += new System.EventHandler(this.EverySecondTimer_Tick);
             // 
             // MainForm
             // 
@@ -211,7 +218,7 @@
         #endregion
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem notesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem todolistToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem TasksToolStripMenuItem;
         private System.Windows.Forms.Panel notesPanel;
         private System.Windows.Forms.TextBox notesTextBox;
         private System.Windows.Forms.Panel todolistPanel;
@@ -224,6 +231,7 @@
         private System.Windows.Forms.ToolStripMenuItem DeleteToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn Time;
         private System.Windows.Forms.DataGridViewTextBoxColumn Task;
+        private System.Windows.Forms.Timer EverySecondTimer;
     }
 }
 

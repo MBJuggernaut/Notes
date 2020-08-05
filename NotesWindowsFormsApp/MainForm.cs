@@ -15,7 +15,8 @@ namespace NotesWindowsFormsApp
         Note myNote;
         string chosenDate;
         string today;
-        List<Task> listOfAllTasks;
+        private List<Task> listOfAllTasks;
+        private List<Task> listOfTodayTasks = new List<Task>();
         readonly string tasksPath = "tasks.json";
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -23,18 +24,6 @@ namespace NotesWindowsFormsApp
             notesTextBox.Text = myNote.Text;
             notesTextBox.SelectedText = null;
             notesToolStripMenuItem.PerformClick();
-        }
-        private void NotesTextBox_TextChanged(object sender, EventArgs e)
-        {
-            myNote.Text = notesTextBox.Text;
-            myNote.Save();
-        }
-        private void TodolistToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            todolistPanel.Show();
-            notesPanel.Hide();
-            today = DateTime.Today.ToShortDateString();
-            chosenDate = today;
 
             Task task = new Task();
             listOfAllTasks = task.GetAll(tasksPath);
@@ -42,7 +31,20 @@ namespace NotesWindowsFormsApp
             {
                 listOfAllTasks = new List<Task>();
             }
-            UpdateMyTasks();            
+            GetTodayTasks();
+        }
+        private void NotesTextBox_TextChanged(object sender, EventArgs e)
+        {
+            myNote.Text = notesTextBox.Text;
+            myNote.Save();
+        }
+        private void TasksToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            todolistPanel.Show();
+            notesPanel.Hide();
+            
+            chosenDate = today;          
+            UpdateMyTasks();
         }
         private void NotesToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -95,7 +97,6 @@ namespace NotesWindowsFormsApp
                 taskform.HoursComboBox.Text = nexthour.ToString();
             }
 
-
             if (taskform.ShowDialog(this) == DialogResult.OK)
             {
                 var editedTask = new Task
@@ -104,24 +105,24 @@ namespace NotesWindowsFormsApp
                     Text = taskform.CommentTextBox.Text,
                     Date = taskform.TaskDateTimePicker.Value.ToShortDateString()
                 };
-                listOfAllTasks.Add(editedTask);                
+                listOfAllTasks.Add(editedTask);
                 UpdateMyTasks();
+                GetTodayTasks();
             }
         }
         private void ShowTasksForDay()
         {
             TasksForDayDataGridView.Rows.Clear();
-            if (listOfAllTasks != null)
-            {
-                foreach (var taskfromlist in listOfAllTasks)
-                {
-                    if (taskfromlist.Date == chosenDate)
-                    {
-                        TasksForDayDataGridView.Rows.Add(taskfromlist.Time, taskfromlist.Text);
-                    }
-                }
 
+            foreach (var taskfromlist in listOfAllTasks)
+            {
+                if (taskfromlist.Date == chosenDate)
+                {
+                    TasksForDayDataGridView.Rows.Add(taskfromlist.Time, taskfromlist.Text);
+                }
             }
+
+
         }
         private void ColorDates()
         {
@@ -152,7 +153,7 @@ namespace NotesWindowsFormsApp
             SaveTasks();
             SortTasks();
             ShowTasksForDay();
-            ColorDates();
+            ColorDates();            
         }
         private void TasksForDayDataGridView_MouseDown(object sender, MouseEventArgs e)
         {
@@ -187,8 +188,9 @@ namespace NotesWindowsFormsApp
                     {
                         task.Time = taskform.HoursComboBox.Text + ":" + taskform.MinutesComboBox.Text;
                         task.Text = taskform.CommentTextBox.Text;
-                        task.Date = taskform.TaskDateTimePicker.Value.ToShortDateString();                        
+                        task.Date = taskform.TaskDateTimePicker.Value.ToShortDateString();
                         UpdateMyTasks();
+                        GetTodayTasks();
                     }
                     break;
                 }
@@ -201,14 +203,49 @@ namespace NotesWindowsFormsApp
                 if (task.Date == chosenDate && task.Time == TasksForDayDataGridView.CurrentRow.Cells[0].Value.ToString() && task.Text == TasksForDayDataGridView.CurrentRow.Cells[1].Value.ToString())
                 {
                     listOfAllTasks.Remove(task);
-                    
+
                     UpdateMyTasks();
+                    GetTodayTasks();
 
                     break;
                 }
             }
         }
-       
+        private void GetTodayTasks()
+        {
+            listOfTodayTasks = new List<Task>();
+            today = DateTime.Today.ToShortDateString();
+            foreach (var taskfromlist in listOfAllTasks)
+            {
+                if (taskfromlist.Date == today)
+                {
+                    listOfTodayTasks.Add(taskfromlist);
+                }
+            }
+        }
+        private void EverySecondTimer_Tick(object sender, EventArgs e)
+        {
+            var currenttime = DateTime.Now.ToString("HH:mm");
+            if (currenttime == "00:00")
+            {
+                GetTodayTasks();
+            }
+            if (listOfTodayTasks.Count != 0)
+            {
+                foreach (var taskfromlist in listOfTodayTasks)
+                {
+                    if (taskfromlist.Time == currenttime)
+                    {
+                        EverySecondTimer.Stop();
+                        MessageBox.Show(taskfromlist.Text);
+                        listOfTodayTasks.Remove(taskfromlist);
+                        //WaitAMinuteTimer.Start();
+                        EverySecondTimer.Start();
+                        return;
+                    }
+                }
+            }
+        }        
     }
 
 }
