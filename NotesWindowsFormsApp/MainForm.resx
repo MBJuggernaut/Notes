@@ -126,13 +126,13 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="notesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 24</value>
+    <value>71, 24</value>
   </data>
   <data name="notesToolStripMenuItem.Text" xml:space="preserve">
     <value>Заметки</value>
   </data>
   <data name="todolistToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 24</value>
+    <value>71, 24</value>
   </data>
   <data name="todolistToolStripMenuItem.Text" xml:space="preserve">
     <value>Задачи</value>
@@ -141,7 +141,7 @@
     <value>0, 0</value>
   </data>
   <data name="menuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 457</value>
+    <value>88, 457</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="menuStrip.TabIndex" type="System.Int32, mscorlib">
@@ -265,19 +265,19 @@
     <value>255, 17</value>
   </metadata>
   <data name="ChangeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 24</value>
+    <value>210, 24</value>
   </data>
   <data name="ChangeToolStripMenuItem.Text" xml:space="preserve">
     <value>Изменить</value>
   </data>
   <data name="DeleteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 24</value>
+    <value>210, 24</value>
   </data>
   <data name="DeleteToolStripMenuItem.Text" xml:space="preserve">
     <value>Удалить</value>
   </data>
   <data name="TasksContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>148, 52</value>
+    <value>211, 80</value>
   </data>
   <data name="&gt;&gt;TasksContextMenuStrip.Name" xml:space="preserve">
     <value>TasksContextMenuStrip</value>
@@ -319,7 +319,7 @@
     <value>Right</value>
   </data>
   <data name="myCalendar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>548, 0</value>
+    <value>546, 0</value>
   </data>
   <data name="myCalendar.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -340,10 +340,10 @@
     <value>Fill</value>
   </data>
   <data name="todolistPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>86, 0</value>
+    <value>88, 0</value>
   </data>
   <data name="todolistPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>740, 457</value>
+    <value>738, 457</value>
   </data>
   <data name="todolistPanel.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>

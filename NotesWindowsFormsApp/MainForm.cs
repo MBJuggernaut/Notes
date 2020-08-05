@@ -42,10 +42,7 @@ namespace NotesWindowsFormsApp
             {
                 listOfAllTasks = new List<Task>();
             }
-            UpdateMyTasks();
-            ShowTasksForDay();
-
-            //TasksContextMenuStrip.Enabled = true;
+            UpdateMyTasks();            
         }
         private void NotesToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -98,9 +95,7 @@ namespace NotesWindowsFormsApp
                     Text = taskform.CommentTextBox.Text,
                     Date = taskform.TaskDateTimePicker.Value.ToShortDateString()
                 };
-                listOfAllTasks.Add(editedTask);
-                var jsonTasks = JsonConvert.SerializeObject(listOfAllTasks, Formatting.Indented);
-                FileProvider.Replace(tasksPath, jsonTasks);
+                listOfAllTasks.Add(editedTask);                
                 UpdateMyTasks();
             }
         }
@@ -138,8 +133,14 @@ namespace NotesWindowsFormsApp
 
             listOfAllTasks = sortedTasks.ToList();
         }
+        private void SaveTasks()
+        {
+            var jsontasks = JsonConvert.SerializeObject(listOfAllTasks, Formatting.Indented);
+            FileProvider.Replace(tasksPath, jsontasks);
+        }
         private void UpdateMyTasks()
         {
+            SaveTasks();
             SortTasks();
             ShowTasksForDay();
             ColorDates();
@@ -180,16 +181,29 @@ namespace NotesWindowsFormsApp
                     {
                         task.Time = taskform.HoursComboBox.Text + ":" + taskform.MinutesComboBox.Text;
                         task.Text = taskform.CommentTextBox.Text;
-                        task.Date = taskform.TaskDateTimePicker.Value.ToShortDateString();
-
-                        var jsontasks = JsonConvert.SerializeObject(listOfAllTasks, Formatting.Indented);
-                        FileProvider.Replace(tasksPath, jsontasks);
+                        task.Date = taskform.TaskDateTimePicker.Value.ToShortDateString();                        
                         UpdateMyTasks();
                     }
                     break;
                 }
             }
         }
+
+        private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (var task in listOfAllTasks)
+            {
+                if (task.Date == chosenDate && task.Time == TasksForDayDataGridView.CurrentRow.Cells[0].Value.ToString() && task.Text == TasksForDayDataGridView.CurrentRow.Cells[1].Value.ToString())
+                {
+                    listOfAllTasks.Remove(task);
+                    
+                    UpdateMyTasks();
+
+                    break;
+                }
+            }
+        }
+       
     }
 
 }

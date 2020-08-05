@@ -156,6 +156,7 @@
             // 
             this.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem";
             resources.ApplyResources(this.DeleteToolStripMenuItem, "DeleteToolStripMenuItem");
+            this.DeleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
             // 
             // myCalendar
             // 
