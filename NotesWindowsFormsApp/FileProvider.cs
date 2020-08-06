@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace NotesWindowsFormsApp
 {
@@ -24,26 +25,26 @@ namespace NotesWindowsFormsApp
         public static string Get(string path)
         {
             StreamReader text;  
-            string allLines;
+            string allLines = "";
             if (!File.Exists(path))
             {
-                File.Create(path);
-                return "";
+                //File.Create(path); ???
+                return allLines;
             }
             
             try
             {
-                text = new StreamReader(path);
-                allLines = File.ReadAllText(path);
-            }
-            catch
-            {
                 Thread.Sleep(100);
                 text = new StreamReader(path);
                 allLines = File.ReadAllText(path);
+                text.Close();
+                
+            }
+            catch
+            {
+                Application.Restart();
             }
 
-            text.Close();
             return allLines;
         }
     }

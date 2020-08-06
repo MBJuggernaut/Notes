@@ -12,22 +12,21 @@ namespace NotesWindowsFormsApp
         {
             InitializeComponent();
         }
-        Note myNote;
-        string chosenDate;
-        string today;
+        private Note myNote;
+        readonly string notePath = "notes.json";
+        private string chosenDate;
+        private string today;
         private List<Task> listOfAllTasks;
         private List<Task> listOfTodayTasks = new List<Task>();
         readonly string tasksPath = "tasks.json";
         private void MainForm_Load(object sender, EventArgs e)
         {
             myNote = new Note();
-            notesRichTextBox.Text = myNote.Text;
-            //notesRichTextBox.SelectedText = null;
+            myNote.Text = FileProvider.Get(notePath);
+            notesRichTextBox.Text = myNote.Text;           
             notesToolStripMenuItem.PerformClick();
-            
-
-            Task task = new Task();
-            listOfAllTasks = task.GetAll(tasksPath);
+                        
+            listOfAllTasks = JsonConvert.DeserializeObject<List<Task>>(FileProvider.Get(tasksPath));
             if (listOfAllTasks == null)
             {
                 listOfAllTasks = new List<Task>();
@@ -38,7 +37,7 @@ namespace NotesWindowsFormsApp
         private void notesRichTextBox_TextChanged(object sender, EventArgs e)
         {
             myNote.Text = notesRichTextBox.Text;
-            myNote.Save();
+            FileProvider.Replace(notePath, myNote.Text);
         }
         private void TasksToolStripMenuItem_Click(object sender, EventArgs e)
         {

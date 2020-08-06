@@ -69,6 +69,7 @@
             this.CommentTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.CommentTextBox.Size = new System.Drawing.Size(221, 89);
             this.CommentTextBox.TabIndex = 6;
+            this.CommentTextBox.TextChanged += new System.EventHandler(this.CommentTextBox_TextChanged);
             // 
             // HoursComboBox
             // 

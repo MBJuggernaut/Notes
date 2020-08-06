@@ -10,22 +10,8 @@ namespace NotesWindowsFormsApp
 {
     public class Task
     {
-        public string Date;
-        public string Time;
-        public string Text;
-        public Task()
-        {
-
-        }
-
-        public List<Task> GetAll(string path)
-        {            
-            var tasks = JsonConvert.DeserializeObject<List<Task>>(FileProvider.Get(path));
-
-            return tasks;
-        }
-
-
-
+        internal string Date;
+        internal string Time;
+        internal string Text;
     }
 }
