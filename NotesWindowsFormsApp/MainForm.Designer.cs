@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.notesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TasksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,7 +47,7 @@
             this.DeleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.myCalendar = new System.Windows.Forms.MonthCalendar();
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.EverySecondTimer = new System.Windows.Forms.Timer(this.components);
+            this.EveryTenSecondsTimer = new System.Windows.Forms.Timer(this.components);
             this.menuStrip.SuspendLayout();
             this.notesPanel.SuspendLayout();
             this.todolistPanel.SuspendLayout();
@@ -89,7 +89,7 @@
             this.notesRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             resources.ApplyResources(this.notesRichTextBox, "notesRichTextBox");
             this.notesRichTextBox.Name = "notesRichTextBox";
-            this.notesRichTextBox.TextChanged += new System.EventHandler(this.notesRichTextBox_TextChanged);
+            this.notesRichTextBox.TextChanged += new System.EventHandler(this.NotesRichTextBox_TextChanged);
             // 
             // todolistPanel
             // 
@@ -134,8 +134,8 @@
             this.TasksForDayDataGridView.ReadOnly = true;
             this.TasksForDayDataGridView.RowHeadersVisible = false;
             this.TasksForDayDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Silver;
-            this.TasksForDayDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Silver;
+            this.TasksForDayDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.TasksForDayDataGridView.RowTemplate.Height = 24;
             this.TasksForDayDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.TasksForDayDataGridView.ShowCellErrors = false;
@@ -193,11 +193,11 @@
             resources.ApplyResources(this.trayIcon, "trayIcon");
             this.trayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TrayIcon_MouseDoubleClick);
             // 
-            // EverySecondTimer
+            // EveryTenSecondsTimer
             // 
-            this.EverySecondTimer.Enabled = true;
-            this.EverySecondTimer.Interval = 1000;
-            this.EverySecondTimer.Tick += new System.EventHandler(this.EverySecondTimer_Tick);
+            this.EveryTenSecondsTimer.Enabled = true;
+            this.EveryTenSecondsTimer.Interval = 10000;
+            this.EveryTenSecondsTimer.Tick += new System.EventHandler(this.EveryTenSecondsTimer_Tick);
             // 
             // MainForm
             // 
@@ -238,7 +238,7 @@
         private System.Windows.Forms.ToolStripMenuItem DeleteToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn Time;
         private System.Windows.Forms.DataGridViewTextBoxColumn Task;
-        private System.Windows.Forms.Timer EverySecondTimer;
+        private System.Windows.Forms.Timer EveryTenSecondsTimer;
         private System.Windows.Forms.Label thisisTasksForTheDayLabel;
         private System.Windows.Forms.RichTextBox notesRichTextBox;
     }

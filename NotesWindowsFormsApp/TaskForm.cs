@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace NotesWindowsFormsApp
@@ -14,26 +7,25 @@ namespace NotesWindowsFormsApp
     {
         public TaskForm()
         {
-            InitializeComponent();
-            HoursComboBox.Text = "00";
-            MinutesComboBox.Text = "00";
-            OkButton.Enabled = false;
+            InitializeComponent();            
         }
 
         private void OkButton_Click(object sender, EventArgs e)
         {
-            Close();
-        }
-
-        private void CommentTextBox_TextChanged(object sender, EventArgs e)
-        {
-            if(CommentTextBox.Text.Length<3)
+            if (CommentTextBox.Text.Length < 3 || CommentTextBox.Text.Length > 50)
             {
-                OkButton.Enabled = false;
+                MessageBox.Show("Примечание к событию должно быть не короче 3, и не длиннее 50 символов.", "Что-то не так", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
+                return;
+            }
+            else if (HoursComboBox.Text == "" || MinutesComboBox.Text == "")
+            {
+                MessageBox.Show("Не забудьте выставить время события.", "Что-то не так", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
             else
             {
-                OkButton.Enabled = true;
+                OkButton.DialogResult = DialogResult.OK;
             }
         }
     }

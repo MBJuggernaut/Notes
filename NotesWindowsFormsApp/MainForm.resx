@@ -126,13 +126,13 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="notesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 24</value>
+    <value>73, 24</value>
   </data>
   <data name="notesToolStripMenuItem.Text" xml:space="preserve">
     <value>Заметки</value>
   </data>
   <data name="TasksToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 24</value>
+    <value>73, 24</value>
   </data>
   <data name="TasksToolStripMenuItem.Text" xml:space="preserve">
     <value>Задачи</value>
@@ -141,7 +141,7 @@
     <value>0, 0</value>
   </data>
   <data name="menuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 457</value>
+    <value>86, 457</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="menuStrip.TabIndex" type="System.Int32, mscorlib">
@@ -161,18 +161,6 @@
   </data>
   <data name="&gt;&gt;menuStrip.ZOrder" xml:space="preserve">
     <value>3</value>
-  </data>
-  <data name="notesRichTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="notesRichTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>247, 96</value>
-  </data>
-  <data name="notesRichTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="notesRichTextBox.Text" xml:space="preserve">
-    <value />
   </data>
   <data name="&gt;&gt;notesRichTextBox.Name" xml:space="preserve">
     <value>notesRichTextBox</value>
@@ -206,6 +194,102 @@
   </data>
   <data name="&gt;&gt;notesPanel.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="notesRichTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="notesRichTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>247, 96</value>
+  </data>
+  <data name="notesRichTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="notesRichTextBox.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;notesRichTextBox.Name" xml:space="preserve">
+    <value>notesRichTextBox</value>
+  </data>
+  <data name="&gt;&gt;notesRichTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;notesRichTextBox.Parent" xml:space="preserve">
+    <value>notesPanel</value>
+  </data>
+  <data name="&gt;&gt;notesRichTextBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;thisisTasksForTheDayLabel.Name" xml:space="preserve">
+    <value>thisisTasksForTheDayLabel</value>
+  </data>
+  <data name="&gt;&gt;thisisTasksForTheDayLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;thisisTasksForTheDayLabel.Parent" xml:space="preserve">
+    <value>todolistPanel</value>
+  </data>
+  <data name="&gt;&gt;thisisTasksForTheDayLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;AddTaskButton.Name" xml:space="preserve">
+    <value>AddTaskButton</value>
+  </data>
+  <data name="&gt;&gt;AddTaskButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AddTaskButton.Parent" xml:space="preserve">
+    <value>todolistPanel</value>
+  </data>
+  <data name="&gt;&gt;AddTaskButton.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;TasksForDayDataGridView.Name" xml:space="preserve">
+    <value>TasksForDayDataGridView</value>
+  </data>
+  <data name="&gt;&gt;TasksForDayDataGridView.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TasksForDayDataGridView.Parent" xml:space="preserve">
+    <value>todolistPanel</value>
+  </data>
+  <data name="&gt;&gt;TasksForDayDataGridView.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;myCalendar.Name" xml:space="preserve">
+    <value>myCalendar</value>
+  </data>
+  <data name="&gt;&gt;myCalendar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MonthCalendar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;myCalendar.Parent" xml:space="preserve">
+    <value>todolistPanel</value>
+  </data>
+  <data name="&gt;&gt;myCalendar.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="todolistPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="todolistPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>86, 0</value>
+  </data>
+  <data name="todolistPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>746, 457</value>
+  </data>
+  <data name="todolistPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;todolistPanel.Name" xml:space="preserve">
+    <value>todolistPanel</value>
+  </data>
+  <data name="&gt;&gt;todolistPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;todolistPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;todolistPanel.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="thisisTasksForTheDayLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -288,18 +372,6 @@
   <metadata name="TasksContextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>255, 17</value>
   </metadata>
-  <data name="ChangeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 24</value>
-  </data>
-  <data name="ChangeToolStripMenuItem.Text" xml:space="preserve">
-    <value>Изменить</value>
-  </data>
-  <data name="DeleteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 24</value>
-  </data>
-  <data name="DeleteToolStripMenuItem.Text" xml:space="preserve">
-    <value>Удалить</value>
-  </data>
   <data name="TasksContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
     <value>148, 52</value>
   </data>
@@ -333,6 +405,18 @@
   <data name="&gt;&gt;TasksForDayDataGridView.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="ChangeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 24</value>
+  </data>
+  <data name="ChangeToolStripMenuItem.Text" xml:space="preserve">
+    <value>Изменить</value>
+  </data>
+  <data name="DeleteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 24</value>
+  </data>
+  <data name="DeleteToolStripMenuItem.Text" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
   <data name="myCalendar.CalendarDimensions" type="System.Drawing.Size, System.Drawing">
     <value>1, 2</value>
   </data>
@@ -340,7 +424,7 @@
     <value>Right</value>
   </data>
   <data name="myCalendar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>552, 0</value>
+    <value>554, 0</value>
   </data>
   <data name="myCalendar.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -356,30 +440,6 @@
   </data>
   <data name="&gt;&gt;myCalendar.ZOrder" xml:space="preserve">
     <value>3</value>
-  </data>
-  <data name="todolistPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="todolistPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>88, 0</value>
-  </data>
-  <data name="todolistPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>744, 457</value>
-  </data>
-  <data name="todolistPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;todolistPanel.Name" xml:space="preserve">
-    <value>todolistPanel</value>
-  </data>
-  <data name="&gt;&gt;todolistPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;todolistPanel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;todolistPanel.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <metadata name="trayIcon.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>144, 17</value>
@@ -665,7 +725,7 @@
         fGMFKBsAAAAASUVORK5CYII=
 </value>
   </data>
-  <metadata name="EverySecondTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="EveryTenSecondsTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>472, 17</value>
   </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -1000,10 +1060,10 @@
   <data name="&gt;&gt;trayIcon.Type" xml:space="preserve">
     <value>System.Windows.Forms.NotifyIcon, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;EverySecondTimer.Name" xml:space="preserve">
-    <value>EverySecondTimer</value>
+  <data name="&gt;&gt;EveryTenSecondsTimer.Name" xml:space="preserve">
+    <value>EveryTenSecondsTimer</value>
   </data>
-  <data name="&gt;&gt;EverySecondTimer.Type" xml:space="preserve">
+  <data name="&gt;&gt;EveryTenSecondsTimer.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">

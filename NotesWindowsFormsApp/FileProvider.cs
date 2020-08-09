@@ -1,6 +1,4 @@
 ﻿using System.IO;
-using System.Threading;
-using System.Windows.Forms;
 
 namespace NotesWindowsFormsApp
 {
@@ -9,43 +7,44 @@ namespace NotesWindowsFormsApp
         public static void Add(string path, string text)
         {
             var textsaver = new StreamWriter(path, true, System.Text.Encoding.UTF8);
-            {
-                textsaver.WriteLine(text);
-                textsaver.Close();
-            }
+
+            textsaver.WriteLine(text);
+            textsaver.Close();
         }
         public static void Replace(string path, string text)
         {
             var textsaver = new StreamWriter(path, false, System.Text.Encoding.UTF8);
-            {
-                textsaver.WriteLine(text);
-                textsaver.Close();
-            }
+
+            textsaver.WriteLine(text);
+            textsaver.Close();
+
         }
         public static string Get(string path)
         {
-            StreamReader text;  
-            string allLines = "";
-            if (!File.Exists(path))
-            {
-                //File.Create(path); ???
-                return allLines;
-            }
-            
-            try
-            {
-                Thread.Sleep(100);
-                text = new StreamReader(path);
-                allLines = File.ReadAllText(path);
-                text.Close();
-                
-            }
-            catch
-            {
-                Application.Restart();
-            }
+            StreamReader text;
+            text = new StreamReader(path);
+            var allLines = File.ReadAllText(path);
+            text.Close();
+
+            //Thread.Sleep(100);                
+            //try
+            //{
+            //}
+            //catch
+            //{
+            //    Application.Restart();
+            //}
 
             return allLines;
         }
+        public static string CreateIfNeededorGet(string path)
+        {
+            if (!File.Exists(path))
+            { File.Create(path); return ""; }
+
+            else
+              return Get(path);
+        }
+            
     }
 }

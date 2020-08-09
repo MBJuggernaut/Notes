@@ -21,20 +21,21 @@ namespace NotesWindowsFormsApp
         readonly string tasksPath = "tasks.json";
         private void MainForm_Load(object sender, EventArgs e)
         {
-            myNote = new Note();
-            myNote.Text = FileProvider.Get(notePath);
+            myNote = new Note
+            {
+                Text = FileProvider.CreateIfNeededorGet(notePath)
+            };
             notesRichTextBox.Text = myNote.Text;           
             notesToolStripMenuItem.PerformClick();
                         
-            listOfAllTasks = JsonConvert.DeserializeObject<List<Task>>(FileProvider.Get(tasksPath));
+            listOfAllTasks = JsonConvert.DeserializeObject<List<Task>>(FileProvider.CreateIfNeededorGet(tasksPath));
             if (listOfAllTasks == null)
             {
                 listOfAllTasks = new List<Task>();
             }
             GetTodayTasks();
         }
-
-        private void notesRichTextBox_TextChanged(object sender, EventArgs e)
+        private void NotesRichTextBox_TextChanged(object sender, EventArgs e)
         {
             myNote.Text = notesRichTextBox.Text;
             FileProvider.Replace(notePath, myNote.Text);
@@ -96,7 +97,7 @@ namespace NotesWindowsFormsApp
             {
                 var nexthour = Convert.ToInt32(DateTime.Now.ToString("HH")) + 1;
                 taskform.HoursComboBox.Text = nexthour.ToString();
-            }
+            }           
 
             if (taskform.ShowDialog(this) == DialogResult.OK)
             {
@@ -122,8 +123,6 @@ namespace NotesWindowsFormsApp
                     TasksForDayDataGridView.Rows.Add(taskfromlist.Time, taskfromlist.Text);
                 }
             }
-
-
         }
         private void ColorDates()
         {
@@ -225,8 +224,8 @@ namespace NotesWindowsFormsApp
                 }
             }
         }
-        private void EverySecondTimer_Tick(object sender, EventArgs e)
-        {
+        private void EveryTenSecondsTimer_Tick(object sender, EventArgs e)
+        {            
             var currenttime = DateTime.Now.ToString("HH:mm");
             
             if (currenttime == "00:00")
@@ -239,10 +238,10 @@ namespace NotesWindowsFormsApp
                 {
                     if (taskfromlist.Time == currenttime)
                     {
-                        EverySecondTimer.Stop();
+                        EveryTenSecondsTimer.Stop();
                         MessageBox.Show(taskfromlist.Text);
                         listOfTodayTasks.Remove(taskfromlist);                        
-                        EverySecondTimer.Start();
+                        EveryTenSecondsTimer.Start();
                         return;
                     }
                 }

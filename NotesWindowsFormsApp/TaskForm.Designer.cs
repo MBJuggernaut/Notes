@@ -42,7 +42,6 @@
             // 
             // OkButton
             // 
-            this.OkButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.OkButton.Location = new System.Drawing.Point(44, 365);
             this.OkButton.Name = "OkButton";
             this.OkButton.Size = new System.Drawing.Size(62, 29);
@@ -69,7 +68,6 @@
             this.CommentTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.CommentTextBox.Size = new System.Drawing.Size(221, 89);
             this.CommentTextBox.TabIndex = 6;
-            this.CommentTextBox.TextChanged += new System.EventHandler(this.CommentTextBox_TextChanged);
             // 
             // HoursComboBox
             // 
@@ -216,7 +214,6 @@
             // 
             // TaskForm
             // 
-            this.AcceptButton = this.OkButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(309, 450);
