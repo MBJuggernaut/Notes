@@ -30,10 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.notesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TasksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.тестToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notesPanel = new System.Windows.Forms.Panel();
             this.notesRichTextBox = new System.Windows.Forms.RichTextBox();
             this.todolistPanel = new System.Windows.Forms.Panel();
@@ -62,7 +63,8 @@
             this.menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.notesToolStripMenuItem,
-            this.TasksToolStripMenuItem});
+            this.TasksToolStripMenuItem,
+            this.тестToolStripMenuItem});
             this.menuStrip.Name = "menuStrip";
             // 
             // notesToolStripMenuItem
@@ -77,6 +79,12 @@
             resources.ApplyResources(this.TasksToolStripMenuItem, "TasksToolStripMenuItem");
             this.TasksToolStripMenuItem.Click += new System.EventHandler(this.TasksToolStripMenuItem_Click);
             // 
+            // тестToolStripMenuItem
+            // 
+            this.тестToolStripMenuItem.Name = "тестToolStripMenuItem";
+            resources.ApplyResources(this.тестToolStripMenuItem, "тестToolStripMenuItem");
+            this.тестToolStripMenuItem.Click += new System.EventHandler(this.тестToolStripMenuItem_Click);
+            // 
             // notesPanel
             // 
             this.notesPanel.Controls.Add(this.notesRichTextBox);
@@ -89,7 +97,7 @@
             this.notesRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             resources.ApplyResources(this.notesRichTextBox, "notesRichTextBox");
             this.notesRichTextBox.Name = "notesRichTextBox";
-            this.notesRichTextBox.TextChanged += new System.EventHandler(this.NotesRichTextBox_TextChanged);
+            this.notesRichTextBox.Leave += new System.EventHandler(this.NotesRichTextBox_Leave);
             // 
             // todolistPanel
             // 
@@ -134,8 +142,8 @@
             this.TasksForDayDataGridView.ReadOnly = true;
             this.TasksForDayDataGridView.RowHeadersVisible = false;
             this.TasksForDayDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Silver;
-            this.TasksForDayDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Silver;
+            this.TasksForDayDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.TasksForDayDataGridView.RowTemplate.Height = 24;
             this.TasksForDayDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.TasksForDayDataGridView.ShowCellErrors = false;
@@ -209,6 +217,7 @@
             this.MainMenuStrip = this.menuStrip;
             this.MaximizeBox = false;
             this.Name = "MainForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.menuStrip.ResumeLayout(false);
@@ -241,6 +250,7 @@
         private System.Windows.Forms.Timer EveryTenSecondsTimer;
         private System.Windows.Forms.Label thisisTasksForTheDayLabel;
         private System.Windows.Forms.RichTextBox notesRichTextBox;
+        private System.Windows.Forms.ToolStripMenuItem тестToolStripMenuItem;
     }
 }
 

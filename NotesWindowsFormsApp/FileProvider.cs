@@ -25,19 +25,9 @@ namespace NotesWindowsFormsApp
             text = new StreamReader(path);
             var allLines = File.ReadAllText(path);
             text.Close();
-
-            //Thread.Sleep(100);                
-            //try
-            //{
-            //}
-            //catch
-            //{
-            //    Application.Restart();
-            //}
-
             return allLines;
         }
-        public static string CreateIfNeededorGet(string path)
+        public static string CreateOrGet(string path)
         {
             if (!File.Exists(path))
             { File.Create(path); return ""; }

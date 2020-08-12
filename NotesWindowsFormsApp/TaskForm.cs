@@ -27,6 +27,25 @@ namespace NotesWindowsFormsApp
             {
                 OkButton.DialogResult = DialogResult.OK;
             }
+
+            //var newTask = new Task
+            //{
+            //    Time = HoursComboBox.Text + ":" + MinutesComboBox.Text,
+            //    Text = CommentTextBox.Text,
+            //    Date = TaskDateTimePicker.Value.ToShortDateString()
+            //};
+            //var errors = Validation.CheckTask(newTask);
+
+            //if (errors.Count == 0)
+            //    OkButton.DialogResult = DialogResult.OK;
+
+            //else
+            //{
+            //    foreach (var error in errors)
+            //    {
+            //        MessageBox.Show(error);
+            //    }
+            //}
         }
     }
 }

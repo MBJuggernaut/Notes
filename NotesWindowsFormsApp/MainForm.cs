@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Windows.Forms;
 
 namespace NotesWindowsFormsApp
@@ -14,38 +15,34 @@ namespace NotesWindowsFormsApp
         }
         private Note myNote;
         readonly string notePath = "notes.json";
+        readonly string tasksPath = "tasks.json";
         private string chosenDate;
         private string today;
         private List<Task> listOfAllTasks;
         private List<Task> listOfTodayTasks = new List<Task>();
-        readonly string tasksPath = "tasks.json";
+
         private void MainForm_Load(object sender, EventArgs e)
         {
             myNote = new Note
             {
-                Text = FileProvider.CreateIfNeededorGet(notePath)
+                Text = FileProvider.CreateOrGet(notePath)
             };
-            notesRichTextBox.Text = myNote.Text;           
+            notesRichTextBox.Text = myNote.Text;
             notesToolStripMenuItem.PerformClick();
-                        
-            listOfAllTasks = JsonConvert.DeserializeObject<List<Task>>(FileProvider.CreateIfNeededorGet(tasksPath));
+
+            listOfAllTasks = JsonConvert.DeserializeObject<List<Task>>(FileProvider.CreateOrGet(tasksPath));
             if (listOfAllTasks == null)
             {
                 listOfAllTasks = new List<Task>();
             }
             GetTodayTasks();
         }
-        private void NotesRichTextBox_TextChanged(object sender, EventArgs e)
-        {
-            myNote.Text = notesRichTextBox.Text;
-            FileProvider.Replace(notePath, myNote.Text);
-        }
         private void TasksToolStripMenuItem_Click(object sender, EventArgs e)
         {
             todolistPanel.Show();
             notesPanel.Hide();
-            
-            chosenDate = today;          
+
+            chosenDate = today;
             UpdateMyTasks();
         }
         private void NotesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -97,7 +94,7 @@ namespace NotesWindowsFormsApp
             {
                 var nexthour = Convert.ToInt32(DateTime.Now.ToString("HH")) + 1;
                 taskform.HoursComboBox.Text = nexthour.ToString();
-            }           
+            }
 
             if (taskform.ShowDialog(this) == DialogResult.OK)
             {
@@ -153,7 +150,7 @@ namespace NotesWindowsFormsApp
             SaveTasks();
             SortTasks();
             ShowTasksForDay();
-            ColorDates();            
+            ColorDates();
         }
         private void TasksForDayDataGridView_MouseDown(object sender, MouseEventArgs e)
         {
@@ -225,12 +222,12 @@ namespace NotesWindowsFormsApp
             }
         }
         private void EveryTenSecondsTimer_Tick(object sender, EventArgs e)
-        {            
+        {
             var currenttime = DateTime.Now.ToString("HH:mm");
-            
+
             if (currenttime == "00:00")
-            {                
-                GetTodayTasks();                
+            {
+                GetTodayTasks();
             }
             if (listOfTodayTasks.Count != 0)
             {
@@ -239,16 +236,38 @@ namespace NotesWindowsFormsApp
                     if (taskfromlist.Time == currenttime)
                     {
                         EveryTenSecondsTimer.Stop();
-                        MessageBox.Show(taskfromlist.Text);
-                        listOfTodayTasks.Remove(taskfromlist);                        
+                        AlertForm alertForm = new AlertForm();
+                        alertForm.AlertMessageLabel.Text = taskfromlist.Text;
+                        
+                        if(alertForm.ShowDialog(this) == DialogResult.OK)
+                        listOfTodayTasks.Remove(taskfromlist);
+
                         EveryTenSecondsTimer.Start();
                         return;
                     }
                 }
             }
         }
+        private void SaveNote()
+        {
+            myNote.Text = notesRichTextBox.Text;
+            FileProvider.Replace(notePath, myNote.Text);
+        }
+        private void NotesRichTextBox_Leave(object sender, EventArgs e)
+        {
+            SaveNote();
+        }
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaveNote();
+        }       
 
-        
+        private void тестToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+           
+        }
     }
-
 }
+    
+
+
