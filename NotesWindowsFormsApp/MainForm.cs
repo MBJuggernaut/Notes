@@ -261,7 +261,6 @@ namespace NotesWindowsFormsApp
         {
             SaveNote();
         }       
-
         private void тестToolStripMenuItem_Click(object sender, EventArgs e)
         {
            
