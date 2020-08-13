@@ -93,7 +93,9 @@ namespace NotesWindowsFormsApp
             if (chosenDate == today)
             {
                 var nexthour = Convert.ToInt32(DateTime.Now.ToString("HH")) + 1;
+                
                 taskform.HoursComboBox.Text = nexthour.ToString();
+                taskform.MinutesComboBox.Text = DateTime.Now.ToString("mm");
             }
 
             if (taskform.ShowDialog(this) == DialogResult.OK)
@@ -187,6 +189,14 @@ namespace NotesWindowsFormsApp
                         task.Time = taskform.HoursComboBox.Text + ":" + taskform.MinutesComboBox.Text;
                         task.Text = taskform.CommentTextBox.Text;
                         task.Date = taskform.TaskDateTimePicker.Value.ToShortDateString();
+
+                        if (task.Date == today&&
+                            Convert.ToInt32(taskform.HoursComboBox.Text)>= Convert.ToInt32(DateTime.Now.ToString("HH"))&& 
+                            Convert.ToInt32(taskform.MinutesComboBox.Text) >= Convert.ToInt32(DateTime.Now.ToString("mm"))
+                            )
+                        task.IsActual = true;
+
+
                         UpdateMyTasks();
                         GetTodayTasks();
                     }
@@ -233,13 +243,15 @@ namespace NotesWindowsFormsApp
             {
                 foreach (var taskfromlist in listOfTodayTasks)
                 {
-                    if (taskfromlist.Time == currenttime)
+                    if (taskfromlist.Time == currenttime&&taskfromlist.IsActual==true)
                     {
+                        taskfromlist.IsActual = false;
                         EveryTenSecondsTimer.Stop();
                         AlertForm alertForm = new AlertForm();
                         alertForm.AlertMessageLabel.Text = taskfromlist.Text;
-                        
-                        if(alertForm.ShowDialog(this) == DialogResult.OK)
+                        alertForm.TopMost = true;                        
+                        alertForm.Show();
+
                         listOfTodayTasks.Remove(taskfromlist);
 
                         EveryTenSecondsTimer.Start();

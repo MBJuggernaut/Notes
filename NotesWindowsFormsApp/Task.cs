@@ -5,12 +5,15 @@ namespace NotesWindowsFormsApp
     public class Task
     {
         [Required]
-        public string Date;
+        public string Date { get; set; }
+
+        [Required]       
+        public string Time { get; set; }
+
         [Required]
-        [RegularExpression(@"^\+[1-9]\d{2}:\d{2}$", ErrorMessage = "Дата должна иметь формать ЧЧ:мм")]
-        public string Time;
-        [Required]
-        [StringLength(50, MinimumLength = 3, ErrorMessage = "Примечание к заданию должно быть не менее 3-х символов")]
-        public string Text;
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Примечание к заданию должно быть не менее 3-х символов")]        
+        public string Text { get; set; }
+
+        public bool IsActual = true;
     }
 }

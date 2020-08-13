@@ -7,7 +7,7 @@ public class Validation
     public static List<string> CheckTask(Task task)
     {
         var validationResults = new List<ValidationResult>();
-        var context = new ValidationContext(task);
+        var context = new ValidationContext(task, null, null);
         List<string> errors = new List<string>();
         if (!Validator.TryValidateObject(task, context, validationResults, true))
         {
