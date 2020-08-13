@@ -37,7 +37,7 @@ namespace NotesWindowsFormsApp
                 Text = CommentTextBox.Text,
                 Date = TaskDateTimePicker.Value.ToShortDateString()
             };
-            var errors = Validation.CheckTask(newTask);
+            var errors = Validation.Check(newTask);
 
             if (errors.Count == 0)
                 OkButton.DialogResult = DialogResult.OK;
