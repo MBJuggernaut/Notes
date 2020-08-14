@@ -228,8 +228,7 @@ namespace NotesWindowsFormsApp
             }
         }
         private void EveryTenSecondsTimer_Tick(object sender, EventArgs e)
-        {
-            EveryTenSecondsTimer.Stop();
+        {            
             var currenttime = DateTime.Now.ToString("HH:mm");
 
             if (currenttime == "00:00")
