@@ -41,14 +41,14 @@
             this.thisisTasksForTheDayLabel = new System.Windows.Forms.Label();
             this.AddTaskButton = new System.Windows.Forms.Button();
             this.TasksForDayDataGridView = new System.Windows.Forms.DataGridView();
-            this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Task = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TasksContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ChangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.myCalendar = new System.Windows.Forms.MonthCalendar();
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.EveryTenSecondsTimer = new System.Windows.Forms.Timer(this.components);
+            this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Task = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip.SuspendLayout();
             this.notesPanel.SuspendLayout();
             this.todolistPanel.SuspendLayout();
@@ -123,11 +123,13 @@
             // 
             // TasksForDayDataGridView
             // 
-            this.TasksForDayDataGridView.AllowUserToOrderColumns = true;
-            this.TasksForDayDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.TasksForDayDataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.TasksForDayDataGridView.AllowUserToAddRows = false;
+            this.TasksForDayDataGridView.AllowUserToDeleteRows = false;
+            this.TasksForDayDataGridView.AllowUserToResizeColumns = false;
+            this.TasksForDayDataGridView.AllowUserToResizeRows = false;
             this.TasksForDayDataGridView.BackgroundColor = System.Drawing.SystemColors.HighlightText;
             this.TasksForDayDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TasksForDayDataGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.TasksForDayDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.TasksForDayDataGridView.ColumnHeadersVisible = false;
             this.TasksForDayDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -145,26 +147,13 @@
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Silver;
             this.TasksForDayDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.TasksForDayDataGridView.RowTemplate.Height = 24;
-            this.TasksForDayDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.TasksForDayDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.TasksForDayDataGridView.ShowCellErrors = false;
             this.TasksForDayDataGridView.ShowCellToolTips = false;
             this.TasksForDayDataGridView.ShowEditingIcon = false;
             this.TasksForDayDataGridView.ShowRowErrors = false;
             this.TasksForDayDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.TasksForDayDataGridView_CellDoubleClick);
             this.TasksForDayDataGridView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TasksForDayDataGridView_MouseDown);
-            // 
-            // Time
-            // 
-            resources.ApplyResources(this.Time, "Time");
-            this.Time.Name = "Time";
-            this.Time.ReadOnly = true;
-            // 
-            // Task
-            // 
-            resources.ApplyResources(this.Task, "Task");
-            this.Task.Name = "Task";
-            this.Task.ReadOnly = true;
-            this.Task.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // TasksContextMenuStrip
             // 
@@ -207,6 +196,20 @@
             this.EveryTenSecondsTimer.Interval = 10000;
             this.EveryTenSecondsTimer.Tick += new System.EventHandler(this.EveryTenSecondsTimer_Tick);
             // 
+            // Time
+            // 
+            resources.ApplyResources(this.Time, "Time");
+            this.Time.Name = "Time";
+            this.Time.ReadOnly = true;
+            this.Time.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // Task
+            // 
+            resources.ApplyResources(this.Task, "Task");
+            this.Task.Name = "Task";
+            this.Task.ReadOnly = true;
+            this.Task.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
@@ -241,16 +244,16 @@
         private System.Windows.Forms.MonthCalendar myCalendar;
         private System.Windows.Forms.NotifyIcon trayIcon;
         private System.Windows.Forms.Button AddTaskButton;
-        private System.Windows.Forms.DataGridView TasksForDayDataGridView;
         private System.Windows.Forms.ContextMenuStrip TasksContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem ChangeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem DeleteToolStripMenuItem;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Time;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Task;
         private System.Windows.Forms.Timer EveryTenSecondsTimer;
         private System.Windows.Forms.Label thisisTasksForTheDayLabel;
         private System.Windows.Forms.RichTextBox notesRichTextBox;
         private System.Windows.Forms.ToolStripMenuItem тестToolStripMenuItem;
+        private System.Windows.Forms.DataGridView TasksForDayDataGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Time;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Task;
     }
 }
 

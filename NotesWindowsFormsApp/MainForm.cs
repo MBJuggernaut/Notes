@@ -71,7 +71,7 @@ namespace NotesWindowsFormsApp
         {
             chosenDate = myCalendar.SelectionRange.Start.ToShortDateString();
             ShowTasksForDay();
-        }
+        } 
         private void TasksForDayDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             TasksForDayDataGridView.CurrentRow.Cells[1].Value += "";
@@ -92,9 +92,9 @@ namespace NotesWindowsFormsApp
 
             if (chosenDate == today)
             {
-                var nexthour = Convert.ToInt32(DateTime.Now.ToString("HH")) + 1;
-                
-                taskform.HoursComboBox.Text = nexthour.ToString();
+                //ставим время на час больше нынешней минуты
+                var nexthour = Convert.ToInt32(DateTime.Now.ToString("HH")) + 1;                
+                taskform.HoursComboBox.Text = nexthour.ToString("D2");
                 taskform.MinutesComboBox.Text = DateTime.Now.ToString("mm");
             }
 
@@ -107,8 +107,7 @@ namespace NotesWindowsFormsApp
                     Date = taskform.TaskDateTimePicker.Value.ToShortDateString()
                 };
                 listOfAllTasks.Add(editedTask);
-                UpdateMyTasks();
-                GetTodayTasks();
+                UpdateMyTasks();               
             }
         }
         private void ShowTasksForDay()
@@ -153,23 +152,23 @@ namespace NotesWindowsFormsApp
             SortTasks();
             ShowTasksForDay();
             ColorDates();
+            GetTodayTasks();
+            TasksForDayDataGridView.ClearSelection();
         }
         private void TasksForDayDataGridView_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
+        {            
+            DataGridView.HitTestInfo hit = TasksForDayDataGridView.HitTest(e.X, e.Y);
+            if (hit.Type != DataGridViewHitTestType.Cell || TasksForDayDataGridView.Rows[hit.RowIndex].Cells[hit.ColumnIndex].Value==null)
             {
-                DataGridView.HitTestInfo hit = TasksForDayDataGridView.HitTest(e.X, e.Y);
-                if (hit.Type != DataGridViewHitTestType.Cell)
-                {
-                    TasksForDayDataGridView.ClearSelection();
-                    return;
-                }
-                TasksForDayDataGridView.Rows[hit.RowIndex].Cells[hit.ColumnIndex].Selected = true;
+                TasksForDayDataGridView.ClearSelection();
+                return;
             }
+
+            TasksForDayDataGridView.Rows[hit.RowIndex].Selected = true;                       
         }
         private void TasksContextMenuStrip_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (TasksForDayDataGridView.SelectedCells.Count != 1) e.Cancel = true;
+            if (TasksForDayDataGridView.SelectedRows.Count != 1) e.Cancel = true;
         }
         private void ChangeToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -196,9 +195,7 @@ namespace NotesWindowsFormsApp
                             )
                         task.IsActual = true;
 
-
-                        UpdateMyTasks();
-                        GetTodayTasks();
+                        UpdateMyTasks();                        
                     }
                     break;
                 }
@@ -212,8 +209,7 @@ namespace NotesWindowsFormsApp
                 {
                     listOfAllTasks.Remove(task);
 
-                    UpdateMyTasks();
-                    GetTodayTasks();
+                    UpdateMyTasks();                    
 
                     break;
                 }
@@ -233,6 +229,7 @@ namespace NotesWindowsFormsApp
         }
         private void EveryTenSecondsTimer_Tick(object sender, EventArgs e)
         {
+            EveryTenSecondsTimer.Stop();
             var currenttime = DateTime.Now.ToString("HH:mm");
 
             if (currenttime == "00:00")
