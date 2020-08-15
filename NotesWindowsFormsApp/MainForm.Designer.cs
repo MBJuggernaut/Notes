@@ -41,14 +41,14 @@
             this.thisisTasksForTheDayLabel = new System.Windows.Forms.Label();
             this.AddTaskButton = new System.Windows.Forms.Button();
             this.TasksForDayDataGridView = new System.Windows.Forms.DataGridView();
+            this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Task = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TasksContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ChangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.myCalendar = new System.Windows.Forms.MonthCalendar();
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.EveryTenSecondsTimer = new System.Windows.Forms.Timer(this.components);
-            this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Task = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip.SuspendLayout();
             this.notesPanel.SuspendLayout();
             this.todolistPanel.SuspendLayout();
@@ -83,7 +83,7 @@
             // 
             this.тестToolStripMenuItem.Name = "тестToolStripMenuItem";
             resources.ApplyResources(this.тестToolStripMenuItem, "тестToolStripMenuItem");
-            this.тестToolStripMenuItem.Click += new System.EventHandler(this.тестToolStripMenuItem_Click);
+            this.тестToolStripMenuItem.Click += new System.EventHandler(this.ТестToolStripMenuItem_Click);
             // 
             // notesPanel
             // 
@@ -152,8 +152,21 @@
             this.TasksForDayDataGridView.ShowCellToolTips = false;
             this.TasksForDayDataGridView.ShowEditingIcon = false;
             this.TasksForDayDataGridView.ShowRowErrors = false;
-            this.TasksForDayDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.TasksForDayDataGridView_CellDoubleClick);
             this.TasksForDayDataGridView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TasksForDayDataGridView_MouseDown);
+            // 
+            // Time
+            // 
+            resources.ApplyResources(this.Time, "Time");
+            this.Time.Name = "Time";
+            this.Time.ReadOnly = true;
+            this.Time.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // Task
+            // 
+            resources.ApplyResources(this.Task, "Task");
+            this.Task.Name = "Task";
+            this.Task.ReadOnly = true;
+            this.Task.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // TasksContextMenuStrip
             // 
@@ -195,20 +208,6 @@
             this.EveryTenSecondsTimer.Enabled = true;
             this.EveryTenSecondsTimer.Interval = 10000;
             this.EveryTenSecondsTimer.Tick += new System.EventHandler(this.EveryTenSecondsTimer_Tick);
-            // 
-            // Time
-            // 
-            resources.ApplyResources(this.Time, "Time");
-            this.Time.Name = "Time";
-            this.Time.ReadOnly = true;
-            this.Time.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // Task
-            // 
-            resources.ApplyResources(this.Task, "Task");
-            this.Task.Name = "Task";
-            this.Task.ReadOnly = true;
-            this.Task.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // MainForm
             // 

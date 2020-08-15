@@ -126,19 +126,19 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="notesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 24</value>
+    <value>73, 24</value>
   </data>
   <data name="notesToolStripMenuItem.Text" xml:space="preserve">
     <value>Заметки</value>
   </data>
   <data name="TasksToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 24</value>
+    <value>73, 24</value>
   </data>
   <data name="TasksToolStripMenuItem.Text" xml:space="preserve">
     <value>Задачи</value>
   </data>
   <data name="тестToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 24</value>
+    <value>73, 24</value>
   </data>
   <data name="тестToolStripMenuItem.Text" xml:space="preserve">
     <value>Тест</value>
@@ -147,7 +147,7 @@
     <value>0, 0</value>
   </data>
   <data name="menuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 457</value>
+    <value>86, 457</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="menuStrip.TabIndex" type="System.Int32, mscorlib">
@@ -346,7 +346,7 @@
     <value>Right</value>
   </data>
   <data name="myCalendar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>552, 0</value>
+    <value>554, 0</value>
   </data>
   <data name="myCalendar.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -367,10 +367,10 @@
     <value>Fill</value>
   </data>
   <data name="todolistPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>88, 0</value>
+    <value>86, 0</value>
   </data>
   <data name="todolistPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>744, 457</value>
+    <value>746, 457</value>
   </data>
   <data name="todolistPanel.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -982,6 +982,18 @@
   <data name="&gt;&gt;тестToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;Time.Name" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="&gt;&gt;Time.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Task.Name" xml:space="preserve">
+    <value>Task</value>
+  </data>
+  <data name="&gt;&gt;Task.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;ChangeToolStripMenuItem.Name" xml:space="preserve">
     <value>ChangeToolStripMenuItem</value>
   </data>
@@ -1005,18 +1017,6 @@
   </data>
   <data name="&gt;&gt;EveryTenSecondsTimer.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Time.Name" xml:space="preserve">
-    <value>Time</value>
-  </data>
-  <data name="&gt;&gt;Time.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Task.Name" xml:space="preserve">
-    <value>Task</value>
-  </data>
-  <data name="&gt;&gt;Task.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainForm</value>

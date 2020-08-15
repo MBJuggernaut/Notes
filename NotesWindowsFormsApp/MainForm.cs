@@ -30,11 +30,8 @@ namespace NotesWindowsFormsApp
             notesRichTextBox.Text = myNote.Text;
             notesToolStripMenuItem.PerformClick();
 
-            listOfAllTasks = JsonConvert.DeserializeObject<List<Task>>(FileProvider.CreateOrGet(tasksPath));
-            if (listOfAllTasks == null)
-            {
-                listOfAllTasks = new List<Task>();
-            }
+            listOfAllTasks = JsonConvert.DeserializeObject<List<Task>>(FileProvider.CreateOrGet(tasksPath)) ?? new List<Task>(); // узнал про оператор условного null
+
             GetTodayTasks();
         }
         private void TasksToolStripMenuItem_Click(object sender, EventArgs e)
@@ -71,19 +68,7 @@ namespace NotesWindowsFormsApp
         {
             chosenDate = myCalendar.SelectionRange.Start.ToShortDateString();
             ShowTasksForDay();
-        } 
-        private void TasksForDayDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            TasksForDayDataGridView.CurrentRow.Cells[1].Value += "";
-            if (TasksForDayDataGridView.CurrentRow.Cells[0].Value != null)
-            {
-                ChangeToolStripMenuItem.PerformClick();
-            }
-            else
-            {
-                AddTaskButton.PerformClick();
-            }
-        }
+        }         
         private void AddTaskButton_Click(object sender, EventArgs e)
         {
             TaskForm taskform = new TaskForm();
@@ -92,20 +77,24 @@ namespace NotesWindowsFormsApp
 
             if (chosenDate == today)
             {
-                //ставим время на час больше нынешней минуты
-                var nexthour = Convert.ToInt32(DateTime.Now.ToString("HH")) + 1;                
+                //ставим время на час больше нынешней минуты, при необходимости перескакиваем на завтра
+                var nexthour = Convert.ToInt32(DateTime.Now.ToString("HH")) + 1;
+                if (nexthour == 24)
+                    taskform.TaskDateTimePicker.Value = DateTime.Now.AddDays(1);
+
                 taskform.HoursComboBox.Text = nexthour.ToString("D2");
                 taskform.MinutesComboBox.Text = DateTime.Now.ToString("mm");
             }
 
             if (taskform.ShowDialog(this) == DialogResult.OK)
             {
-                var editedTask = new Task
-                {
-                    Time = taskform.HoursComboBox.Text + ":" + taskform.MinutesComboBox.Text,
-                    Text = taskform.CommentTextBox.Text,
-                    Date = taskform.TaskDateTimePicker.Value.ToShortDateString()
-                };
+                var editedTask = new Task();
+                SetTask(editedTask, taskform);
+                //{
+                //    Time = taskform.HoursComboBox.Text + ":" + taskform.MinutesComboBox.Text,
+                //    Text = taskform.CommentTextBox.Text,
+                //    Date = taskform.TaskDateTimePicker.Value.ToShortDateString()
+                //};
                 listOfAllTasks.Add(editedTask);
                 UpdateMyTasks();               
             }
@@ -174,8 +163,8 @@ namespace NotesWindowsFormsApp
         {
             foreach (var task in listOfAllTasks)
             {
-                if (task.Date == chosenDate && task.Time == TasksForDayDataGridView.CurrentRow.Cells[0].Value.ToString() && task.Text == TasksForDayDataGridView.CurrentRow.Cells[1].Value.ToString())
-                {
+                if (IsOurTask(task))
+                    {
                     TaskForm taskform = new TaskForm();
                     var time = TasksForDayDataGridView.CurrentRow.Cells[0].Value.ToString().Split(':');
                     taskform.HoursComboBox.Text = time[0];
@@ -185,16 +174,7 @@ namespace NotesWindowsFormsApp
 
                     if (taskform.ShowDialog(this) == DialogResult.OK)
                     {
-                        task.Time = taskform.HoursComboBox.Text + ":" + taskform.MinutesComboBox.Text;
-                        task.Text = taskform.CommentTextBox.Text;
-                        task.Date = taskform.TaskDateTimePicker.Value.ToShortDateString();
-
-                        if (task.Date == today&&
-                            Convert.ToInt32(taskform.HoursComboBox.Text)>= Convert.ToInt32(DateTime.Now.ToString("HH"))&& 
-                            Convert.ToInt32(taskform.MinutesComboBox.Text) >= Convert.ToInt32(DateTime.Now.ToString("mm"))
-                            )
-                        task.IsActual = true;
-
+                        SetTask(task, taskform);
                         UpdateMyTasks();                        
                     }
                     break;
@@ -205,7 +185,7 @@ namespace NotesWindowsFormsApp
         {
             foreach (var task in listOfAllTasks)
             {
-                if (task.Date == chosenDate && task.Time == TasksForDayDataGridView.CurrentRow.Cells[0].Value.ToString() && task.Text == TasksForDayDataGridView.CurrentRow.Cells[1].Value.ToString())
+                if (IsOurTask(task))
                 {
                     listOfAllTasks.Remove(task);
 
@@ -269,7 +249,27 @@ namespace NotesWindowsFormsApp
         {
             SaveNote();
         }       
-        private void тестToolStripMenuItem_Click(object sender, EventArgs e)
+        private bool IsOurTask(Task task)
+        {
+            return task.Date == chosenDate &&
+                    task.Time == TasksForDayDataGridView.CurrentRow.Cells[0].Value.ToString() &&
+                    task.Text == TasksForDayDataGridView.CurrentRow.Cells[1].Value.ToString();
+    }
+        private void SetTask(Task task, TaskForm taskform)
+        {
+
+            task.Time = taskform.HoursComboBox.Text + ":" + taskform.MinutesComboBox.Text;
+            task.Text = taskform.CommentTextBox.Text;
+            task.Date = taskform.TaskDateTimePicker.Value.ToShortDateString();
+
+            if (task.Date == today && String.Compare(task.Time, DateTime.Now.ToString("HH:mm")) > 0)
+                task.IsActual = true;
+            else
+                task.IsActual = false;
+
+            //return task;
+        }
+        private void ТестToolStripMenuItem_Click(object sender, EventArgs e)
         {
            
         }
