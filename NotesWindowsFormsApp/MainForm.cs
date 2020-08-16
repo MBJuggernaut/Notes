@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Media;
 using System.Windows.Forms;
 
 namespace NotesWindowsFormsApp
@@ -89,12 +88,7 @@ namespace NotesWindowsFormsApp
             if (taskform.ShowDialog(this) == DialogResult.OK)
             {
                 var editedTask = new Task();
-                SetTask(editedTask, taskform);
-                //{
-                //    Time = taskform.HoursComboBox.Text + ":" + taskform.MinutesComboBox.Text,
-                //    Text = taskform.CommentTextBox.Text,
-                //    Date = taskform.TaskDateTimePicker.Value.ToShortDateString()
-                //};
+                SetTask(editedTask, taskform);                
                 listOfAllTasks.Add(editedTask);
                 UpdateMyTasks();               
             }
@@ -117,6 +111,7 @@ namespace NotesWindowsFormsApp
             var coloreddates = myCalendar.BoldedDates.ToList();
             foreach (var taskfromlist in listOfAllTasks)
             {
+                if(taskfromlist.IsActual==true)
                 coloreddates.Add(Convert.ToDateTime(taskfromlist.Date));
             }
 
@@ -257,7 +252,6 @@ namespace NotesWindowsFormsApp
     }
         private void SetTask(Task task, TaskForm taskform)
         {
-
             task.Time = taskform.HoursComboBox.Text + ":" + taskform.MinutesComboBox.Text;
             task.Text = taskform.CommentTextBox.Text;
             task.Date = taskform.TaskDateTimePicker.Value.ToShortDateString();
@@ -265,9 +259,7 @@ namespace NotesWindowsFormsApp
             if (task.Date == today && String.Compare(task.Time, DateTime.Now.ToString("HH:mm")) > 0)
                 task.IsActual = true;
             else
-                task.IsActual = false;
-
-            //return task;
+                task.IsActual = false;       
         }
         private void ТестToolStripMenuItem_Click(object sender, EventArgs e)
         {
