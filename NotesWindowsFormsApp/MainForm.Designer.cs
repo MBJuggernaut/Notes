@@ -33,27 +33,36 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.notesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.TasksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tasksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.weatherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.тестToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notesPanel = new System.Windows.Forms.Panel();
             this.notesRichTextBox = new System.Windows.Forms.RichTextBox();
             this.todolistPanel = new System.Windows.Forms.Panel();
             this.thisisTasksForTheDayLabel = new System.Windows.Forms.Label();
-            this.AddTaskButton = new System.Windows.Forms.Button();
-            this.TasksForDayDataGridView = new System.Windows.Forms.DataGridView();
+            this.addTaskButton = new System.Windows.Forms.Button();
+            this.tasksForDayDataGridView = new System.Windows.Forms.DataGridView();
             this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Task = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TasksContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.ChangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.DeleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tasksContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.changeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.myCalendar = new System.Windows.Forms.MonthCalendar();
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.EveryTenSecondsTimer = new System.Windows.Forms.Timer(this.components);
+            this.everyTenSecondsTimer = new System.Windows.Forms.Timer(this.components);
+            this.weatherPanel = new System.Windows.Forms.Panel();
+            this.renewButton = new System.Windows.Forms.Button();
+            this.feelslikeLabel = new System.Windows.Forms.Label();
+            this.weatherPictureBox = new System.Windows.Forms.PictureBox();
+            this.cloudsLabel = new System.Windows.Forms.Label();
+            this.temperatureLabel = new System.Windows.Forms.Label();
             this.menuStrip.SuspendLayout();
             this.notesPanel.SuspendLayout();
             this.todolistPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.TasksForDayDataGridView)).BeginInit();
-            this.TasksContextMenuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tasksForDayDataGridView)).BeginInit();
+            this.tasksContextMenuStrip.SuspendLayout();
+            this.weatherPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.weatherPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip
@@ -63,7 +72,8 @@
             this.menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.notesToolStripMenuItem,
-            this.TasksToolStripMenuItem,
+            this.tasksToolStripMenuItem,
+            this.weatherToolStripMenuItem,
             this.тестToolStripMenuItem});
             this.menuStrip.Name = "menuStrip";
             // 
@@ -73,17 +83,22 @@
             resources.ApplyResources(this.notesToolStripMenuItem, "notesToolStripMenuItem");
             this.notesToolStripMenuItem.Click += new System.EventHandler(this.NotesToolStripMenuItem_Click);
             // 
-            // TasksToolStripMenuItem
+            // tasksToolStripMenuItem
             // 
-            this.TasksToolStripMenuItem.Name = "TasksToolStripMenuItem";
-            resources.ApplyResources(this.TasksToolStripMenuItem, "TasksToolStripMenuItem");
-            this.TasksToolStripMenuItem.Click += new System.EventHandler(this.TasksToolStripMenuItem_Click);
+            this.tasksToolStripMenuItem.Name = "tasksToolStripMenuItem";
+            resources.ApplyResources(this.tasksToolStripMenuItem, "tasksToolStripMenuItem");
+            this.tasksToolStripMenuItem.Click += new System.EventHandler(this.TasksToolStripMenuItem_Click);
+            // 
+            // weatherToolStripMenuItem
+            // 
+            this.weatherToolStripMenuItem.Name = "weatherToolStripMenuItem";
+            resources.ApplyResources(this.weatherToolStripMenuItem, "weatherToolStripMenuItem");
+            this.weatherToolStripMenuItem.Click += new System.EventHandler(this.WeatherToolStripMenuItem_Click);
             // 
             // тестToolStripMenuItem
             // 
             this.тестToolStripMenuItem.Name = "тестToolStripMenuItem";
             resources.ApplyResources(this.тестToolStripMenuItem, "тестToolStripMenuItem");
-            this.тестToolStripMenuItem.Click += new System.EventHandler(this.ТестToolStripMenuItem_Click);
             // 
             // notesPanel
             // 
@@ -103,8 +118,8 @@
             // 
             this.todolistPanel.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.todolistPanel.Controls.Add(this.thisisTasksForTheDayLabel);
-            this.todolistPanel.Controls.Add(this.AddTaskButton);
-            this.todolistPanel.Controls.Add(this.TasksForDayDataGridView);
+            this.todolistPanel.Controls.Add(this.addTaskButton);
+            this.todolistPanel.Controls.Add(this.tasksForDayDataGridView);
             this.todolistPanel.Controls.Add(this.myCalendar);
             resources.ApplyResources(this.todolistPanel, "todolistPanel");
             this.todolistPanel.Name = "todolistPanel";
@@ -114,45 +129,45 @@
             resources.ApplyResources(this.thisisTasksForTheDayLabel, "thisisTasksForTheDayLabel");
             this.thisisTasksForTheDayLabel.Name = "thisisTasksForTheDayLabel";
             // 
-            // AddTaskButton
+            // addTaskButton
             // 
-            resources.ApplyResources(this.AddTaskButton, "AddTaskButton");
-            this.AddTaskButton.Name = "AddTaskButton";
-            this.AddTaskButton.UseVisualStyleBackColor = true;
-            this.AddTaskButton.Click += new System.EventHandler(this.AddTaskButton_Click);
+            resources.ApplyResources(this.addTaskButton, "addTaskButton");
+            this.addTaskButton.Name = "addTaskButton";
+            this.addTaskButton.UseVisualStyleBackColor = true;
+            this.addTaskButton.Click += new System.EventHandler(this.AddTaskButton_Click);
             // 
-            // TasksForDayDataGridView
+            // tasksForDayDataGridView
             // 
-            this.TasksForDayDataGridView.AllowUserToAddRows = false;
-            this.TasksForDayDataGridView.AllowUserToDeleteRows = false;
-            this.TasksForDayDataGridView.AllowUserToResizeColumns = false;
-            this.TasksForDayDataGridView.AllowUserToResizeRows = false;
-            this.TasksForDayDataGridView.BackgroundColor = System.Drawing.SystemColors.HighlightText;
-            this.TasksForDayDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TasksForDayDataGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            this.TasksForDayDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.TasksForDayDataGridView.ColumnHeadersVisible = false;
-            this.TasksForDayDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.tasksForDayDataGridView.AllowUserToAddRows = false;
+            this.tasksForDayDataGridView.AllowUserToDeleteRows = false;
+            this.tasksForDayDataGridView.AllowUserToResizeColumns = false;
+            this.tasksForDayDataGridView.AllowUserToResizeRows = false;
+            this.tasksForDayDataGridView.BackgroundColor = System.Drawing.SystemColors.HighlightText;
+            this.tasksForDayDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tasksForDayDataGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.tasksForDayDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tasksForDayDataGridView.ColumnHeadersVisible = false;
+            this.tasksForDayDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Time,
             this.Task});
-            this.TasksForDayDataGridView.ContextMenuStrip = this.TasksContextMenuStrip;
-            this.TasksForDayDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.TasksForDayDataGridView.GridColor = System.Drawing.SystemColors.Window;
-            resources.ApplyResources(this.TasksForDayDataGridView, "TasksForDayDataGridView");
-            this.TasksForDayDataGridView.MultiSelect = false;
-            this.TasksForDayDataGridView.Name = "TasksForDayDataGridView";
-            this.TasksForDayDataGridView.ReadOnly = true;
-            this.TasksForDayDataGridView.RowHeadersVisible = false;
-            this.TasksForDayDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.tasksForDayDataGridView.ContextMenuStrip = this.tasksContextMenuStrip;
+            this.tasksForDayDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.tasksForDayDataGridView.GridColor = System.Drawing.SystemColors.Window;
+            resources.ApplyResources(this.tasksForDayDataGridView, "tasksForDayDataGridView");
+            this.tasksForDayDataGridView.MultiSelect = false;
+            this.tasksForDayDataGridView.Name = "tasksForDayDataGridView";
+            this.tasksForDayDataGridView.ReadOnly = true;
+            this.tasksForDayDataGridView.RowHeadersVisible = false;
+            this.tasksForDayDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Silver;
-            this.TasksForDayDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.TasksForDayDataGridView.RowTemplate.Height = 24;
-            this.TasksForDayDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.TasksForDayDataGridView.ShowCellErrors = false;
-            this.TasksForDayDataGridView.ShowCellToolTips = false;
-            this.TasksForDayDataGridView.ShowEditingIcon = false;
-            this.TasksForDayDataGridView.ShowRowErrors = false;
-            this.TasksForDayDataGridView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TasksForDayDataGridView_MouseDown);
+            this.tasksForDayDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.tasksForDayDataGridView.RowTemplate.Height = 24;
+            this.tasksForDayDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.tasksForDayDataGridView.ShowCellErrors = false;
+            this.tasksForDayDataGridView.ShowCellToolTips = false;
+            this.tasksForDayDataGridView.ShowEditingIcon = false;
+            this.tasksForDayDataGridView.ShowRowErrors = false;
+            this.tasksForDayDataGridView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TasksForDayDataGridView_MouseDown);
             // 
             // Time
             // 
@@ -168,27 +183,27 @@
             this.Task.ReadOnly = true;
             this.Task.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
-            // TasksContextMenuStrip
+            // tasksContextMenuStrip
             // 
-            this.TasksContextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.TasksContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ChangeToolStripMenuItem,
-            this.DeleteToolStripMenuItem});
-            this.TasksContextMenuStrip.Name = "TasksContextMenuStrip";
-            resources.ApplyResources(this.TasksContextMenuStrip, "TasksContextMenuStrip");
-            this.TasksContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.TasksContextMenuStrip_Opening);
+            this.tasksContextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.tasksContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.changeToolStripMenuItem,
+            this.deleteToolStripMenuItem});
+            this.tasksContextMenuStrip.Name = "TasksContextMenuStrip";
+            resources.ApplyResources(this.tasksContextMenuStrip, "tasksContextMenuStrip");
+            this.tasksContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.TasksContextMenuStrip_Opening);
             // 
-            // ChangeToolStripMenuItem
+            // changeToolStripMenuItem
             // 
-            this.ChangeToolStripMenuItem.Name = "ChangeToolStripMenuItem";
-            resources.ApplyResources(this.ChangeToolStripMenuItem, "ChangeToolStripMenuItem");
-            this.ChangeToolStripMenuItem.Click += new System.EventHandler(this.ChangeToolStripMenuItem_Click);
+            this.changeToolStripMenuItem.Name = "changeToolStripMenuItem";
+            resources.ApplyResources(this.changeToolStripMenuItem, "changeToolStripMenuItem");
+            this.changeToolStripMenuItem.Click += new System.EventHandler(this.ChangeToolStripMenuItem_Click);
             // 
-            // DeleteToolStripMenuItem
+            // deleteToolStripMenuItem
             // 
-            this.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem";
-            resources.ApplyResources(this.DeleteToolStripMenuItem, "DeleteToolStripMenuItem");
-            this.DeleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            resources.ApplyResources(this.deleteToolStripMenuItem, "deleteToolStripMenuItem");
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
             // 
             // myCalendar
             // 
@@ -203,16 +218,55 @@
             resources.ApplyResources(this.trayIcon, "trayIcon");
             this.trayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TrayIcon_MouseDoubleClick);
             // 
-            // EveryTenSecondsTimer
+            // everyTenSecondsTimer
             // 
-            this.EveryTenSecondsTimer.Enabled = true;
-            this.EveryTenSecondsTimer.Interval = 10000;
-            this.EveryTenSecondsTimer.Tick += new System.EventHandler(this.EveryTenSecondsTimer_Tick);
+            this.everyTenSecondsTimer.Enabled = true;
+            this.everyTenSecondsTimer.Interval = 10000;
+            this.everyTenSecondsTimer.Tick += new System.EventHandler(this.EveryTenSecondsTimer_Tick);
+            // 
+            // weatherPanel
+            // 
+            this.weatherPanel.Controls.Add(this.renewButton);
+            this.weatherPanel.Controls.Add(this.feelslikeLabel);
+            this.weatherPanel.Controls.Add(this.weatherPictureBox);
+            this.weatherPanel.Controls.Add(this.cloudsLabel);
+            this.weatherPanel.Controls.Add(this.temperatureLabel);
+            resources.ApplyResources(this.weatherPanel, "weatherPanel");
+            this.weatherPanel.Name = "weatherPanel";
+            // 
+            // renewButton
+            // 
+            resources.ApplyResources(this.renewButton, "renewButton");
+            this.renewButton.Name = "renewButton";
+            this.renewButton.UseVisualStyleBackColor = true;
+            this.renewButton.Click += new System.EventHandler(this.RenewButton_Click);
+            // 
+            // feelslikeLabel
+            // 
+            resources.ApplyResources(this.feelslikeLabel, "feelslikeLabel");
+            this.feelslikeLabel.Name = "feelslikeLabel";
+            // 
+            // weatherPictureBox
+            // 
+            resources.ApplyResources(this.weatherPictureBox, "weatherPictureBox");
+            this.weatherPictureBox.Name = "weatherPictureBox";
+            this.weatherPictureBox.TabStop = false;
+            // 
+            // cloudsLabel
+            // 
+            resources.ApplyResources(this.cloudsLabel, "cloudsLabel");
+            this.cloudsLabel.Name = "cloudsLabel";
+            // 
+            // temperatureLabel
+            // 
+            resources.ApplyResources(this.temperatureLabel, "temperatureLabel");
+            this.temperatureLabel.Name = "temperatureLabel";
             // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.weatherPanel);
             this.Controls.Add(this.todolistPanel);
             this.Controls.Add(this.notesPanel);
             this.Controls.Add(this.menuStrip);
@@ -227,8 +281,11 @@
             this.notesPanel.ResumeLayout(false);
             this.todolistPanel.ResumeLayout(false);
             this.todolistPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.TasksForDayDataGridView)).EndInit();
-            this.TasksContextMenuStrip.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tasksForDayDataGridView)).EndInit();
+            this.tasksContextMenuStrip.ResumeLayout(false);
+            this.weatherPanel.ResumeLayout(false);
+            this.weatherPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.weatherPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -237,20 +294,29 @@
         #endregion
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem notesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem TasksToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tasksToolStripMenuItem;
         private System.Windows.Forms.Panel notesPanel;
         private System.Windows.Forms.Panel todolistPanel;
         private System.Windows.Forms.MonthCalendar myCalendar;
         private System.Windows.Forms.NotifyIcon trayIcon;
-        private System.Windows.Forms.Button AddTaskButton;
-        private System.Windows.Forms.ContextMenuStrip TasksContextMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem ChangeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem DeleteToolStripMenuItem;
-        private System.Windows.Forms.Timer EveryTenSecondsTimer;
+        private System.Windows.Forms.Button addTaskButton;
+        private System.Windows.Forms.ContextMenuStrip tasksContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem changeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.Timer everyTenSecondsTimer;
         private System.Windows.Forms.Label thisisTasksForTheDayLabel;
         private System.Windows.Forms.RichTextBox notesRichTextBox;
         private System.Windows.Forms.ToolStripMenuItem тестToolStripMenuItem;
-        private System.Windows.Forms.DataGridView TasksForDayDataGridView;
+        private System.Windows.Forms.DataGridView tasksForDayDataGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn time;
+        private System.Windows.Forms.DataGridViewTextBoxColumn task;
+        private System.Windows.Forms.Panel weatherPanel;
+        private System.Windows.Forms.Label temperatureLabel;
+        private System.Windows.Forms.Label cloudsLabel;
+        private System.Windows.Forms.PictureBox weatherPictureBox;
+        private System.Windows.Forms.Label feelslikeLabel;
+        private System.Windows.Forms.ToolStripMenuItem weatherToolStripMenuItem;
+        private System.Windows.Forms.Button renewButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn Time;
         private System.Windows.Forms.DataGridViewTextBoxColumn Task;
     }

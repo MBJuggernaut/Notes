@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TaskForm));
-            this.OkButton = new System.Windows.Forms.Button();
-            this.CancelFormButton = new System.Windows.Forms.Button();
+            this.okButton = new System.Windows.Forms.Button();
+            this.cancelFormButton = new System.Windows.Forms.Button();
             this.CommentTextBox = new System.Windows.Forms.TextBox();
             this.HoursComboBox = new System.Windows.Forms.ComboBox();
             this.MinutesComboBox = new System.Windows.Forms.ComboBox();
@@ -42,23 +42,23 @@
             // 
             // OkButton
             // 
-            this.OkButton.Location = new System.Drawing.Point(44, 396);
-            this.OkButton.Name = "OkButton";
-            this.OkButton.Size = new System.Drawing.Size(62, 29);
-            this.OkButton.TabIndex = 0;
-            this.OkButton.Text = "Ok";
-            this.OkButton.UseVisualStyleBackColor = true;
-            this.OkButton.Click += new System.EventHandler(this.OkButton_Click);
+            this.okButton.Location = new System.Drawing.Point(44, 396);
+            this.okButton.Name = "OkButton";
+            this.okButton.Size = new System.Drawing.Size(62, 29);
+            this.okButton.TabIndex = 0;
+            this.okButton.Text = "Ok";
+            this.okButton.UseVisualStyleBackColor = true;
+            this.okButton.Click += new System.EventHandler(this.OkButton_Click);
             // 
             // CancelFormButton
             // 
-            this.CancelFormButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelFormButton.Location = new System.Drawing.Point(164, 396);
-            this.CancelFormButton.Name = "CancelFormButton";
-            this.CancelFormButton.Size = new System.Drawing.Size(93, 29);
-            this.CancelFormButton.TabIndex = 1;
-            this.CancelFormButton.Text = "Отмена";
-            this.CancelFormButton.UseVisualStyleBackColor = true;
+            this.cancelFormButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.cancelFormButton.Location = new System.Drawing.Point(164, 396);
+            this.cancelFormButton.Name = "CancelFormButton";
+            this.cancelFormButton.Size = new System.Drawing.Size(93, 29);
+            this.cancelFormButton.TabIndex = 1;
+            this.cancelFormButton.Text = "Отмена";
+            this.cancelFormButton.UseVisualStyleBackColor = true;
             // 
             // CommentTextBox
             // 
@@ -224,8 +224,8 @@
             this.Controls.Add(this.MinutesComboBox);
             this.Controls.Add(this.HoursComboBox);
             this.Controls.Add(this.CommentTextBox);
-            this.Controls.Add(this.CancelFormButton);
-            this.Controls.Add(this.OkButton);
+            this.Controls.Add(this.cancelFormButton);
+            this.Controls.Add(this.okButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -239,8 +239,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Button OkButton;
-        private System.Windows.Forms.Button CancelFormButton;
+        private System.Windows.Forms.Button okButton;
+        private System.Windows.Forms.Button cancelFormButton;
         public System.Windows.Forms.TextBox CommentTextBox;
         public System.Windows.Forms.ComboBox HoursComboBox;
         public System.Windows.Forms.ComboBox MinutesComboBox;

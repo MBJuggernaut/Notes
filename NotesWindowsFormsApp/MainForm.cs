@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
+using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -35,8 +37,10 @@ namespace NotesWindowsFormsApp
         }
         private void TasksToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            todolistPanel.Dock = DockStyle.Fill;
             todolistPanel.Show();
             notesPanel.Hide();
+            weatherPanel.Hide();
 
             chosenDate = today;
             UpdateMyTasks();
@@ -47,6 +51,7 @@ namespace NotesWindowsFormsApp
             notesPanel.Dock = DockStyle.Fill;
             notesRichTextBox.Dock = DockStyle.Fill;
             todolistPanel.Hide();
+            weatherPanel.Hide();
         }
         private void MainForm_Resize(object sender, EventArgs e)
         {
@@ -67,7 +72,7 @@ namespace NotesWindowsFormsApp
         {
             chosenDate = myCalendar.SelectionRange.Start.ToShortDateString();
             ShowTasksForDay();
-        }         
+        }
         private void AddTaskButton_Click(object sender, EventArgs e)
         {
             TaskForm taskform = new TaskForm();
@@ -88,20 +93,20 @@ namespace NotesWindowsFormsApp
             if (taskform.ShowDialog(this) == DialogResult.OK)
             {
                 var editedTask = new Task();
-                SetTask(editedTask, taskform);                
+                SetTask(editedTask, taskform);
                 listOfAllTasks.Add(editedTask);
-                UpdateMyTasks();               
+                UpdateMyTasks();
             }
         }
         private void ShowTasksForDay()
         {
-            TasksForDayDataGridView.Rows.Clear();
+            tasksForDayDataGridView.Rows.Clear();
 
             foreach (var taskfromlist in listOfAllTasks)
             {
                 if (taskfromlist.Date == chosenDate)
                 {
-                    TasksForDayDataGridView.Rows.Add(taskfromlist.Time, taskfromlist.Text);
+                    tasksForDayDataGridView.Rows.Add(taskfromlist.Time, taskfromlist.Text);
                 }
             }
         }
@@ -111,8 +116,8 @@ namespace NotesWindowsFormsApp
             var coloreddates = myCalendar.BoldedDates.ToList();
             foreach (var taskfromlist in listOfAllTasks)
             {
-                if(taskfromlist.IsActual==true)
-                coloreddates.Add(Convert.ToDateTime(taskfromlist.Date));
+                if (taskfromlist.IsActual == true)
+                    coloreddates.Add(Convert.ToDateTime(taskfromlist.Date));
             }
 
             myCalendar.BoldedDates = coloreddates.ToArray();
@@ -137,31 +142,31 @@ namespace NotesWindowsFormsApp
             ShowTasksForDay();
             ColorDates();
             GetTodayTasks();
-            TasksForDayDataGridView.ClearSelection();
+            tasksForDayDataGridView.ClearSelection();
         }
         private void TasksForDayDataGridView_MouseDown(object sender, MouseEventArgs e)
-        {            
-            DataGridView.HitTestInfo hit = TasksForDayDataGridView.HitTest(e.X, e.Y);
-            if (hit.Type != DataGridViewHitTestType.Cell || TasksForDayDataGridView.Rows[hit.RowIndex].Cells[hit.ColumnIndex].Value==null)
+        {
+            DataGridView.HitTestInfo hit = tasksForDayDataGridView.HitTest(e.X, e.Y);
+            if (hit.Type != DataGridViewHitTestType.Cell || tasksForDayDataGridView.Rows[hit.RowIndex].Cells[hit.ColumnIndex].Value == null)
             {
-                TasksForDayDataGridView.ClearSelection();
+                tasksForDayDataGridView.ClearSelection();
                 return;
             }
 
-            TasksForDayDataGridView.Rows[hit.RowIndex].Selected = true;                       
+            tasksForDayDataGridView.Rows[hit.RowIndex].Selected = true;
         }
         private void TasksContextMenuStrip_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (TasksForDayDataGridView.SelectedRows.Count != 1) e.Cancel = true;
+            if (tasksForDayDataGridView.SelectedRows.Count != 1) e.Cancel = true;
         }
         private void ChangeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             foreach (var task in listOfAllTasks)
             {
                 if (IsOurTask(task))
-                    {
+                {
                     TaskForm taskform = new TaskForm();
-                    var time = TasksForDayDataGridView.CurrentRow.Cells[0].Value.ToString().Split(':');
+                    var time = tasksForDayDataGridView.CurrentRow.Cells[0].Value.ToString().Split(':');
                     taskform.HoursComboBox.Text = time[0];
                     taskform.MinutesComboBox.Text = time[1];
                     taskform.CommentTextBox.Text = task.Text;
@@ -170,7 +175,7 @@ namespace NotesWindowsFormsApp
                     if (taskform.ShowDialog(this) == DialogResult.OK)
                     {
                         SetTask(task, taskform);
-                        UpdateMyTasks();                        
+                        UpdateMyTasks();
                     }
                     break;
                 }
@@ -184,7 +189,7 @@ namespace NotesWindowsFormsApp
                 {
                     listOfAllTasks.Remove(task);
 
-                    UpdateMyTasks();                    
+                    UpdateMyTasks();
 
                     break;
                 }
@@ -203,7 +208,7 @@ namespace NotesWindowsFormsApp
             }
         }
         private void EveryTenSecondsTimer_Tick(object sender, EventArgs e)
-        {            
+        {
             var currenttime = DateTime.Now.ToString("HH:mm");
 
             if (currenttime == "00:00")
@@ -214,18 +219,18 @@ namespace NotesWindowsFormsApp
             {
                 foreach (var taskfromlist in listOfTodayTasks)
                 {
-                    if (taskfromlist.Time == currenttime&&taskfromlist.IsActual==true)
+                    if (taskfromlist.Time == currenttime && taskfromlist.IsActual == true)
                     {
                         taskfromlist.IsActual = false;
-                        EveryTenSecondsTimer.Stop();
+                        everyTenSecondsTimer.Stop();
                         AlertForm alertForm = new AlertForm();
                         alertForm.AlertMessageLabel.Text = taskfromlist.Text;
-                        alertForm.TopMost = true;                        
+                        alertForm.TopMost = true;
                         alertForm.Show();
 
                         listOfTodayTasks.Remove(taskfromlist);
 
-                        EveryTenSecondsTimer.Start();
+                        everyTenSecondsTimer.Start();
                         return;
                     }
                 }
@@ -243,13 +248,13 @@ namespace NotesWindowsFormsApp
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveNote();
-        }       
+        }
         private bool IsOurTask(Task task)
         {
             return task.Date == chosenDate &&
-                    task.Time == TasksForDayDataGridView.CurrentRow.Cells[0].Value.ToString() &&
-                    task.Text == TasksForDayDataGridView.CurrentRow.Cells[1].Value.ToString();
-    }
+                    task.Time == tasksForDayDataGridView.CurrentRow.Cells[0].Value.ToString() &&
+                    task.Text == tasksForDayDataGridView.CurrentRow.Cells[1].Value.ToString();
+        }
         private void SetTask(Task task, TaskForm taskform)
         {
             task.Time = taskform.HoursComboBox.Text + ":" + taskform.MinutesComboBox.Text;
@@ -259,14 +264,40 @@ namespace NotesWindowsFormsApp
             if (task.Date == today && String.Compare(task.Time, DateTime.Now.ToString("HH:mm")) > 0)
                 task.IsActual = true;
             else
-                task.IsActual = false;       
+                task.IsActual = false;
         }
-        private void ТестToolStripMenuItem_Click(object sender, EventArgs e)
+        private void WeatherToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           
+            notesPanel.Hide();
+            todolistPanel.Hide();
+            weatherPanel.Show();
+
+            GetWeather();
+        }        
+        private void GetWeather()
+        {
+            var client = new RestClient("https://api.openweathermap.org/data/2.5/weather?id=498817&units=metric&appid=4ca2924788b62ba92795cd5c28339ba3&lang=ru")
+            {
+                Timeout = -1
+            };
+            var request = new RestRequest(Method.GET);
+            IRestResponse response = client.Execute(request);
+            var weatherData = JsonConvert.DeserializeObject<FullWeatherInfo>(response.Content);
+
+            temperatureLabel.Text = String.Format("{0} °C", weatherData.Main.Temp.ToString());
+            cloudsLabel.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(weatherData.Weather[0].Description.ToString().ToLower());
+            feelslikeLabel.Text = String.Format("Ощущается как {0}", weatherData.Main.Feels_like.ToString());
+            var iconURL = "http://openweathermap.org/img/wn/" + weatherData.Weather[0].Icon + "@2x.png";
+            weatherPictureBox.ImageLocation = iconURL;
+        }        
+        private void RenewButton_Click(object sender, EventArgs e)
+        {
+            GetWeather();
         }
     }
 }
+
+
     
 
 
