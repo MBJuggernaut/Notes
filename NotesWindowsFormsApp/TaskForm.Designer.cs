@@ -234,11 +234,9 @@
             this.Text = "Задача";
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
-
         private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.Button cancelFormButton;
         public System.Windows.Forms.TextBox CommentTextBox;

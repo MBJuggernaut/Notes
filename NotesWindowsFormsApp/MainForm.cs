@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using RestSharp;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -14,26 +13,26 @@ namespace NotesWindowsFormsApp
         {
             InitializeComponent();
         }
-        private Note myNote;
-        readonly string notePath = "notes.json";
-        readonly string tasksPath = "tasks.json";
+        private Note myNote = new Note();
+
+
         private string chosenDate;
         private string today;
         private List<Task> listOfAllTasks;
         private List<Task> listOfTodayTasks = new List<Task>();
-
+        readonly TaskRepository taskManager = new TaskRepository();
+        readonly NoteRepository noteRepository = new NoteRepository();
+        readonly WeatherInfoRepository weatherInfoRepository = new WeatherInfoRepository();
         private void MainForm_Load(object sender, EventArgs e)
         {
-            myNote = new Note
-            {
-                Text = FileProvider.CreateOrGet(notePath)
-            };
+            myNote = noteRepository.Get();
             notesRichTextBox.Text = myNote.Text;
             notesToolStripMenuItem.PerformClick();
 
-            listOfAllTasks = JsonConvert.DeserializeObject<List<Task>>(FileProvider.CreateOrGet(tasksPath)) ?? new List<Task>(); // узнал про оператор условного null
+            listOfAllTasks = taskManager.GetAll();
 
             GetTodayTasks();
+            GetWeather();
         }
         private void TasksToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -122,26 +121,13 @@ namespace NotesWindowsFormsApp
 
             myCalendar.BoldedDates = coloreddates.ToArray();
         }
-        private void SortTasks()
-        {
-            var sortedTasks = from t in listOfAllTasks
-                              orderby t.Date, t.Time ascending
-                              select t;
-
-            listOfAllTasks = sortedTasks.ToList();
-        }
-        private void SaveTasks()
-        {
-            var jsontasks = JsonConvert.SerializeObject(listOfAllTasks, Formatting.Indented);
-            FileProvider.Replace(tasksPath, jsontasks);
-        }
         private void UpdateMyTasks()
         {
-            SaveTasks();
             SortTasks();
+            taskManager.Update(listOfAllTasks);
             ShowTasksForDay();
-            ColorDates();
             GetTodayTasks();
+            ColorDates();
             tasksForDayDataGridView.ClearSelection();
         }
         private void TasksForDayDataGridView_MouseDown(object sender, MouseEventArgs e)
@@ -205,7 +191,19 @@ namespace NotesWindowsFormsApp
                 {
                     listOfTodayTasks.Add(taskfromlist);
                 }
+
+                if (!IsActual(taskfromlist))
+                {
+                    taskfromlist.IsActual = false;
+                }
             }
+        }
+        public void SortTasks()
+        {
+            var sortedTasks = from t in listOfAllTasks
+                              orderby t.Date, t.Time ascending
+                              select t;
+            listOfAllTasks = sortedTasks.ToList();
         }
         private void EveryTenSecondsTimer_Tick(object sender, EventArgs e)
         {
@@ -228,8 +226,6 @@ namespace NotesWindowsFormsApp
                         alertForm.TopMost = true;
                         alertForm.Show();
 
-                        listOfTodayTasks.Remove(taskfromlist);
-
                         everyTenSecondsTimer.Start();
                         return;
                     }
@@ -239,7 +235,7 @@ namespace NotesWindowsFormsApp
         private void SaveNote()
         {
             myNote.Text = notesRichTextBox.Text;
-            FileProvider.Replace(notePath, myNote.Text);
+            noteRepository.Update(myNote);
         }
         private void NotesRichTextBox_Leave(object sender, EventArgs e)
         {
@@ -255,15 +251,18 @@ namespace NotesWindowsFormsApp
                     task.Time == tasksForDayDataGridView.CurrentRow.Cells[0].Value.ToString() &&
                     task.Text == tasksForDayDataGridView.CurrentRow.Cells[1].Value.ToString();
         }
+        private bool IsActual(Task task)
+        {
+            return DateTime.Compare(Convert.ToDateTime(task.Date), DateTime.Today) >= 0 &&
+                     String.Compare(task.Time, DateTime.Now.ToString("HH:mm")) > 0;
+        }
         private void SetTask(Task task, TaskForm taskform)
         {
             task.Time = taskform.HoursComboBox.Text + ":" + taskform.MinutesComboBox.Text;
             task.Text = taskform.CommentTextBox.Text;
             task.Date = taskform.TaskDateTimePicker.Value.ToShortDateString();
 
-            if (task.Date == today && String.Compare(task.Time, DateTime.Now.ToString("HH:mm")) > 0)
-                task.IsActual = true;
-            else
+            if (!IsActual(task))
                 task.IsActual = false;
         }
         private void WeatherToolStripMenuItem_Click(object sender, EventArgs e)
@@ -271,26 +270,22 @@ namespace NotesWindowsFormsApp
             notesPanel.Hide();
             todolistPanel.Hide();
             weatherPanel.Show();
-
-            GetWeather();
-        }        
+        }
         private void GetWeather()
         {
-            var client = new RestClient("https://api.openweathermap.org/data/2.5/weather?id=498817&units=metric&appid=4ca2924788b62ba92795cd5c28339ba3&lang=ru")
-            {
-                Timeout = -1
-            };
-            var request = new RestRequest(Method.GET);
-            IRestResponse response = client.Execute(request);
-            var weatherData = JsonConvert.DeserializeObject<FullWeatherInfo>(response.Content);
+            var weatherData = weatherInfoRepository.GetData().Result;
 
             temperatureLabel.Text = String.Format("{0} °C", weatherData.Main.Temp.ToString());
             cloudsLabel.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(weatherData.Weather[0].Description.ToString().ToLower());
             feelslikeLabel.Text = String.Format("Ощущается как {0}", weatherData.Main.Feels_like.ToString());
             var iconURL = "http://openweathermap.org/img/wn/" + weatherData.Weather[0].Icon + "@2x.png";
             weatherPictureBox.ImageLocation = iconURL;
-        }        
-        private void RenewButton_Click(object sender, EventArgs e)
+
+        }      
+        private void ТестToolStripMenuItem_Click(object sender, EventArgs e)
+        {            
+        }
+        private void weatherTimer_Tick(object sender, EventArgs e)
         {
             GetWeather();
         }
@@ -298,6 +293,7 @@ namespace NotesWindowsFormsApp
 }
 
 
-    
+
+
 
 

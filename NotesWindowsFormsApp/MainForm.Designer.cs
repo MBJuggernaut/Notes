@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.notesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tasksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,11 +51,11 @@
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.everyTenSecondsTimer = new System.Windows.Forms.Timer(this.components);
             this.weatherPanel = new System.Windows.Forms.Panel();
-            this.renewButton = new System.Windows.Forms.Button();
             this.feelslikeLabel = new System.Windows.Forms.Label();
             this.weatherPictureBox = new System.Windows.Forms.PictureBox();
             this.cloudsLabel = new System.Windows.Forms.Label();
             this.temperatureLabel = new System.Windows.Forms.Label();
+            this.weatherTimer = new System.Windows.Forms.Timer(this.components);
             this.menuStrip.SuspendLayout();
             this.notesPanel.SuspendLayout();
             this.todolistPanel.SuspendLayout();
@@ -99,6 +99,7 @@
             // 
             this.тестToolStripMenuItem.Name = "тестToolStripMenuItem";
             resources.ApplyResources(this.тестToolStripMenuItem, "тестToolStripMenuItem");
+            this.тестToolStripMenuItem.Click += new System.EventHandler(this.ТестToolStripMenuItem_Click);
             // 
             // notesPanel
             // 
@@ -159,8 +160,8 @@
             this.tasksForDayDataGridView.ReadOnly = true;
             this.tasksForDayDataGridView.RowHeadersVisible = false;
             this.tasksForDayDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Silver;
-            this.tasksForDayDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Silver;
+            this.tasksForDayDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.tasksForDayDataGridView.RowTemplate.Height = 24;
             this.tasksForDayDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tasksForDayDataGridView.ShowCellErrors = false;
@@ -226,20 +227,12 @@
             // 
             // weatherPanel
             // 
-            this.weatherPanel.Controls.Add(this.renewButton);
             this.weatherPanel.Controls.Add(this.feelslikeLabel);
             this.weatherPanel.Controls.Add(this.weatherPictureBox);
             this.weatherPanel.Controls.Add(this.cloudsLabel);
             this.weatherPanel.Controls.Add(this.temperatureLabel);
             resources.ApplyResources(this.weatherPanel, "weatherPanel");
             this.weatherPanel.Name = "weatherPanel";
-            // 
-            // renewButton
-            // 
-            resources.ApplyResources(this.renewButton, "renewButton");
-            this.renewButton.Name = "renewButton";
-            this.renewButton.UseVisualStyleBackColor = true;
-            this.renewButton.Click += new System.EventHandler(this.RenewButton_Click);
             // 
             // feelslikeLabel
             // 
@@ -261,6 +254,12 @@
             // 
             resources.ApplyResources(this.temperatureLabel, "temperatureLabel");
             this.temperatureLabel.Name = "temperatureLabel";
+            // 
+            // weatherTimer
+            // 
+            this.weatherTimer.Enabled = true;
+            this.weatherTimer.Interval = 900000;
+            this.weatherTimer.Tick += new System.EventHandler(this.weatherTimer_Tick);
             // 
             // MainForm
             // 
@@ -316,9 +315,9 @@
         private System.Windows.Forms.PictureBox weatherPictureBox;
         private System.Windows.Forms.Label feelslikeLabel;
         private System.Windows.Forms.ToolStripMenuItem weatherToolStripMenuItem;
-        private System.Windows.Forms.Button renewButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn Time;
         private System.Windows.Forms.DataGridViewTextBoxColumn Task;
+        private System.Windows.Forms.Timer weatherTimer;
     }
 }
 
