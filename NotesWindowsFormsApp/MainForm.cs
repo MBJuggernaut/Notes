@@ -14,7 +14,6 @@ namespace NotesWindowsFormsApp
         }
         private Note myNote = new Note();
 
-
         private string chosenDate;
         private string today;
         private List<Task> listOfAllTasks;
