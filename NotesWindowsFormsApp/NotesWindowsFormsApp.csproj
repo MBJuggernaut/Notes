@@ -64,10 +64,12 @@
       <DependentUpon>AlertForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FileProvider.cs" />
+    <Compile Include="NoteRepository.cs" />
+    <Compile Include="TaskRepository.cs" />
     <Compile Include="WeatherInfo.cs" />
     <Compile Include="INoteRepository.cs" />
     <Compile Include="ITaskRepository.cs" />
-    <Compile Include="IWeatherInfoRepository.cs" />
+    <Compile Include="IWeatherInfoProvider.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +87,7 @@
       <DependentUpon>TaskForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Validation.cs" />
+    <Compile Include="WeatherInfoProvider.cs" />
     <EmbeddedResource Include="AlertForm.resx">
       <DependentUpon>AlertForm.cs</DependentUpon>
     </EmbeddedResource>

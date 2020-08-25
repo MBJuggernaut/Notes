@@ -1,14 +1,6 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.IO;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace NotesWindowsFormsApp
+﻿namespace NotesWindowsFormsApp
 {
-  public class WeatherInfo
+    public class WeatherInfo
     {        
         public Weather[] Weather { get; set; }
         public Main Main { get; set; }

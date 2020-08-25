@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -22,7 +21,7 @@ namespace NotesWindowsFormsApp
         private List<Task> listOfTodayTasks = new List<Task>();
         readonly TaskRepository taskManager = new TaskRepository();
         readonly NoteRepository noteRepository = new NoteRepository();
-        readonly WeatherInfoRepository weatherInfoRepository = new WeatherInfoRepository();
+        readonly WeatherInfoProvider weatherInfoRepository = new WeatherInfoProvider();
         private void MainForm_Load(object sender, EventArgs e)
         {
             myNote = noteRepository.Get();
@@ -270,6 +269,7 @@ namespace NotesWindowsFormsApp
             notesPanel.Hide();
             todolistPanel.Hide();
             weatherPanel.Show();
+            weatherPanel.Dock = DockStyle.Fill;
         }
         private void GetWeather()
         {
@@ -283,9 +283,10 @@ namespace NotesWindowsFormsApp
 
         }      
         private void ТестToolStripMenuItem_Click(object sender, EventArgs e)
-        {            
+        {
+            
         }
-        private void weatherTimer_Tick(object sender, EventArgs e)
+        private void WeatherTimer_Tick(object sender, EventArgs e)
         {
             GetWeather();
         }

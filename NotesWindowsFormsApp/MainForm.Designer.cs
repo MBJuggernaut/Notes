@@ -140,7 +140,6 @@
             // tasksForDayDataGridView
             // 
             this.tasksForDayDataGridView.AllowUserToAddRows = false;
-            this.tasksForDayDataGridView.AllowUserToDeleteRows = false;
             this.tasksForDayDataGridView.AllowUserToResizeColumns = false;
             this.tasksForDayDataGridView.AllowUserToResizeRows = false;
             this.tasksForDayDataGridView.BackgroundColor = System.Drawing.SystemColors.HighlightText;
@@ -259,7 +258,7 @@
             // 
             this.weatherTimer.Enabled = true;
             this.weatherTimer.Interval = 900000;
-            this.weatherTimer.Tick += new System.EventHandler(this.weatherTimer_Tick);
+            this.weatherTimer.Tick += new System.EventHandler(this.WeatherTimer_Tick);
             // 
             // MainForm
             // 

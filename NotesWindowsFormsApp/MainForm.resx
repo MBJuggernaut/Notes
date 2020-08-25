@@ -231,75 +231,6 @@
   <data name="&gt;&gt;notesRichTextBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;thisisTasksForTheDayLabel.Name" xml:space="preserve">
-    <value>thisisTasksForTheDayLabel</value>
-  </data>
-  <data name="&gt;&gt;thisisTasksForTheDayLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;thisisTasksForTheDayLabel.Parent" xml:space="preserve">
-    <value>todolistPanel</value>
-  </data>
-  <data name="&gt;&gt;thisisTasksForTheDayLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;addTaskButton.Name" xml:space="preserve">
-    <value>addTaskButton</value>
-  </data>
-  <data name="&gt;&gt;addTaskButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;addTaskButton.Parent" xml:space="preserve">
-    <value>todolistPanel</value>
-  </data>
-  <data name="&gt;&gt;addTaskButton.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;tasksForDayDataGridView.Name" xml:space="preserve">
-    <value>tasksForDayDataGridView</value>
-  </data>
-  <data name="&gt;&gt;tasksForDayDataGridView.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tasksForDayDataGridView.Parent" xml:space="preserve">
-    <value>todolistPanel</value>
-  </data>
-  <data name="&gt;&gt;tasksForDayDataGridView.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;myCalendar.Name" xml:space="preserve">
-    <value>myCalendar</value>
-  </data>
-  <data name="&gt;&gt;myCalendar.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MonthCalendar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;myCalendar.Parent" xml:space="preserve">
-    <value>todolistPanel</value>
-  </data>
-  <data name="&gt;&gt;myCalendar.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="todolistPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>406, 0</value>
-  </data>
-  <data name="todolistPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>258, 17</value>
-  </data>
-  <data name="todolistPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;todolistPanel.Name" xml:space="preserve">
-    <value>todolistPanel</value>
-  </data>
-  <data name="&gt;&gt;todolistPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;todolistPanel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;todolistPanel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="thisisTasksForTheDayLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -408,18 +339,6 @@
   <data name="&gt;&gt;tasksForDayDataGridView.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="changeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 24</value>
-  </data>
-  <data name="changeToolStripMenuItem.Text" xml:space="preserve">
-    <value>Изменить</value>
-  </data>
-  <data name="deleteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 24</value>
-  </data>
-  <data name="deleteToolStripMenuItem.Text" xml:space="preserve">
-    <value>Удалить</value>
-  </data>
   <data name="myCalendar.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Right</value>
   </data>
@@ -427,7 +346,7 @@
     <value>NoControl</value>
   </data>
   <data name="myCalendar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>66, 0</value>
+    <value>77, 0</value>
   </data>
   <data name="myCalendar.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -443,6 +362,39 @@
   </data>
   <data name="&gt;&gt;myCalendar.ZOrder" xml:space="preserve">
     <value>3</value>
+  </data>
+  <data name="todolistPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>136, 35</value>
+  </data>
+  <data name="todolistPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>269, 70</value>
+  </data>
+  <data name="todolistPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;todolistPanel.Name" xml:space="preserve">
+    <value>todolistPanel</value>
+  </data>
+  <data name="&gt;&gt;todolistPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;todolistPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;todolistPanel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="changeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 24</value>
+  </data>
+  <data name="changeToolStripMenuItem.Text" xml:space="preserve">
+    <value>Изменить</value>
+  </data>
+  <data name="deleteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 24</value>
+  </data>
+  <data name="deleteToolStripMenuItem.Text" xml:space="preserve">
+    <value>Удалить</value>
   </data>
   <metadata name="trayIcon.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>571, 17</value>
@@ -779,14 +731,11 @@
   <data name="&gt;&gt;temperatureLabel.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="weatherPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
   <data name="weatherPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>86, 0</value>
+    <value>690, 0</value>
   </data>
   <data name="weatherPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>746, 457</value>
+    <value>142, 457</value>
   </data>
   <data name="weatherPanel.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
