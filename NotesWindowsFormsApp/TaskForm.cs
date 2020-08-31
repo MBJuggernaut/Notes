@@ -18,8 +18,9 @@ namespace NotesWindowsFormsApp
             {
                 Time = HoursComboBox.Text + ":" + MinutesComboBox.Text,
                 Text = CommentTextBox.Text,
-                Date = TaskDateTimePicker.Value.ToShortDateString()
-            };
+                Date = TaskDateTimePicker.Value.Date                
+        };
+
             var errors = Validation.Check(newTask);
 
             if (errors.Count == 0)

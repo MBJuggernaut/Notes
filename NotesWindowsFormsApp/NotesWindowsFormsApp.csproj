@@ -74,7 +74,9 @@
     </Compile>
     <Compile Include="FileProvider.cs" />
     <Compile Include="NoteRepository.cs" />
-    <Compile Include="TaskRepository.cs" />
+    <Compile Include="TaskContext.cs" />
+    <Compile Include="TaskDatabaseRepository.cs" />
+    <Compile Include="TaskJsonRepository.cs" />
     <Compile Include="WeatherInfo.cs" />
     <Compile Include="INoteRepository.cs" />
     <Compile Include="ITaskRepository.cs" />
