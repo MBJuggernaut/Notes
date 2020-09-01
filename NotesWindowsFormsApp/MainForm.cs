@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace NotesWindowsFormsApp
@@ -13,20 +12,18 @@ namespace NotesWindowsFormsApp
             InitializeComponent();
         }
         private Note myNote = new Note();
-
-        private DateTime chosenDate;
-        private DateTime today = DateTime.Today;
+        private DateTime today;
+        private DateTime chosenDate;        
         private List<Task> listOfTodayTasks = new List<Task>();
-        readonly TaskJsonRepository taskManager = new TaskJsonRepository();
+        readonly TaskDatabaseRepository taskManager = new TaskDatabaseRepository();
         readonly NoteRepository noteRepository = new NoteRepository();
         readonly WeatherInfoProvider weatherInfoRepository = new WeatherInfoProvider();
-        // readonly TaskContext taskContext = new TaskContext();
+        readonly TaskContext taskContext = new TaskContext();
         private void MainForm_Load(object sender, EventArgs e)
         {
             myNote = noteRepository.Get();
             notesRichTextBox.Text = myNote.Text;
-            notesToolStripMenuItem.PerformClick();
-            listOfTodayTasks = taskManager.GetByDate(today);
+            notesToolStripMenuItem.PerformClick();            
             GetWeather();
         }
         private void TasksToolStripMenuItem_Click(object sender, EventArgs e)
@@ -152,33 +149,28 @@ namespace NotesWindowsFormsApp
             taskManager.Delete(task);
             UpdateMyTasks();
         }
-        private void EveryTenSecondsTimer_Tick(object sender, EventArgs e)
-        {
-            var currenttime = DateTime.Now.ToString("HH:mm");
-
-            if (currenttime == "00:00")
-            {
-                today = DateTime.Today;
-                listOfTodayTasks = taskManager.GetByDate(today);
-            }
+        private void EveryMinuteTimer_Tick(object sender, EventArgs e)
+        {            
             if (listOfTodayTasks.Count != 0)
             {
                 foreach (var taskfromlist in listOfTodayTasks)
                 {
-                    if (taskfromlist.Time == currenttime && taskfromlist.IsActual == true)
+                    if (taskfromlist.Time == DateTime.Now.ToString("HH:mm") && taskfromlist.IsActual == true)
                     {
                         taskfromlist.IsActual = false;
-                        everyTenSecondsTimer.Stop();
+                        everyMinuteTimer.Stop();
                         AlertForm alertForm = new AlertForm();
                         alertForm.AlertMessageLabel.Text = taskfromlist.Text;
                         alertForm.TopMost = true;
                         alertForm.Show();
 
-                        everyTenSecondsTimer.Start();
+                        everyMinuteTimer.Start();
                         return;
                     }
                 }
             }
+            
+            everyMinuteTimer.Interval = (60 - DateTime.Now.Second)*1000;            
         }
         private void SaveNote()
         {
@@ -229,40 +221,18 @@ namespace NotesWindowsFormsApp
         }
         private void ТестToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-
-            //    Task testTask = new Task
-            //    {
-            //        Time = "20:00",
-            //        Date = DateTime.Now,
-            //        Text = "1111",
-            //        IsActual = true
-            //    };
-            //    taskContext.Tasks.Add(testTask);
-            //    //taskContext.SaveChanges();
-
-            //    var test2 = taskContext.Tasks;
-
-            //    foreach (var t in test2)
-            //    {
-            //        MessageBox.Show(t.Date.ToString(), t.Id.ToString());
-            //    }
-
-            //    //var test = taskContext.Tasks;
-
-            //    //foreach (var t in test)
-            //    //{
-            //    //    taskContext.Tasks.Remove(t);
-
-            //    //}
-            //    //taskContext.SaveChanges();
         }
         private void WeatherTimer_Tick(object sender, EventArgs e)
         {
             GetWeather();
+        }      
+        private void midnightTimer_Tick(object sender, EventArgs e)
+        {
+            today = DateTime.Today;
+            midnightTimer.Interval = (int)(DateTime.Today.AddDays(1) - DateTime.Now).TotalMilliseconds;
+            listOfTodayTasks = taskManager.GetByDate(today);
+            MessageBox.Show("Midnight!");
         }
-
-
     }
 }
 

@@ -50,7 +50,7 @@
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.myCalendar = new System.Windows.Forms.MonthCalendar();
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.everyTenSecondsTimer = new System.Windows.Forms.Timer(this.components);
+            this.everyMinuteTimer = new System.Windows.Forms.Timer(this.components);
             this.weatherPanel = new System.Windows.Forms.Panel();
             this.weatherErrorLabel = new System.Windows.Forms.Label();
             this.feelslikeLabel = new System.Windows.Forms.Label();
@@ -58,6 +58,7 @@
             this.cloudsLabel = new System.Windows.Forms.Label();
             this.temperatureLabel = new System.Windows.Forms.Label();
             this.weatherTimer = new System.Windows.Forms.Timer(this.components);
+            this.midnightTimer = new System.Windows.Forms.Timer(this.components);
             this.menuStrip.SuspendLayout();
             this.notesPanel.SuspendLayout();
             this.todolistPanel.SuspendLayout();
@@ -225,11 +226,10 @@
             resources.ApplyResources(this.trayIcon, "trayIcon");
             this.trayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TrayIcon_MouseDoubleClick);
             // 
-            // everyTenSecondsTimer
+            // everyMinuteTimer
             // 
-            this.everyTenSecondsTimer.Enabled = true;
-            this.everyTenSecondsTimer.Interval = 10000;
-            this.everyTenSecondsTimer.Tick += new System.EventHandler(this.EveryTenSecondsTimer_Tick);
+            this.everyMinuteTimer.Enabled = true;
+            this.everyMinuteTimer.Tick += new System.EventHandler(this.EveryMinuteTimer_Tick);
             // 
             // weatherPanel
             // 
@@ -273,6 +273,11 @@
             this.weatherTimer.Interval = 900000;
             this.weatherTimer.Tick += new System.EventHandler(this.WeatherTimer_Tick);
             // 
+            // midnightTimer
+            // 
+            this.midnightTimer.Enabled = true;
+            this.midnightTimer.Tick += new System.EventHandler(this.midnightTimer_Tick);
+            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
@@ -314,7 +319,7 @@
         private System.Windows.Forms.ContextMenuStrip tasksContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem changeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
-        private System.Windows.Forms.Timer everyTenSecondsTimer;
+        private System.Windows.Forms.Timer everyMinuteTimer;
         private System.Windows.Forms.Label thisisTasksForTheDayLabel;
         private System.Windows.Forms.RichTextBox notesRichTextBox;
         private System.Windows.Forms.ToolStripMenuItem тестToolStripMenuItem;
@@ -333,6 +338,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn IdColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn TimeColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn TextColumn;
+        private System.Windows.Forms.Timer midnightTimer;
     }
 }
 
