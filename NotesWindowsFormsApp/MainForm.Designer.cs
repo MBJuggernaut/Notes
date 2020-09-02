@@ -276,7 +276,7 @@
             // midnightTimer
             // 
             this.midnightTimer.Enabled = true;
-            this.midnightTimer.Tick += new System.EventHandler(this.midnightTimer_Tick);
+            this.midnightTimer.Tick += new System.EventHandler(this.MidnightTimer_Tick);
             // 
             // MainForm
             // 

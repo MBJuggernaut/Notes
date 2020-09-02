@@ -13,17 +13,16 @@ namespace NotesWindowsFormsApp
         }
         private Note myNote = new Note();
         private DateTime today;
-        private DateTime chosenDate;        
+        private DateTime chosenDate;
         private List<Task> listOfTodayTasks = new List<Task>();
         readonly TaskDatabaseRepository taskManager = new TaskDatabaseRepository();
         readonly NoteRepository noteRepository = new NoteRepository();
-        readonly WeatherInfoProvider weatherInfoRepository = new WeatherInfoProvider();
-        readonly TaskContext taskContext = new TaskContext();
+        readonly WeatherInfoProvider weatherInfoRepository = new WeatherInfoProvider();        
         private void MainForm_Load(object sender, EventArgs e)
         {
             myNote = noteRepository.Get();
             notesRichTextBox.Text = myNote.Text;
-            notesToolStripMenuItem.PerformClick();            
+            notesToolStripMenuItem.PerformClick();
             GetWeather();
         }
         private void TasksToolStripMenuItem_Click(object sender, EventArgs e)
@@ -100,7 +99,7 @@ namespace NotesWindowsFormsApp
         }
         private void ColorDates()
         {
-            myCalendar.BoldedDates = null;            
+            myCalendar.BoldedDates = null;
             myCalendar.BoldedDates = taskManager.FindAllActual()?.ToArray();
         }
         private void UpdateMyTasks()
@@ -149,29 +148,6 @@ namespace NotesWindowsFormsApp
             taskManager.Delete(task);
             UpdateMyTasks();
         }
-        private void EveryMinuteTimer_Tick(object sender, EventArgs e)
-        {            
-            if (listOfTodayTasks.Count != 0)
-            {
-                foreach (var taskfromlist in listOfTodayTasks)
-                {
-                    if (taskfromlist.Time == DateTime.Now.ToString("HH:mm") && taskfromlist.IsActual == true)
-                    {
-                        taskfromlist.IsActual = false;
-                        everyMinuteTimer.Stop();
-                        AlertForm alertForm = new AlertForm();
-                        alertForm.AlertMessageLabel.Text = taskfromlist.Text;
-                        alertForm.TopMost = true;
-                        alertForm.Show();
-
-                        everyMinuteTimer.Start();
-                        return;
-                    }
-                }
-            }
-            
-            everyMinuteTimer.Interval = (60 - DateTime.Now.Second)*1000;            
-        }
         private void SaveNote()
         {
             myNote.Text = notesRichTextBox.Text;
@@ -185,7 +161,6 @@ namespace NotesWindowsFormsApp
         {
             SaveNote();
         }
-        
         private void SetTask(Task task, TaskForm taskform)
         {
             task.Time = taskform.HoursComboBox.Text + ":" + taskform.MinutesComboBox.Text;
@@ -219,25 +194,41 @@ namespace NotesWindowsFormsApp
             }
 
         }
-        private void ТестToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
         private void WeatherTimer_Tick(object sender, EventArgs e)
         {
             GetWeather();
-        }      
-        private void midnightTimer_Tick(object sender, EventArgs e)
+        }
+        private void MidnightTimer_Tick(object sender, EventArgs e)
         {
             today = DateTime.Today;
             midnightTimer.Interval = (int)(DateTime.Today.AddDays(1) - DateTime.Now).TotalMilliseconds;
-            listOfTodayTasks = taskManager.GetByDate(today);
-            MessageBox.Show("Midnight!");
+            listOfTodayTasks = taskManager.GetByDate(today);            
+        }
+        private void EveryMinuteTimer_Tick(object sender, EventArgs e)
+        {
+            if (listOfTodayTasks.Count != 0)
+            {
+                foreach (var taskfromlist in listOfTodayTasks)
+                {
+                    if (taskfromlist.Time == DateTime.Now.ToString("HH:mm") && taskfromlist.IsActual == true)
+                    {
+                        taskfromlist.IsActual = false;
+                        everyMinuteTimer.Stop();
+                        AlertForm alertForm = new AlertForm();
+                        alertForm.AlertMessageLabel.Text = taskfromlist.Text;
+                        alertForm.TopMost = true;
+                        alertForm.Show();
+
+                        everyMinuteTimer.Start();
+                        return;
+                    }
+                }
+            }
+
+            everyMinuteTimer.Interval = (60 - DateTime.Now.Second) * 1000;
+        }
+        private void ТестToolStripMenuItem_Click(object sender, EventArgs e)
+        {
         }
     }
 }
-
-
-
-
-
-

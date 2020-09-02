@@ -6,7 +6,7 @@ namespace NotesWindowsFormsApp
 {
     class TaskDatabaseRepository : ITaskRepository
     {
-        private TaskContext taskContext = new TaskContext();
+        private readonly TaskContext taskContext = new TaskContext();
         public void Add(Task task)
         {
             task.IsActual = DateTime.Compare(task.Date, DateTime.Today) > 0 ||
@@ -40,7 +40,8 @@ namespace NotesWindowsFormsApp
 
         public List<Task> GetByDate(DateTime date)
         {
-            return taskContext.Tasks.Where(t => t.Date == date).ToList();
+            var x = taskContext.Tasks.Where(t => t.Date == date).ToList();
+            return x;
         }
 
         public void Update(Task task)
