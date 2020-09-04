@@ -3,8 +3,7 @@
 namespace NotesWindowsFormsApp
 {
     public class Note
-    {
-        [Required]
+    {        
         internal string Text;
     }
 }

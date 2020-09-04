@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace NotesWindowsFormsApp
@@ -13,24 +12,17 @@ namespace NotesWindowsFormsApp
             InitializeComponent();
         }
         private Note myNote = new Note();
-
-
-        private string chosenDate;
-        private string today;
-        private List<Task> listOfAllTasks;
+        private DateTime today;
+        private DateTime chosenDate;
         private List<Task> listOfTodayTasks = new List<Task>();
-        readonly TaskRepository taskManager = new TaskRepository();
+        readonly ITaskRepository taskManager = new TaskDatabaseRepository();
         readonly NoteRepository noteRepository = new NoteRepository();
-        readonly WeatherInfoProvider weatherInfoRepository = new WeatherInfoProvider();
+        readonly WeatherInfoProvider weatherInfoProvider = new WeatherInfoProvider();        
         private void MainForm_Load(object sender, EventArgs e)
         {
             myNote = noteRepository.Get();
             notesRichTextBox.Text = myNote.Text;
             notesToolStripMenuItem.PerformClick();
-
-            listOfAllTasks = taskManager.GetAll();
-
-            GetTodayTasks();
             GetWeather();
         }
         private void TasksToolStripMenuItem_Click(object sender, EventArgs e)
@@ -68,14 +60,14 @@ namespace NotesWindowsFormsApp
         }
         private void MyCalendar_DateSelected(object sender, DateRangeEventArgs e)
         {
-            chosenDate = myCalendar.SelectionRange.Start.ToShortDateString();
+            chosenDate = myCalendar.SelectionRange.Start;
             ShowTasksForDay();
         }
         private void AddTaskButton_Click(object sender, EventArgs e)
         {
             TaskForm taskform = new TaskForm();
 
-            taskform.TaskDateTimePicker.Value = Convert.ToDateTime(chosenDate);
+            taskform.TaskDateTimePicker.Value = chosenDate;
 
             if (chosenDate == today)
             {
@@ -92,40 +84,28 @@ namespace NotesWindowsFormsApp
             {
                 var editedTask = new Task();
                 SetTask(editedTask, taskform);
-                listOfAllTasks.Add(editedTask);
+                taskManager.Add(editedTask);
                 UpdateMyTasks();
             }
         }
         private void ShowTasksForDay()
         {
             tasksForDayDataGridView.Rows.Clear();
-
-            foreach (var taskfromlist in listOfAllTasks)
+            var tasksForDay = taskManager.GetByDate(chosenDate);
+            foreach (var task in tasksForDay)
             {
-                if (taskfromlist.Date == chosenDate)
-                {
-                    tasksForDayDataGridView.Rows.Add(taskfromlist.Time, taskfromlist.Text);
-                }
+                tasksForDayDataGridView.Rows.Add(task.Id, task.Time, task.Text);
             }
         }
         private void ColorDates()
         {
             myCalendar.BoldedDates = null;
-            var coloreddates = myCalendar.BoldedDates.ToList();
-            foreach (var taskfromlist in listOfAllTasks)
-            {
-                if (taskfromlist.IsActual == true)
-                    coloreddates.Add(Convert.ToDateTime(taskfromlist.Date));
-            }
-
-            myCalendar.BoldedDates = coloreddates.ToArray();
+            myCalendar.BoldedDates = taskManager.FindAllActual()?.ToArray();
         }
         private void UpdateMyTasks()
         {
-            SortTasks();
-            taskManager.Update(listOfAllTasks);
             ShowTasksForDay();
-            GetTodayTasks();
+            listOfTodayTasks = taskManager.GetByDate(today);
             ColorDates();
             tasksForDayDataGridView.ClearSelection();
         }
@@ -146,90 +126,27 @@ namespace NotesWindowsFormsApp
         }
         private void ChangeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach (var task in listOfAllTasks)
-            {
-                if (IsOurTask(task))
-                {
-                    TaskForm taskform = new TaskForm();
-                    var time = tasksForDayDataGridView.CurrentRow.Cells[0].Value.ToString().Split(':');
-                    taskform.HoursComboBox.Text = time[0];
-                    taskform.MinutesComboBox.Text = time[1];
-                    taskform.CommentTextBox.Text = task.Text;
-                    taskform.TaskDateTimePicker.Value = Convert.ToDateTime(chosenDate);
+            var task = taskManager.FindById((int)tasksForDayDataGridView.CurrentRow.Cells[0].Value);
 
-                    if (taskform.ShowDialog(this) == DialogResult.OK)
-                    {
-                        SetTask(task, taskform);
-                        UpdateMyTasks();
-                    }
-                    break;
-                }
+            TaskForm taskform = new TaskForm();
+            var time = tasksForDayDataGridView.CurrentRow.Cells[1].Value.ToString().Split(':');
+            taskform.HoursComboBox.Text = time[0];
+            taskform.MinutesComboBox.Text = time[1];
+            taskform.CommentTextBox.Text = task.Text;
+            taskform.TaskDateTimePicker.Value = Convert.ToDateTime(chosenDate);
+
+            if (taskform.ShowDialog(this) == DialogResult.OK)
+            {
+                SetTask(task, taskform);
+                taskManager.Update(task);
+                UpdateMyTasks();
             }
         }
         private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach (var task in listOfAllTasks)
-            {
-                if (IsOurTask(task))
-                {
-                    listOfAllTasks.Remove(task);
-
-                    UpdateMyTasks();
-
-                    break;
-                }
-            }
-        }
-        private void GetTodayTasks()
-        {
-            listOfTodayTasks = new List<Task>();
-            today = DateTime.Today.ToShortDateString();
-            foreach (var taskfromlist in listOfAllTasks)
-            {
-                if (taskfromlist.Date == today)
-                {
-                    listOfTodayTasks.Add(taskfromlist);
-                }
-
-                if (!IsActual(taskfromlist))
-                {
-                    taskfromlist.IsActual = false;
-                }
-            }
-        }
-        public void SortTasks()
-        {
-            var sortedTasks = from t in listOfAllTasks
-                              orderby t.Date, t.Time ascending
-                              select t;
-            listOfAllTasks = sortedTasks.ToList();
-        }
-        private void EveryTenSecondsTimer_Tick(object sender, EventArgs e)
-        {
-            var currenttime = DateTime.Now.ToString("HH:mm");
-
-            if (currenttime == "00:00")
-            {
-                GetTodayTasks();
-            }
-            if (listOfTodayTasks.Count != 0)
-            {
-                foreach (var taskfromlist in listOfTodayTasks)
-                {
-                    if (taskfromlist.Time == currenttime && taskfromlist.IsActual == true)
-                    {
-                        taskfromlist.IsActual = false;
-                        everyTenSecondsTimer.Stop();
-                        AlertForm alertForm = new AlertForm();
-                        alertForm.AlertMessageLabel.Text = taskfromlist.Text;
-                        alertForm.TopMost = true;
-                        alertForm.Show();
-
-                        everyTenSecondsTimer.Start();
-                        return;
-                    }
-                }
-            }
+            int taskId = (int)tasksForDayDataGridView.CurrentRow.Cells[0].Value;
+            taskManager.DeleteById(taskId);       
+            UpdateMyTasks();
         }
         private void SaveNote()
         {
@@ -244,25 +161,11 @@ namespace NotesWindowsFormsApp
         {
             SaveNote();
         }
-        private bool IsOurTask(Task task)
-        {
-            return task.Date == chosenDate &&
-                    task.Time == tasksForDayDataGridView.CurrentRow.Cells[0].Value.ToString() &&
-                    task.Text == tasksForDayDataGridView.CurrentRow.Cells[1].Value.ToString();
-        }
-        private bool IsActual(Task task)
-        {
-            return DateTime.Compare(Convert.ToDateTime(task.Date), DateTime.Today) >= 0 &&
-                     String.Compare(task.Time, DateTime.Now.ToString("HH:mm")) > 0;
-        }
         private void SetTask(Task task, TaskForm taskform)
         {
             task.Time = taskform.HoursComboBox.Text + ":" + taskform.MinutesComboBox.Text;
             task.Text = taskform.CommentTextBox.Text;
-            task.Date = taskform.TaskDateTimePicker.Value.ToShortDateString();
-
-            if (!IsActual(task))
-                task.IsActual = false;
+            task.Date = taskform.TaskDateTimePicker.Value.Date;
         }
         private void WeatherToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -273,28 +176,59 @@ namespace NotesWindowsFormsApp
         }
         private void GetWeather()
         {
-            var weatherData = weatherInfoRepository.GetData().Result;
+            var weatherData = weatherInfoProvider.GetData().Result;
 
-            temperatureLabel.Text = String.Format("{0} °C", weatherData.Main.Temp.ToString());
-            cloudsLabel.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(weatherData.Weather[0].Description.ToString().ToLower());
-            feelslikeLabel.Text = String.Format("Ощущается как {0}", weatherData.Main.Feels_like.ToString());
-            var iconURL = "http://openweathermap.org/img/wn/" + weatherData.Weather[0].Icon + "@2x.png";
-            weatherPictureBox.ImageLocation = iconURL;
+            if (weatherData != null)
+            {
+                temperatureLabel.Text = String.Format("{0} °C", weatherData.Main.Temp.ToString());
+                cloudsLabel.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(weatherData.Weather[0].Description.ToString().ToLower());
+                feelslikeLabel.Text = String.Format("Ощущается как {0}", weatherData.Main.Feels_like.ToString());
+                var iconURL = "http://openweathermap.org/img/wn/" + weatherData.Weather[0].Icon + "@2x.png";
+                weatherPictureBox.ImageLocation = iconURL;
+            }
+            else
+            {
+                weatherErrorLabel.Size = weatherErrorLabel.MaximumSize;
+                weatherErrorLabel.Dock = DockStyle.Fill;
+                weatherErrorLabel.Visible = true;
+            }
 
-        }      
-        private void ТестToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
         }
         private void WeatherTimer_Tick(object sender, EventArgs e)
         {
             GetWeather();
         }
+        private void MidnightTimer_Tick(object sender, EventArgs e)
+        {
+            today = DateTime.Today;
+            midnightTimer.Interval = (int)(DateTime.Today.AddDays(1) - DateTime.Now).TotalMilliseconds;
+            listOfTodayTasks = taskManager.GetByDate(today);            
+        }
+        private void EveryMinuteTimer_Tick(object sender, EventArgs e)
+        {
+            if (listOfTodayTasks.Count != 0)
+            {
+                foreach (var taskfromlist in listOfTodayTasks)
+                {
+                    if (taskfromlist.Time == DateTime.Now.ToString("HH:mm") && taskfromlist.IsActual == true)
+                    {
+                        taskfromlist.IsActual = false;
+                        everyMinuteTimer.Stop();
+                        AlertForm alertForm = new AlertForm();
+                        alertForm.AlertMessageLabel.Text = taskfromlist.Text;
+                        alertForm.TopMost = true;
+                        alertForm.Show();
+
+                        everyMinuteTimer.Start();
+                        return;
+                    }
+                }
+            }
+
+            everyMinuteTimer.Interval = (60 - DateTime.Now.Second) * 1000;
+        }
+        private void ТестToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+        }
     }
 }
-
-
-
-
-
-

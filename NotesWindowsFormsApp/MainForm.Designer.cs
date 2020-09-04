@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.notesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tasksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,20 +42,23 @@
             this.thisisTasksForTheDayLabel = new System.Windows.Forms.Label();
             this.addTaskButton = new System.Windows.Forms.Button();
             this.tasksForDayDataGridView = new System.Windows.Forms.DataGridView();
-            this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Task = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TimeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TextColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tasksContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.changeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.myCalendar = new System.Windows.Forms.MonthCalendar();
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.everyTenSecondsTimer = new System.Windows.Forms.Timer(this.components);
+            this.everyMinuteTimer = new System.Windows.Forms.Timer(this.components);
             this.weatherPanel = new System.Windows.Forms.Panel();
+            this.weatherErrorLabel = new System.Windows.Forms.Label();
             this.feelslikeLabel = new System.Windows.Forms.Label();
             this.weatherPictureBox = new System.Windows.Forms.PictureBox();
             this.cloudsLabel = new System.Windows.Forms.Label();
             this.temperatureLabel = new System.Windows.Forms.Label();
             this.weatherTimer = new System.Windows.Forms.Timer(this.components);
+            this.midnightTimer = new System.Windows.Forms.Timer(this.components);
             this.menuStrip.SuspendLayout();
             this.notesPanel.SuspendLayout();
             this.todolistPanel.SuspendLayout();
@@ -148,8 +151,9 @@
             this.tasksForDayDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tasksForDayDataGridView.ColumnHeadersVisible = false;
             this.tasksForDayDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Time,
-            this.Task});
+            this.IdColumn,
+            this.TimeColumn,
+            this.TextColumn});
             this.tasksForDayDataGridView.ContextMenuStrip = this.tasksContextMenuStrip;
             this.tasksForDayDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.tasksForDayDataGridView.GridColor = System.Drawing.SystemColors.Window;
@@ -159,8 +163,8 @@
             this.tasksForDayDataGridView.ReadOnly = true;
             this.tasksForDayDataGridView.RowHeadersVisible = false;
             this.tasksForDayDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Silver;
-            this.tasksForDayDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Silver;
+            this.tasksForDayDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.tasksForDayDataGridView.RowTemplate.Height = 24;
             this.tasksForDayDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tasksForDayDataGridView.ShowCellErrors = false;
@@ -169,19 +173,23 @@
             this.tasksForDayDataGridView.ShowRowErrors = false;
             this.tasksForDayDataGridView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TasksForDayDataGridView_MouseDown);
             // 
-            // Time
+            // IdColumn
             // 
-            resources.ApplyResources(this.Time, "Time");
-            this.Time.Name = "Time";
-            this.Time.ReadOnly = true;
-            this.Time.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            resources.ApplyResources(this.IdColumn, "IdColumn");
+            this.IdColumn.Name = "IdColumn";
+            this.IdColumn.ReadOnly = true;
             // 
-            // Task
+            // TimeColumn
             // 
-            resources.ApplyResources(this.Task, "Task");
-            this.Task.Name = "Task";
-            this.Task.ReadOnly = true;
-            this.Task.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            resources.ApplyResources(this.TimeColumn, "TimeColumn");
+            this.TimeColumn.Name = "TimeColumn";
+            this.TimeColumn.ReadOnly = true;
+            // 
+            // TextColumn
+            // 
+            resources.ApplyResources(this.TextColumn, "TextColumn");
+            this.TextColumn.Name = "TextColumn";
+            this.TextColumn.ReadOnly = true;
             // 
             // tasksContextMenuStrip
             // 
@@ -218,20 +226,25 @@
             resources.ApplyResources(this.trayIcon, "trayIcon");
             this.trayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TrayIcon_MouseDoubleClick);
             // 
-            // everyTenSecondsTimer
+            // everyMinuteTimer
             // 
-            this.everyTenSecondsTimer.Enabled = true;
-            this.everyTenSecondsTimer.Interval = 10000;
-            this.everyTenSecondsTimer.Tick += new System.EventHandler(this.EveryTenSecondsTimer_Tick);
+            this.everyMinuteTimer.Enabled = true;
+            this.everyMinuteTimer.Tick += new System.EventHandler(this.EveryMinuteTimer_Tick);
             // 
             // weatherPanel
             // 
+            this.weatherPanel.Controls.Add(this.weatherErrorLabel);
             this.weatherPanel.Controls.Add(this.feelslikeLabel);
             this.weatherPanel.Controls.Add(this.weatherPictureBox);
             this.weatherPanel.Controls.Add(this.cloudsLabel);
             this.weatherPanel.Controls.Add(this.temperatureLabel);
             resources.ApplyResources(this.weatherPanel, "weatherPanel");
             this.weatherPanel.Name = "weatherPanel";
+            // 
+            // weatherErrorLabel
+            // 
+            resources.ApplyResources(this.weatherErrorLabel, "weatherErrorLabel");
+            this.weatherErrorLabel.Name = "weatherErrorLabel";
             // 
             // feelslikeLabel
             // 
@@ -259,6 +272,11 @@
             this.weatherTimer.Enabled = true;
             this.weatherTimer.Interval = 900000;
             this.weatherTimer.Tick += new System.EventHandler(this.WeatherTimer_Tick);
+            // 
+            // midnightTimer
+            // 
+            this.midnightTimer.Enabled = true;
+            this.midnightTimer.Tick += new System.EventHandler(this.MidnightTimer_Tick);
             // 
             // MainForm
             // 
@@ -301,7 +319,7 @@
         private System.Windows.Forms.ContextMenuStrip tasksContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem changeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
-        private System.Windows.Forms.Timer everyTenSecondsTimer;
+        private System.Windows.Forms.Timer everyMinuteTimer;
         private System.Windows.Forms.Label thisisTasksForTheDayLabel;
         private System.Windows.Forms.RichTextBox notesRichTextBox;
         private System.Windows.Forms.ToolStripMenuItem тестToolStripMenuItem;
@@ -314,9 +332,13 @@
         private System.Windows.Forms.PictureBox weatherPictureBox;
         private System.Windows.Forms.Label feelslikeLabel;
         private System.Windows.Forms.ToolStripMenuItem weatherToolStripMenuItem;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Time;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Task;
         private System.Windows.Forms.Timer weatherTimer;
+        private System.Windows.Forms.Label weatherErrorLabel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IdColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TimeColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TextColumn;
+        private System.Windows.Forms.Timer midnightTimer;
     }
 }
 
