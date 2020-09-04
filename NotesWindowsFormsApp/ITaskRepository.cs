@@ -10,7 +10,8 @@ namespace NotesWindowsFormsApp
         void Delete(Task task);
         void Add(Task task);
         List<DateTime> FindAllActual();
-        Task FindbyId(int id);
+        Task FindById(int id);
+        void DeleteById(int id);
 
 
     }

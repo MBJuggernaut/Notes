@@ -29,7 +29,7 @@ namespace NotesWindowsFormsApp
         {
             return listOfAllTasks.Where(t => t.Date == date).ToList();
         }
-        public Task FindbyId(int id)
+        public Task FindById(int id)
         {
             var listwithonetask = listOfAllTasks.Where(t => t.Id == id).ToList();
             return listwithonetask[0];

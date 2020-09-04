@@ -15,9 +15,9 @@ namespace NotesWindowsFormsApp
         private DateTime today;
         private DateTime chosenDate;
         private List<Task> listOfTodayTasks = new List<Task>();
-        readonly TaskDatabaseRepository taskManager = new TaskDatabaseRepository();
+        readonly ITaskRepository taskManager = new TaskDatabaseRepository();
         readonly NoteRepository noteRepository = new NoteRepository();
-        readonly WeatherInfoProvider weatherInfoRepository = new WeatherInfoProvider();        
+        readonly WeatherInfoProvider weatherInfoProvider = new WeatherInfoProvider();        
         private void MainForm_Load(object sender, EventArgs e)
         {
             myNote = noteRepository.Get();
@@ -126,7 +126,7 @@ namespace NotesWindowsFormsApp
         }
         private void ChangeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var task = taskManager.FindbyId((int)tasksForDayDataGridView.CurrentRow.Cells[0].Value);
+            var task = taskManager.FindById((int)tasksForDayDataGridView.CurrentRow.Cells[0].Value);
 
             TaskForm taskform = new TaskForm();
             var time = tasksForDayDataGridView.CurrentRow.Cells[1].Value.ToString().Split(':');
@@ -144,8 +144,8 @@ namespace NotesWindowsFormsApp
         }
         private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var task = taskManager.FindbyId((int)tasksForDayDataGridView.CurrentRow.Cells[0].Value);
-            taskManager.Delete(task);
+            int taskId = (int)tasksForDayDataGridView.CurrentRow.Cells[0].Value;
+            taskManager.DeleteById(taskId);       
             UpdateMyTasks();
         }
         private void SaveNote()
@@ -176,7 +176,7 @@ namespace NotesWindowsFormsApp
         }
         private void GetWeather()
         {
-            var weatherData = weatherInfoRepository.GetData().Result;
+            var weatherData = weatherInfoProvider.GetData().Result;
 
             if (weatherData != null)
             {

@@ -6,7 +6,7 @@ namespace NotesWindowsFormsApp
 {
     class TaskDatabaseRepository : ITaskRepository
     {
-        private readonly TaskContext taskContext = new TaskContext();
+        private readonly TaskContext taskContext = new TaskContext();       
         public void Add(Task task)
         {
             task.IsActual = DateTime.Compare(task.Date, DateTime.Today) > 0 ||
@@ -19,7 +19,7 @@ namespace NotesWindowsFormsApp
         {
             taskContext.Tasks.Remove(task);
             taskContext.SaveChanges();
-        }
+        }      
 
         public List<DateTime> FindAllActual()
         {
@@ -32,12 +32,15 @@ namespace NotesWindowsFormsApp
             return listofdates;
         }
 
-        public Task FindbyId(int id)
+        public Task FindById(int id)
         {
-            var listwithonetask = taskContext.Tasks.Where(t => t.Id == id).ToList();
-            return listwithonetask[0];
+            var thisTask = taskContext.Tasks.FirstOrDefault(t => t.Id == id);
+            return thisTask;
         }
-
+        public void DeleteById(int id)
+        {
+            Delete(FindById(id));
+        }
         public List<Task> GetByDate(DateTime date)
         {
             var x = taskContext.Tasks.Where(t => t.Date == date).ToList();
