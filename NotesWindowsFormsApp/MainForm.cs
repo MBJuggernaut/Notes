@@ -14,8 +14,8 @@ namespace NotesWindowsFormsApp
         private Note myNote = new Note();
         private DateTime today;
         private DateTime chosenDate;
-        private List<Task> listOfTodayTasks = new List<Task>();
-        readonly ITaskRepository taskManager = new TaskDatabaseRepository();
+        private List<Task> listOfTodayTasks = new List<Task>();        
+        readonly TaskDatabaseRepository taskManager = new TaskDatabaseRepository();
         readonly NoteRepository noteRepository = new NoteRepository();
         readonly WeatherInfoProvider weatherInfoProvider = new WeatherInfoProvider();        
         private void MainForm_Load(object sender, EventArgs e)
@@ -31,6 +31,7 @@ namespace NotesWindowsFormsApp
             todolistPanel.Show();
             notesPanel.Hide();
             weatherPanel.Hide();
+            
 
             chosenDate = today;
             UpdateMyTasks();
@@ -78,15 +79,43 @@ namespace NotesWindowsFormsApp
 
                 taskform.HoursComboBox.Text = nexthour.ToString("D2");
                 taskform.MinutesComboBox.Text = DateTime.Now.ToString("mm");
+                taskform.tags = taskManager.GetAllTags();
             }
 
             if (taskform.ShowDialog(this) == DialogResult.OK)
             {
-                var editedTask = new Task();
-                SetTask(editedTask, taskform);
+                var editedTask = taskform.newTask;                                              
                 taskManager.Add(editedTask);
+                
                 UpdateMyTasks();
             }
+        }
+        private void ChangeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var task = taskManager.FindById((int)tasksForDayDataGridView.CurrentRow.Cells[0].Value);
+
+            TaskForm taskform = new TaskForm();
+            var time = tasksForDayDataGridView.CurrentRow.Cells[1].Value.ToString().Split(':');
+            taskform.HoursComboBox.Text = time[0];
+            taskform.MinutesComboBox.Text = time[1];
+            taskform.CommentTextBox.Text = task.Text;
+            taskform.TaskDateTimePicker.Value = Convert.ToDateTime(chosenDate);
+            taskform.tags = taskManager.GetAllTags();
+            taskform.newTask.Id = task.Id;
+            taskform.checkedTags = task.Tags;
+
+            if (taskform.ShowDialog(this) == DialogResult.OK)
+            {
+                task = taskform.newTask;                                
+                taskManager.Update(task);
+                UpdateMyTasks();
+            }
+        }
+        private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int taskId = (int)tasksForDayDataGridView.CurrentRow.Cells[0].Value;
+            taskManager.Delete(taskId);
+            UpdateMyTasks();
         }
         private void ShowTasksForDay()
         {
@@ -123,31 +152,7 @@ namespace NotesWindowsFormsApp
         private void TasksContextMenuStrip_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (tasksForDayDataGridView.SelectedRows.Count != 1) e.Cancel = true;
-        }
-        private void ChangeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var task = taskManager.FindById((int)tasksForDayDataGridView.CurrentRow.Cells[0].Value);
-
-            TaskForm taskform = new TaskForm();
-            var time = tasksForDayDataGridView.CurrentRow.Cells[1].Value.ToString().Split(':');
-            taskform.HoursComboBox.Text = time[0];
-            taskform.MinutesComboBox.Text = time[1];
-            taskform.CommentTextBox.Text = task.Text;
-            taskform.TaskDateTimePicker.Value = Convert.ToDateTime(chosenDate);
-
-            if (taskform.ShowDialog(this) == DialogResult.OK)
-            {
-                SetTask(task, taskform);
-                taskManager.Update(task);
-                UpdateMyTasks();
-            }
-        }
-        private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            int taskId = (int)tasksForDayDataGridView.CurrentRow.Cells[0].Value;
-            taskManager.DeleteById(taskId);       
-            UpdateMyTasks();
-        }
+        }              
         private void SaveNote()
         {
             myNote.Text = notesRichTextBox.Text;
@@ -160,13 +165,7 @@ namespace NotesWindowsFormsApp
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveNote();
-        }
-        private void SetTask(Task task, TaskForm taskform)
-        {
-            task.Time = taskform.HoursComboBox.Text + ":" + taskform.MinutesComboBox.Text;
-            task.Text = taskform.CommentTextBox.Text;
-            task.Date = taskform.TaskDateTimePicker.Value.Date;
-        }
+        }      
         private void WeatherToolStripMenuItem_Click(object sender, EventArgs e)
         {
             notesPanel.Hide();
@@ -228,7 +227,7 @@ namespace NotesWindowsFormsApp
             everyMinuteTimer.Interval = (60 - DateTime.Now.Second) * 1000;
         }
         private void ТестToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+        {            
         }
     }
 }

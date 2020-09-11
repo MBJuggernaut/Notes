@@ -73,11 +73,16 @@
       <DependentUpon>AlertForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FileProvider.cs" />
+    <Compile Include="ITagRepository.cs" />
+    <Compile Include="Migrations\MigrationFile.cs" />
+    <Compile Include="Migrations\MigrationFile.designer.cs">
+      <DependentUpon>MigrationFile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="NoteRepository.cs" />
+    <Compile Include="TagDatabaseRepository.cs" />
     <Compile Include="TaskContext.cs" />
     <Compile Include="TaskDatabaseRepository.cs" />
-    <Compile Include="TaskJsonRepository.cs" />
     <Compile Include="WeatherInfo.cs" />
     <Compile Include="INoteRepository.cs" />
     <Compile Include="ITaskRepository.cs" />
@@ -108,6 +113,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.ru.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\MigrationFile.resx">
+      <DependentUpon>MigrationFile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -38,23 +38,24 @@
             this.thisisDateChooseLabel = new System.Windows.Forms.Label();
             this.thisisTimeLabel = new System.Windows.Forms.Label();
             this.thisisCommentLabel = new System.Windows.Forms.Label();
+            this.tagsCheckedListBox = new System.Windows.Forms.CheckedListBox();
             this.SuspendLayout();
             // 
-            // OkButton
+            // okButton
             // 
             this.okButton.Location = new System.Drawing.Point(44, 396);
-            this.okButton.Name = "OkButton";
+            this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(62, 29);
             this.okButton.TabIndex = 0;
             this.okButton.Text = "Ok";
             this.okButton.UseVisualStyleBackColor = true;
             this.okButton.Click += new System.EventHandler(this.OkButton_Click);
             // 
-            // CancelFormButton
+            // cancelFormButton
             // 
             this.cancelFormButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelFormButton.Location = new System.Drawing.Point(164, 396);
-            this.cancelFormButton.Name = "CancelFormButton";
+            this.cancelFormButton.Name = "cancelFormButton";
             this.cancelFormButton.Size = new System.Drawing.Size(93, 29);
             this.cancelFormButton.TabIndex = 1;
             this.cancelFormButton.Text = "Отмена";
@@ -62,11 +63,11 @@
             // 
             // CommentTextBox
             // 
-            this.CommentTextBox.Location = new System.Drawing.Point(36, 230);
+            this.CommentTextBox.Location = new System.Drawing.Point(22, 230);
             this.CommentTextBox.Multiline = true;
             this.CommentTextBox.Name = "CommentTextBox";
             this.CommentTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.CommentTextBox.Size = new System.Drawing.Size(221, 89);
+            this.CommentTextBox.Size = new System.Drawing.Size(243, 89);
             this.CommentTextBox.TabIndex = 6;
             // 
             // HoursComboBox
@@ -182,13 +183,13 @@
             this.TaskDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.TaskDateTimePicker.Location = new System.Drawing.Point(130, 58);
             this.TaskDateTimePicker.Name = "TaskDateTimePicker";
-            this.TaskDateTimePicker.Size = new System.Drawing.Size(114, 22);
+            this.TaskDateTimePicker.Size = new System.Drawing.Size(135, 22);
             this.TaskDateTimePicker.TabIndex = 9;
             // 
             // thisisDateChooseLabel
             // 
             this.thisisDateChooseLabel.AutoSize = true;
-            this.thisisDateChooseLabel.Location = new System.Drawing.Point(12, 58);
+            this.thisisDateChooseLabel.Location = new System.Drawing.Point(19, 58);
             this.thisisDateChooseLabel.Name = "thisisDateChooseLabel";
             this.thisisDateChooseLabel.Size = new System.Drawing.Size(106, 17);
             this.thisisDateChooseLabel.TabIndex = 10;
@@ -212,11 +213,20 @@
             this.thisisCommentLabel.TabIndex = 12;
             this.thisisCommentLabel.Text = "Краткое описание:";
             // 
+            // tagsCheckedListBox
+            // 
+            this.tagsCheckedListBox.FormattingEnabled = true;
+            this.tagsCheckedListBox.Location = new System.Drawing.Point(309, 230);
+            this.tagsCheckedListBox.Name = "tagsCheckedListBox";
+            this.tagsCheckedListBox.Size = new System.Drawing.Size(162, 89);
+            this.tagsCheckedListBox.TabIndex = 13;
+            // 
             // TaskForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(309, 450);
+            this.ClientSize = new System.Drawing.Size(515, 450);
+            this.Controls.Add(this.tagsCheckedListBox);
             this.Controls.Add(this.thisisCommentLabel);
             this.Controls.Add(this.thisisTimeLabel);
             this.Controls.Add(this.thisisDateChooseLabel);
@@ -232,8 +242,10 @@
             this.MinimizeBox = false;
             this.Name = "TaskForm";
             this.Text = "Задача";
+            this.Load += new System.EventHandler(this.TaskForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion
@@ -246,5 +258,6 @@
         private System.Windows.Forms.Label thisisDateChooseLabel;
         private System.Windows.Forms.Label thisisTimeLabel;
         private System.Windows.Forms.Label thisisCommentLabel;
+        private System.Windows.Forms.CheckedListBox tagsCheckedListBox;
     }
 }
