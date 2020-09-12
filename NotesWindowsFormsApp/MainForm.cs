@@ -14,7 +14,7 @@ namespace NotesWindowsFormsApp
         private Note myNote = new Note();
         private DateTime today;
         private DateTime chosenDate;
-        private List<Task> listOfTodayTasks = new List<Task>();        
+        private List<Task> listOfTodayAlerts = new List<Task>();        
         readonly TaskDatabaseRepository taskManager = new TaskDatabaseRepository();
         readonly NoteRepository noteRepository = new NoteRepository();
         readonly WeatherInfoProvider weatherInfoProvider = new WeatherInfoProvider();        
@@ -23,7 +23,7 @@ namespace NotesWindowsFormsApp
             myNote = noteRepository.Get();
             notesRichTextBox.Text = myNote.Text;
             notesToolStripMenuItem.PerformClick();
-            GetWeather();
+           // GetWeather();
         }
         private void TasksToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -92,10 +92,10 @@ namespace NotesWindowsFormsApp
         }
         private void ChangeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var task = taskManager.FindById((int)tasksForDayDataGridView.CurrentRow.Cells[0].Value);
+            var task = taskManager.FindById((int)tasksForDayDataGridView.SelectedRows[0].Cells[0].Value);
 
             TaskForm taskform = new TaskForm();
-            var time = tasksForDayDataGridView.CurrentRow.Cells[1].Value.ToString().Split(':');
+            var time = task.Time.Split(':');
             taskform.HoursComboBox.Text = time[0];
             taskform.MinutesComboBox.Text = time[1];
             taskform.CommentTextBox.Text = task.Text;
@@ -134,7 +134,7 @@ namespace NotesWindowsFormsApp
         private void UpdateMyTasks()
         {
             ShowTasksForDay();
-            listOfTodayTasks = taskManager.GetByDate(today);
+            listOfTodayAlerts = taskManager.GetTodayAlerts();
             ColorDates();
             tasksForDayDataGridView.ClearSelection();
         }
@@ -201,15 +201,19 @@ namespace NotesWindowsFormsApp
         {
             today = DateTime.Today;
             midnightTimer.Interval = (int)(DateTime.Today.AddDays(1) - DateTime.Now).TotalMilliseconds;
-            listOfTodayTasks = taskManager.GetByDate(today);            
+            listOfTodayAlerts = taskManager.GetTodayAlerts();            
         }
         private void EveryMinuteTimer_Tick(object sender, EventArgs e)
         {
-            if (listOfTodayTasks.Count != 0)
+            
+            if (listOfTodayAlerts.Count != 0)
             {
-                foreach (var taskfromlist in listOfTodayTasks)
+                var now = DateTime.Now;
+                now = now.AddSeconds(-now.Second);
+                now = now.AddMilliseconds(-now.Millisecond);
+                foreach (var taskfromlist in listOfTodayAlerts)
                 {
-                    if (taskfromlist.Time == DateTime.Now.ToString("HH:mm") && taskfromlist.IsActual == true)
+                    if (taskfromlist.AlarmTime == now && taskfromlist.IsActual == true)
                     {
                         taskfromlist.IsActual = false;
                         everyMinuteTimer.Stop();

@@ -39,6 +39,9 @@
             this.thisisTimeLabel = new System.Windows.Forms.Label();
             this.thisisCommentLabel = new System.Windows.Forms.Label();
             this.tagsCheckedListBox = new System.Windows.Forms.CheckedListBox();
+            this.alertTimeOptionComboBox = new System.Windows.Forms.ComboBox();
+            this.thisisAlertLabel = new System.Windows.Forms.Label();
+            this.addTagButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // okButton
@@ -100,7 +103,7 @@
             "22",
             "23",
             ""});
-            this.HoursComboBox.Location = new System.Drawing.Point(130, 125);
+            this.HoursComboBox.Location = new System.Drawing.Point(22, 140);
             this.HoursComboBox.Name = "HoursComboBox";
             this.HoursComboBox.Size = new System.Drawing.Size(57, 24);
             this.HoursComboBox.TabIndex = 7;
@@ -171,7 +174,7 @@
             "57",
             "58",
             "59"});
-            this.MinutesComboBox.Location = new System.Drawing.Point(211, 125);
+            this.MinutesComboBox.Location = new System.Drawing.Point(85, 140);
             this.MinutesComboBox.Name = "MinutesComboBox";
             this.MinutesComboBox.Size = new System.Drawing.Size(54, 24);
             this.MinutesComboBox.TabIndex = 8;
@@ -198,7 +201,7 @@
             // thisisTimeLabel
             // 
             this.thisisTimeLabel.AutoSize = true;
-            this.thisisTimeLabel.Location = new System.Drawing.Point(19, 128);
+            this.thisisTimeLabel.Location = new System.Drawing.Point(19, 105);
             this.thisisTimeLabel.Name = "thisisTimeLabel";
             this.thisisTimeLabel.Size = new System.Drawing.Size(106, 17);
             this.thisisTimeLabel.TabIndex = 11;
@@ -216,16 +219,56 @@
             // tagsCheckedListBox
             // 
             this.tagsCheckedListBox.FormattingEnabled = true;
-            this.tagsCheckedListBox.Location = new System.Drawing.Point(309, 230);
+            this.tagsCheckedListBox.Location = new System.Drawing.Point(297, 230);
             this.tagsCheckedListBox.Name = "tagsCheckedListBox";
             this.tagsCheckedListBox.Size = new System.Drawing.Size(162, 89);
             this.tagsCheckedListBox.TabIndex = 13;
+            // 
+            // alertTimeOptionComboBox
+            // 
+            this.alertTimeOptionComboBox.FormattingEnabled = true;
+            this.alertTimeOptionComboBox.Items.AddRange(new object[] {
+            "В момент начала",
+            "5 мин.",
+            "15 мин.",
+            "30 мин.",
+            "1 час",
+            "1 день",
+            "1 неделя",
+            "Не напоминать"});
+            this.alertTimeOptionComboBox.Location = new System.Drawing.Point(297, 140);
+            this.alertTimeOptionComboBox.Name = "alertTimeOptionComboBox";
+            this.alertTimeOptionComboBox.Size = new System.Drawing.Size(162, 24);
+            this.alertTimeOptionComboBox.TabIndex = 14;
+            // 
+            // thisisAlertLabel
+            // 
+            this.thisisAlertLabel.AutoSize = true;
+            this.thisisAlertLabel.Location = new System.Drawing.Point(331, 105);
+            this.thisisAlertLabel.Name = "thisisAlertLabel";
+            this.thisisAlertLabel.Size = new System.Drawing.Size(93, 17);
+            this.thisisAlertLabel.TabIndex = 15;
+            this.thisisAlertLabel.Text = "Оповещение";
+            // 
+            // addTagButton
+            // 
+            this.addTagButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("addTagButton.BackgroundImage")));
+            this.addTagButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.addTagButton.Location = new System.Drawing.Point(465, 252);
+            this.addTagButton.Name = "addTagButton";
+            this.addTagButton.Size = new System.Drawing.Size(39, 37);
+            this.addTagButton.TabIndex = 16;
+            this.addTagButton.UseVisualStyleBackColor = true;
+            this.addTagButton.Click += new System.EventHandler(this.addTagButton_Click);
             // 
             // TaskForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(515, 450);
+            this.Controls.Add(this.addTagButton);
+            this.Controls.Add(this.thisisAlertLabel);
+            this.Controls.Add(this.alertTimeOptionComboBox);
             this.Controls.Add(this.tagsCheckedListBox);
             this.Controls.Add(this.thisisCommentLabel);
             this.Controls.Add(this.thisisTimeLabel);
@@ -259,5 +302,8 @@
         private System.Windows.Forms.Label thisisTimeLabel;
         private System.Windows.Forms.Label thisisCommentLabel;
         private System.Windows.Forms.CheckedListBox tagsCheckedListBox;
+        private System.Windows.Forms.ComboBox alertTimeOptionComboBox;
+        private System.Windows.Forms.Label thisisAlertLabel;
+        private System.Windows.Forms.Button addTagButton;
     }
 }

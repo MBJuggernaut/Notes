@@ -74,13 +74,19 @@
     </Compile>
     <Compile Include="FileProvider.cs" />
     <Compile Include="ITagRepository.cs" />
-    <Compile Include="Migrations\MigrationFile.cs" />
-    <Compile Include="Migrations\MigrationFile.designer.cs">
-      <DependentUpon>MigrationFile.cs</DependentUpon>
+    <Compile Include="Migrations\202009121900335_Migration.cs" />
+    <Compile Include="Migrations\202009121900335_Migration.designer.cs">
+      <DependentUpon>202009121900335_Migration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="NoteRepository.cs" />
     <Compile Include="TagDatabaseRepository.cs" />
+    <Compile Include="TagsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TagsForm.Designer.cs">
+      <DependentUpon>TagsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="TaskContext.cs" />
     <Compile Include="TaskDatabaseRepository.cs" />
     <Compile Include="WeatherInfo.cs" />
@@ -114,8 +120,8 @@
     <EmbeddedResource Include="MainForm.ru.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\MigrationFile.resx">
-      <DependentUpon>MigrationFile.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202009121900335_Migration.resx">
+      <DependentUpon>202009121900335_Migration.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -126,6 +132,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="TagsForm.resx">
+      <DependentUpon>TagsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TaskForm.resx">
       <DependentUpon>TaskForm.cs</DependentUpon>
     </EmbeddedResource>

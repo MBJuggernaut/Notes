@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 
@@ -35,8 +36,8 @@ namespace NotesWindowsFormsApp
         }
         public List<Task> GetByDate(DateTime date)
         {
-            var x = taskContext.Tasks.Where(t => t.Date == date).ToList();            
-            return x.OrderBy(t => t.Time).ToList();
+            var listOfTasks = taskContext.Tasks.Where(t => t.Date == date).ToList();            
+            return listOfTasks.OrderBy(t => t.Time).ToList();
         }
         public List<Tags> GetAllTags()
         {
@@ -63,6 +64,11 @@ namespace NotesWindowsFormsApp
         {
             taskContext.Tasks.Remove(task);
             taskContext.SaveChanges();
+        }
+        public List<Task> GetTodayAlerts()
+        {            
+            var listOfAlerts = taskContext.Tasks.Where(t => DbFunctions.TruncateTime(t.AlarmTime) == DateTime.Today).ToList();
+            return listOfAlerts;
         }
     }
 }

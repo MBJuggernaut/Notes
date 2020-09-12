@@ -1,7 +1,8 @@
 ﻿namespace NotesWindowsFormsApp.Migrations
 {
+    using System;
     using System.Data.Entity.Migrations;
-
+    
     public partial class Migration : DbMigration
     {
         public override void Up()
@@ -11,7 +12,7 @@
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Text = c.String(nullable:false, maxLength: 20),
+                        Text = c.String(maxLength: 20),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -22,6 +23,7 @@
                         Id = c.Int(nullable: false, identity: true),
                         Date = c.DateTime(nullable: false),
                         Time = c.String(nullable: false, maxLength: 5),
+                        AlarmTime = c.DateTime(nullable: false),
                         Text = c.String(nullable: false, maxLength: 50),
                         IsActual = c.Boolean(nullable: false),
                     })
@@ -39,6 +41,7 @@
                 .ForeignKey("dbo.Tags", t => t.Tags_Id, cascadeDelete: true)
                 .Index(t => t.Task_Id)
                 .Index(t => t.Tags_Id);
+            
         }
         
         public override void Down()

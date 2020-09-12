@@ -50,7 +50,6 @@
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.myCalendar = new System.Windows.Forms.MonthCalendar();
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.everyMinuteTimer = new System.Windows.Forms.Timer(this.components);
             this.weatherPanel = new System.Windows.Forms.Panel();
             this.weatherErrorLabel = new System.Windows.Forms.Label();
             this.feelslikeLabel = new System.Windows.Forms.Label();
@@ -59,6 +58,7 @@
             this.temperatureLabel = new System.Windows.Forms.Label();
             this.weatherTimer = new System.Windows.Forms.Timer(this.components);
             this.midnightTimer = new System.Windows.Forms.Timer(this.components);
+            this.everyMinuteTimer = new System.Windows.Forms.Timer(this.components);
             this.menuStrip.SuspendLayout();
             this.notesPanel.SuspendLayout();
             this.todolistPanel.SuspendLayout();
@@ -226,11 +226,6 @@
             resources.ApplyResources(this.trayIcon, "trayIcon");
             this.trayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TrayIcon_MouseDoubleClick);
             // 
-            // everyMinuteTimer
-            // 
-            this.everyMinuteTimer.Enabled = true;
-            this.everyMinuteTimer.Tick += new System.EventHandler(this.EveryMinuteTimer_Tick);
-            // 
             // weatherPanel
             // 
             this.weatherPanel.Controls.Add(this.weatherErrorLabel);
@@ -277,6 +272,11 @@
             // 
             this.midnightTimer.Enabled = true;
             this.midnightTimer.Tick += new System.EventHandler(this.MidnightTimer_Tick);
+            // 
+            // everyMinuteTimer
+            // 
+            this.everyMinuteTimer.Enabled = true;
+            this.everyMinuteTimer.Tick += new System.EventHandler(this.EveryMinuteTimer_Tick);
             // 
             // MainForm
             // 

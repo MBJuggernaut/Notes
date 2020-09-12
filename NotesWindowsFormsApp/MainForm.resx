@@ -689,9 +689,6 @@
         fGMFKBsAAAAASUVORK5CYII=
 </value>
   </data>
-  <metadata name="everyMinuteTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>231, 17</value>
-  </metadata>
   <data name="weatherErrorLabel.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 13.8pt, style=Bold</value>
   </data>
@@ -869,6 +866,9 @@
   <metadata name="midnightTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>832, 17</value>
   </metadata>
+  <metadata name="everyMinuteTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>231, 17</value>
+  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -938,12 +938,6 @@
   <data name="&gt;&gt;trayIcon.Type" xml:space="preserve">
     <value>System.Windows.Forms.NotifyIcon, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;everyMinuteTimer.Name" xml:space="preserve">
-    <value>everyMinuteTimer</value>
-  </data>
-  <data name="&gt;&gt;everyMinuteTimer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;weatherTimer.Name" xml:space="preserve">
     <value>weatherTimer</value>
   </data>
@@ -954,6 +948,12 @@
     <value>midnightTimer</value>
   </data>
   <data name="&gt;&gt;midnightTimer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;everyMinuteTimer.Name" xml:space="preserve">
+    <value>everyMinuteTimer</value>
+  </data>
+  <data name="&gt;&gt;everyMinuteTimer.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
