@@ -25,7 +25,8 @@
                         Time = c.String(nullable: false, maxLength: 5),
                         AlarmTime = c.DateTime(nullable: false),
                         Text = c.String(nullable: false, maxLength: 50),
-                        IsActual = c.Boolean(nullable: false),
+                        Repeating = c.String(nullable: false, maxLength: 15),
+                        Alarming = c.String(nullable: false, maxLength: 15),
                     })
                 .PrimaryKey(t => t.Id);
             

@@ -14,7 +14,8 @@ namespace NotesWindowsFormsApp
             InitializeComponent();
             HoursComboBox.Text = "00";
             MinutesComboBox.Text = "00";
-            alertTimeOptionComboBox.Text = "В момент начала";
+            alarmingComboBox.Text = alarmingComboBox.Items[0].ToString();
+            repeatingComboBox.Text = repeatingComboBox.Items[0].ToString();
         }
         private void TaskForm_Load(object sender, EventArgs e)
         {
@@ -34,7 +35,9 @@ namespace NotesWindowsFormsApp
 
             newTask.Time = HoursComboBox.Text + ":" + MinutesComboBox.Text;
             newTask.Text = CommentTextBox.Text;
-            newTask.Date = TaskDateTimePicker.Value.Date;           
+            newTask.Date = TaskDateTimePicker.Value.Date;
+            newTask.Repeating = repeatingComboBox.Text;
+            newTask.Alarming = alarmingComboBox.Text;
 
             var errors = Validation.Check(newTask);
 
@@ -50,37 +53,34 @@ namespace NotesWindowsFormsApp
                 }
                 newTask.Tags = tags;
 
-                DateTime timeOfAlarm = newTask.Date.Add(DateTime.Parse(newTask.Time).TimeOfDay);
-                switch (alertTimeOptionComboBox.Text)
+                DateTime timeOfStart = newTask.Date.Add(DateTime.Parse(newTask.Time).TimeOfDay);
+                
+                switch (newTask.Alarming)
                 {
                     case "В момент начала":
-                        newTask.AlarmTime = timeOfAlarm;
+                        newTask.AlarmTime = timeOfStart;
                         break;
                     case "5 мин.":
-                        newTask.AlarmTime = timeOfAlarm.AddMinutes(-5);
+                        newTask.AlarmTime = timeOfStart.AddMinutes(-5);
                         break;
                     case "15 мин.":
-                        newTask.AlarmTime = timeOfAlarm.AddMinutes(-15);
+                        newTask.AlarmTime = timeOfStart.AddMinutes(-15);
                         break;
                     case "30 мин.":
-                        newTask.AlarmTime = timeOfAlarm.AddMinutes(-30);
+                        newTask.AlarmTime = timeOfStart.AddMinutes(-30);
                         break;
                     case "1 час":
-                        newTask.AlarmTime = timeOfAlarm.AddHours(-1);
+                        newTask.AlarmTime = timeOfStart.AddHours(-1);
                         break;
                     case "1 день":
-                        newTask.AlarmTime = timeOfAlarm.AddDays(-1);
+                        newTask.AlarmTime = timeOfStart.AddDays(-1);
                         break;
                     case "1 неделя":
-                        newTask.AlarmTime = timeOfAlarm.AddDays(-7);
+                        newTask.AlarmTime = timeOfStart.AddDays(-7);
                         break;
                     case "Не напоминать":
                         break;
-                }
-
-                newTask.IsActual = DateTime.Compare(newTask.Date, DateTime.Today) > 0 ||
-                         DateTime.Compare(newTask.Date, DateTime.Today) == 0 &&
-                         string.Compare(newTask.Time, DateTime.Now.ToString("HH:mm")) > 0;
+                }                
 
                 DialogResult = DialogResult.OK;
                 Close();
@@ -101,13 +101,16 @@ namespace NotesWindowsFormsApp
             {
                 tagsform.tagsDataGridView.Rows.Add(tag.Text);
             }
-            if (tagsform.ShowDialog(this) == DialogResult.OK)
+            tagsform.ShowDialog(this);
+            
+            tagsCheckedListBox.Items.Clear();
+            using (var context = new TaskContext())
             {
-                tagsCheckedListBox.Items.Clear();
-
-                for (int i = 0; i< tagsform.tagsDataGridView.Rows.Count-1;i++)
-                    tagsCheckedListBox.Items.Add(tagsform.tagsDataGridView.Rows[i].Cells[0].Value.ToString());                
-            }
+                foreach (var t in context.Tags)
+                {
+                    tagsCheckedListBox.Items.Add(t.Text);
+                }
+            }                               
         }
     }
 }

@@ -23,10 +23,14 @@ namespace NotesWindowsFormsApp
 
         [Required(ErrorMessage = "Поле примечания не должно оставаться пустым. Примечание к заданию должно содержать от 3-х до 50-ти символов.")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Примечание к заданию должно содержать от 3-х до 50-ти символов.")]
-        public string Text { get; set; }
+        public string Text { get; set; }      
 
-        public bool IsActual { get; set; }
-
+        [Required]
+        [StringLength(15, MinimumLength = 5)]
+        public string Repeating { get; set; }
+        [Required]
+        [StringLength(15, MinimumLength = 5)]
+        public string Alarming { get; set; }
         public virtual List<Tags> Tags { get; set; }
 
         public Task()

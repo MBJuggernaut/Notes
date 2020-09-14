@@ -20,8 +20,8 @@ namespace NotesWindowsFormsApp
             taskContext.SaveChanges();
         }
         public List<DateTime> FindAllActual()
-        {
-            var listofactual = taskContext.Tasks.Where(t => t.IsActual == true).ToList();
+        {            
+            var listofactual = taskContext.Tasks.Where(t => DateTime.Compare(t.Date, DateTime.Today) >= 0).ToList();
             List<DateTime> listofdates = new List<DateTime>();
             foreach (var task in listofactual)
             {
@@ -36,7 +36,7 @@ namespace NotesWindowsFormsApp
         }
         public List<Task> GetByDate(DateTime date)
         {
-            var listOfTasks = taskContext.Tasks.Where(t => t.Date == date).ToList();            
+            var listOfTasks = taskContext.Tasks.Where(t => t.Date == date).ToList();
             return listOfTasks.OrderBy(t => t.Time).ToList();
         }
         public List<Tags> GetAllTags()
@@ -52,10 +52,10 @@ namespace NotesWindowsFormsApp
         {
             var taskToChange = taskContext.Tasks.SingleOrDefault(t => t.Id == task.Id);
             if (taskToChange != null)
-            {                
+            {
                 taskToChange.Tags.Clear();
-                taskToChange.Tags.AddRange(task.Tags);  
-                
+                taskToChange.Tags.AddRange(task.Tags);
+
                 taskContext.Tasks.AddOrUpdate(task);
                 taskContext.SaveChanges();
             }
@@ -66,9 +66,40 @@ namespace NotesWindowsFormsApp
             taskContext.SaveChanges();
         }
         public List<Task> GetTodayAlerts()
-        {            
+        {
             var listOfAlerts = taskContext.Tasks.Where(t => DbFunctions.TruncateTime(t.AlarmTime) == DateTime.Today).ToList();
             return listOfAlerts;
+        }
+        public void ChangeAlarmIfNeeded(Task task)
+        {
+            var taskToChange = taskContext.Tasks.SingleOrDefault(t => t.Id == task.Id);
+            var newtask = taskToChange;
+            switch (taskToChange.Repeating)
+            {
+                case "Один раз":
+                    break;
+                case "Каждый день":
+                    newtask.Date = taskToChange.Date.AddDays(1);
+                    newtask.AlarmTime = taskToChange.AlarmTime.AddDays(1);
+                    Add(newtask);
+                    break;
+                case "Каждую неделю":
+                    newtask.Date = taskToChange.Date.AddDays(7);
+                    newtask.AlarmTime = taskToChange.AlarmTime.AddDays(7);
+                    Add(newtask);
+                    break;
+                case "Каждый месяц":
+                    newtask.Date = taskToChange.Date.AddMonths(1);
+                    newtask.AlarmTime = taskToChange.AlarmTime.AddMonths(1);
+                    Add(newtask);
+                    break;
+                case "Каждый год":
+                    newtask.Date = taskToChange.Date.AddYears(1);
+                    newtask.AlarmTime = taskToChange.AlarmTime.AddYears(1);
+                    Add(newtask);
+                    break;
+            }
+
         }
     }
 }

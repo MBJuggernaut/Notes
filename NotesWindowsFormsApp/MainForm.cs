@@ -103,6 +103,8 @@ namespace NotesWindowsFormsApp
             taskform.tags = taskManager.GetAllTags();
             taskform.newTask.Id = task.Id;
             taskform.checkedTags = task.Tags;
+            taskform.alarmingComboBox.Text = task.Alarming;
+            taskform.repeatingComboBox.Text = task.Repeating;
 
             if (taskform.ShowDialog(this) == DialogResult.OK)
             {
@@ -209,20 +211,19 @@ namespace NotesWindowsFormsApp
             if (listOfTodayAlerts.Count != 0)
             {
                 var now = DateTime.Now;
-                now = now.AddSeconds(-now.Second);
-                now = now.AddMilliseconds(-now.Millisecond);
+                var nowShort = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0);
                 foreach (var taskfromlist in listOfTodayAlerts)
                 {
-                    if (taskfromlist.AlarmTime == now && taskfromlist.IsActual == true)
+                    if (taskfromlist.AlarmTime == nowShort)
                     {
-                        taskfromlist.IsActual = false;
-                        everyMinuteTimer.Stop();
+                        //  everyMinuteTimer.Stop();
+                        taskManager.ChangeAlarmIfNeeded(taskfromlist);
                         AlertForm alertForm = new AlertForm();
-                        alertForm.AlertMessageLabel.Text = taskfromlist.Text;
+                        alertForm.AlertMessageLabel.Text = String.Format("{0}, {1},{2}", taskfromlist.Date.ToShortDateString(), taskfromlist.Time, taskfromlist.Text);
                         alertForm.TopMost = true;
                         alertForm.Show();
 
-                        everyMinuteTimer.Start();
+                      //  everyMinuteTimer.Start();
                         return;
                     }
                 }
