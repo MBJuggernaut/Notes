@@ -29,6 +29,10 @@ namespace NotesWindowsFormsApp
             }
             return listofdates;
         }
+        public List<Task> FindAllPast()
+        {
+            return taskContext.Tasks.Where(t => DateTime.Compare(t.Date, DateTime.Today) < 0).ToList();
+        }
         public Task FindById(int id)
         {
             var thisTask = taskContext.Tasks.FirstOrDefault(t => t.Id == id);

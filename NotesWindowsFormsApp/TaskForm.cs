@@ -54,7 +54,16 @@ namespace NotesWindowsFormsApp
                 newTask.Tags = tags;
 
                 DateTime timeOfStart = newTask.Date.Add(DateTime.Parse(newTask.Time).TimeOfDay);
-                
+
+                //Dictionary<int, TimeSpan> x = new Dictionary<int, TimeSpan>();
+                //x.Add(0, TimeSpan.Zero);
+                //x.Add(1, TimeSpan.FromMinutes(-5));
+                //x.Add(2, TimeSpan.FromMinutes(-15));
+                //x.Add(3, TimeSpan.FromMinutes(-30));
+                //x.Add(4, TimeSpan.FromHours(-1));
+                //x.Add(5, TimeSpan.FromDays(-1));
+                //x.Add(6, TimeSpan.FromDays(-7));               
+
                 switch (newTask.Alarming)
                 {
                     case "В момент начала":
@@ -80,7 +89,7 @@ namespace NotesWindowsFormsApp
                         break;
                     case "Не напоминать":
                         break;
-                }                
+                }
 
                 DialogResult = DialogResult.OK;
                 Close();

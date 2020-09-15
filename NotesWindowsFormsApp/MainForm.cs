@@ -22,8 +22,25 @@ namespace NotesWindowsFormsApp
         {
             myNote = noteRepository.Get();
             notesRichTextBox.Text = myNote.Text;
-            notesToolStripMenuItem.PerformClick();
-           // GetWeather();
+            notesToolStripMenuItem.PerformClick();            
+
+            var listOfPossiblyMissedEvents = taskManager.FindAllPast();
+            int countPME = listOfPossiblyMissedEvents.Count;
+            while (true)
+            {
+                foreach(var task in listOfPossiblyMissedEvents)
+                {
+                    taskManager.ChangeAlarmIfNeeded(task);
+                }
+
+                var listOfPossiblyMissedEvents2 = taskManager.FindAllPast();
+                int countPME2 = listOfPossiblyMissedEvents2.Count;
+
+                if (countPME == countPME2)
+                    break;
+
+                countPME = countPME2;
+            }
         }
         private void TasksToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -215,15 +232,12 @@ namespace NotesWindowsFormsApp
                 foreach (var taskfromlist in listOfTodayAlerts)
                 {
                     if (taskfromlist.AlarmTime == nowShort)
-                    {
-                        //  everyMinuteTimer.Stop();
+                    {                        
                         taskManager.ChangeAlarmIfNeeded(taskfromlist);
                         AlertForm alertForm = new AlertForm();
                         alertForm.AlertMessageLabel.Text = String.Format("{0}, {1},{2}", taskfromlist.Date.ToShortDateString(), taskfromlist.Time, taskfromlist.Text);
                         alertForm.TopMost = true;
-                        alertForm.Show();
-
-                      //  everyMinuteTimer.Start();
+                        alertForm.Show();                      
                         return;
                     }
                 }
