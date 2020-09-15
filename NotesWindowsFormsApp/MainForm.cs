@@ -24,11 +24,13 @@ namespace NotesWindowsFormsApp
             notesRichTextBox.Text = myNote.Text;
             notesToolStripMenuItem.PerformClick();            
 
-            var listOfPossiblyMissedEvents = taskManager.FindAllPast();
-            int countPME = listOfPossiblyMissedEvents.Count;
+            
             while (true)
             {
-                foreach(var task in listOfPossiblyMissedEvents)
+                var listOfPossiblyMissedEvents = taskManager.FindAllPast();
+                int countPME = listOfPossiblyMissedEvents.Count;
+
+                foreach (var task in listOfPossiblyMissedEvents)
                 {
                     taskManager.ChangeAlarmIfNeeded(task);
                 }
@@ -37,9 +39,7 @@ namespace NotesWindowsFormsApp
                 int countPME2 = listOfPossiblyMissedEvents2.Count;
 
                 if (countPME == countPME2)
-                    break;
-
-                countPME = countPME2;
+                    break;                
             }
         }
         private void TasksToolStripMenuItem_Click(object sender, EventArgs e)

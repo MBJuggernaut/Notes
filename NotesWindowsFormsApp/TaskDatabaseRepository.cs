@@ -85,24 +85,27 @@ namespace NotesWindowsFormsApp
                 case "Каждый день":
                     newtask.Date = taskToChange.Date.AddDays(1);
                     newtask.AlarmTime = taskToChange.AlarmTime.AddDays(1);
-                    Add(newtask);
+                   
                     break;
                 case "Каждую неделю":
                     newtask.Date = taskToChange.Date.AddDays(7);
                     newtask.AlarmTime = taskToChange.AlarmTime.AddDays(7);
-                    Add(newtask);
+                  
                     break;
                 case "Каждый месяц":
                     newtask.Date = taskToChange.Date.AddMonths(1);
                     newtask.AlarmTime = taskToChange.AlarmTime.AddMonths(1);
-                    Add(newtask);
+                  
                     break;
                 case "Каждый год":
                     newtask.Date = taskToChange.Date.AddYears(1);
                     newtask.AlarmTime = taskToChange.AlarmTime.AddYears(1);
-                    Add(newtask);
+                   
                     break;
             }
+
+            taskContext.Tasks.AddOrUpdate(newtask);
+            taskContext.SaveChanges();
 
         }
     }
