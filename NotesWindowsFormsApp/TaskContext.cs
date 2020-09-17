@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Migrations;
 
 namespace NotesWindowsFormsApp
 {
-   public class TaskContext: DbContext
+    public class TaskContext: DbContext
     {
         public TaskContext(): base ("DBConnection")
         {

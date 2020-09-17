@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace NotesWindowsFormsApp
@@ -216,7 +215,7 @@ namespace NotesWindowsFormsApp
                 taskManager.AddDates();
 
                 var newtimetoupdate = timeToUpdate.AddMonths(1);
-                updateRepository.Update(newtimetoupdate)
+                updateRepository.Update(newtimetoupdate);
             }
         }
         private void EveryMinuteTimer_Tick(object sender, EventArgs e)
