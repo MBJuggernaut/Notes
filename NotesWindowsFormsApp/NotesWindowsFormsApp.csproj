@@ -72,6 +72,8 @@
     <Compile Include="AlertForm.Designer.cs">
       <DependentUpon>AlertForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Date.cs" />
+    <Compile Include="EveryMonthUpdateRepository.cs" />
     <Compile Include="ExitTimeRepository.cs" />
     <Compile Include="FileProvider.cs" />
     <Compile Include="ITagRepository.cs" />

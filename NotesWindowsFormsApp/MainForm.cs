@@ -18,8 +18,10 @@ namespace NotesWindowsFormsApp
         private List<Task> listOfTodayAlerts = new List<Task>();        
         readonly TaskDatabaseRepository taskManager = new TaskDatabaseRepository();
         readonly ExitTimeRepository timeRepository = new ExitTimeRepository();
+        EveryMonthUpdateRepository updateRepository = new EveryMonthUpdateRepository();
         readonly NoteRepository noteRepository = new NoteRepository();
-        readonly WeatherInfoProvider weatherInfoProvider = new WeatherInfoProvider();        
+        readonly WeatherInfoProvider weatherInfoProvider = new WeatherInfoProvider();
+        private DateTime timeToUpdate;
         private void MainForm_Load(object sender, EventArgs e)
         {
             myNote = noteRepository.Get();
@@ -28,6 +30,8 @@ namespace NotesWindowsFormsApp
 
             DateTime lastExitTime = timeRepository.Get();
             taskManager.RecountAllMissedAlarms(lastExitTime);
+            timeToUpdate = updateRepository.Get();
+
         }
         private void TasksToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -205,7 +209,15 @@ namespace NotesWindowsFormsApp
         {
             today = DateTime.Today;
             midnightTimer.Interval = (int)(DateTime.Today.AddDays(1) - DateTime.Now).TotalMilliseconds;
-            listOfTodayAlerts = taskManager.GetTodayAlerts();            
+            listOfTodayAlerts = taskManager.GetTodayAlerts(); 
+            
+            if (DateTime.Compare(timeToUpdate, today)>=0)
+            {
+                taskManager.AddDates();
+
+                var newtimetoupdate = timeToUpdate.AddMonths(1);
+                updateRepository.Update(newtimetoupdate)
+            }
         }
         private void EveryMinuteTimer_Tick(object sender, EventArgs e)
         {            

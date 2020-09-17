@@ -235,5 +235,25 @@ namespace NotesWindowsFormsApp
                 date.Tasks.Add(task);
             }
         }
+        public void AddDates()
+        {
+            
+            var day = context.Dates.Last().Day.AddDays(1);
+            List <Date> dates = new List<Date>();
+            for (int i = 0; i <= 31; i++)
+            {
+                dates.Add(new Date { Day = day });
+                day = day.AddDays(1);
+            }
+            context.Dates.AddRange(dates);
+
+            foreach (var task in context.Tasks)
+            {
+                task.Dates.Clear();
+                SetAllDates(task);
+            }
+            context.SaveChanges();
+            
+        }
     }
 }
