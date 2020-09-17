@@ -19,12 +19,6 @@ namespace NotesWindowsFormsApp
         }
         private void TaskForm_Load(object sender, EventArgs e)
         {
-            //using (TaskDatabaseRepository taskManager = new TaskDatabaseRepository())
-            //{
-            //    tags = context.Ta
-            //    context.Tags.Add(new Tag { Text = newTagTextBox.Text });
-            //    context.SaveChanges();
-            //}
             foreach (var tag in tags)
             {
                 tagsCheckedListBox.Items.Add(tag.Text);
@@ -41,7 +35,7 @@ namespace NotesWindowsFormsApp
 
             newTask.Time = HoursComboBox.Text + ":" + MinutesComboBox.Text;
             newTask.Text = CommentTextBox.Text;
-            newTask.NextDate = TaskDateTimePicker.Value.Date;
+            newTask.FirstDate = TaskDateTimePicker.Value.Date;
             newTask.Repeating = repeatingComboBox.Text;
             newTask.Alarming = alarmingComboBox.Text;          
 
@@ -70,7 +64,7 @@ namespace NotesWindowsFormsApp
                 }
             }
         }
-        private void addTagButton_Click(object sender, EventArgs e)
+        private void AddTagButton_Click(object sender, EventArgs e)
         {
             var tagsform = new TagsForm();
 

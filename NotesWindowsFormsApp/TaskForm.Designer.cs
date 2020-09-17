@@ -262,7 +262,7 @@
             this.addTagButton.Size = new System.Drawing.Size(39, 37);
             this.addTagButton.TabIndex = 16;
             this.addTagButton.UseVisualStyleBackColor = true;
-            this.addTagButton.Click += new System.EventHandler(this.addTagButton_Click);
+            this.addTagButton.Click += new System.EventHandler(this.AddTagButton_Click);
             // 
             // repeatingComboBox
             // 

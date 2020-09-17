@@ -54,7 +54,7 @@
             this.tagsDataGridView.RowTemplate.ReadOnly = true;
             this.tagsDataGridView.Size = new System.Drawing.Size(349, 201);
             this.tagsDataGridView.TabIndex = 0;
-            this.tagsDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tagsDataGridView_CellContentClick);
+            this.tagsDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.TagsDataGridView_CellContentClick);
             // 
             // TagsFormText
             // 
@@ -82,7 +82,7 @@
             this.newTagTextBox.Size = new System.Drawing.Size(187, 22);
             this.newTagTextBox.TabIndex = 1;
             this.newTagTextBox.Text = "Введите текст своего тэга";
-            this.newTagTextBox.Click += new System.EventHandler(this.newTagTextBox_Click);
+            this.newTagTextBox.Click += new System.EventHandler(this.NewTagTextBox_Click);
             // 
             // addTagButton
             // 
@@ -92,7 +92,7 @@
             this.addTagButton.TabIndex = 2;
             this.addTagButton.Text = "Добавить";
             this.addTagButton.UseVisualStyleBackColor = true;
-            this.addTagButton.Click += new System.EventHandler(this.addTagButton_Click);
+            this.addTagButton.Click += new System.EventHandler(this.AddTagButton_Click);
             // 
             // okButton
             // 

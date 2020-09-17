@@ -22,7 +22,7 @@ namespace NotesWindowsFormsApp
 
         }
 
-        private void addTagButton_Click(object sender, EventArgs e)
+        private void AddTagButton_Click(object sender, EventArgs e)
         {
             if (newTagTextBox.Text != "")
             {
@@ -37,12 +37,12 @@ namespace NotesWindowsFormsApp
             }
         }
 
-        private void newTagTextBox_Click(object sender, EventArgs e)
+        private void NewTagTextBox_Click(object sender, EventArgs e)
         {
             newTagTextBox.Text = null;
         }
 
-        private void tagsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void TagsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (tagsDataGridView.Columns[e.ColumnIndex] == TagsFormDeleteButton)
             {

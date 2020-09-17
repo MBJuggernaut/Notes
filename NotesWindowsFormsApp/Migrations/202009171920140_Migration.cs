@@ -21,7 +21,7 @@
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        NextDate = c.DateTime(nullable: false),
+                        FirstDate = c.DateTime(nullable: false),
                         Time = c.String(nullable: false, maxLength: 5),
                         AlarmTime = c.DateTime(nullable: false),
                         Text = c.String(nullable: false, maxLength: 50),

@@ -26,16 +26,17 @@ namespace NotesWindowsFormsApp
             context.Tasks.Remove(task);
             context.SaveChanges();
         }
-        public List<DateTime> FindAllNotEmptyDates()
+        public List<DateTime> FindAllActualDates()
         {
-            var listofactual = context.Dates.Where(t => t.Tasks.Count > 0);
-            List<DateTime> listofdates = new List<DateTime>();
+            var listofactual = context.Dates.Where((t => DateTime.Compare(t.Day, DateTime.Today) >= 0)).Where(t => t.Tasks.Count > 0);
+            List <DateTime> listofdates = new List<DateTime>();
             foreach (var date in listofactual)
             {
                 listofdates.Add(date.Day);
             }
             return listofdates;
         }
+        
         public Task FindById(int id)
         {
             var thisTask = context.Tasks.FirstOrDefault(t => t.Id == id);
@@ -46,6 +47,16 @@ namespace NotesWindowsFormsApp
             var day = context.Dates.FirstOrDefault(t => t.Day == date);
             var listOfTasks = day.Tasks;
             return listOfTasks.OrderBy(t => t.Time).ToList();
+        }
+        public void RecountAllMissedAlarms(DateTime lastExitTime)
+        {
+            //находим все события, будильники которых были установлены на время, пока программа была закрыта
+            List<Task> tasksWithMissedAlarms = context.Tasks.Where(t => DateTime.Compare(t.AlarmTime, DateTime.Now) < 0).Where(t => DateTime.Compare(t.AlarmTime, lastExitTime) > 0).ToList();
+            foreach (var task in tasksWithMissedAlarms)
+            {
+                CountNextAlarmTime(task);
+                context.SaveChanges();
+            }
         }
         public List<Tag> GetAllTags()
         {
@@ -64,21 +75,21 @@ namespace NotesWindowsFormsApp
             {
                 foreach (var date in taskToChange.Dates)
                 {
-                    date.Tasks.Remove(task);
+                    date.Tasks.Remove(taskToChange);
                 }
                 taskToChange.Tags.Clear();
                 taskToChange.Dates.Clear();
-
-                taskToChange = task;
-
+                
+                taskToChange.FirstDate = task.FirstDate;
+                taskToChange.Repeating = task.Repeating;
                 SetAllDates(taskToChange);
 
+                taskToChange.Time = task.Time;
+                taskToChange.Alarming = task.Alarming;
                 CountNextAlarmTime(taskToChange);
 
-                //  context.Tasks.Attach(taskToChange);
-                //context.Entry(taskToChange).State = EntityState.Modified;                
+                taskToChange.Text = task.Text;                              
 
-                //context.Tasks.AddOrUpdate(FindById(taskToChange.Id));
                 context.SaveChanges();
             }
         }
@@ -87,44 +98,75 @@ namespace NotesWindowsFormsApp
             var listOfAlerts = context.Tasks.Where(t => DbFunctions.TruncateTime(t.AlarmTime) == DateTime.Today).ToList();
             return listOfAlerts;
         }
-        public void PickNextDate(Task task)
+        public DateTime PickNextDate(Task task, DateTime date)
         {
-            task.NextDate = task.Dates.FirstOrDefault(t => DateTime.Compare(t.Day, DateTime.Today) >= 0).Day;
+            if (task.Dates.Count <2)
+                return DateTime.MinValue;
+
+            for (int i =0;i<task.Dates.Count-1;i++)
+            {
+                if (task.Dates[i].Day == date)
+                {
+                    return task.Dates[i + 1].Day;                    
+                }
+            }
+
+            return DateTime.MinValue;
         }
         public void CountNextAlarmTime(Task task)
         {
-            PickNextDate(task);
-            DateTime timeOfStart = task.NextDate.Add(DateTime.Parse(task.Time).TimeOfDay);
-            switch (task.Alarming)
-            {
-                case "В момент начала":
-                    task.AlarmTime = timeOfStart;
+            var date = task.FirstDate;
+            DateTime timeOfStart = date.Add(DateTime.Parse(task.Time).TimeOfDay);
+            var supposedTime = DateTime.MinValue;
+            while (true)
+            {       
+                
+                switch (task.Alarming)
+                {
+                    case "В момент начала":
+                        supposedTime = timeOfStart;
+                        break;
+                    case "5 мин.":
+                        supposedTime = timeOfStart.AddMinutes(-5);
+                        break;
+                    case "15 мин.":
+                        supposedTime = timeOfStart.AddMinutes(-15);
+                        break;
+                    case "30 мин.":
+                        supposedTime = timeOfStart.AddMinutes(-30);
+                        break;
+                    case "1 час":
+                        supposedTime = timeOfStart.AddHours(-1);
+                        break;
+                    case "1 день":
+                        supposedTime = timeOfStart.AddDays(-1);
+                        break;
+                    case "1 неделя":
+                        supposedTime = timeOfStart.AddDays(-7);
+                        break;
+                    case "Не напоминать":
+                        break;
+                }
+
+                if (DateTime.Compare(supposedTime, DateTime.Now) > 0)
                     break;
-                case "5 мин.":
-                    task.AlarmTime = timeOfStart.AddMinutes(-5);
+
+                date = PickNextDate(task, date);
+
+                if(date == DateTime.MinValue)
+                { 
+                    supposedTime = DateTime.Now.AddDays(-1);
                     break;
-                case "15 мин.":
-                    task.AlarmTime = timeOfStart.AddMinutes(-15);
-                    break;
-                case "30 мин.":
-                    task.AlarmTime = timeOfStart.AddMinutes(-30);
-                    break;
-                case "1 час":
-                    task.AlarmTime = timeOfStart.AddHours(-1);
-                    break;
-                case "1 день":
-                    task.AlarmTime = timeOfStart.AddDays(-1);
-                    break;
-                case "1 неделя":
-                    task.AlarmTime = timeOfStart.AddDays(-7);
-                    break;
-                case "Не напоминать":
-                    break;
+                }
+
+                timeOfStart = date.Add(DateTime.Parse(task.Time).TimeOfDay);
+                
             }
+            task.AlarmTime = supposedTime;
         }
         public void SetAllDates(Task task)
         {
-            var day = task.NextDate;
+            var day = task.FirstDate;
             List<Date> dates = new List<Date>();
 
             switch (task.Repeating)

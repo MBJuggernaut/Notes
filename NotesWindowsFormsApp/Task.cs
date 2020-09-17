@@ -12,7 +12,7 @@ namespace NotesWindowsFormsApp
         public int Id { get; set; }
 
         [Required]       
-        public DateTime NextDate { get; set; }
+        public DateTime FirstDate { get; set; }
 
         [Required]
         [StringLength(5, MinimumLength = 5)]       

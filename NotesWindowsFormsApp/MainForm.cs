@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace NotesWindowsFormsApp
@@ -16,31 +17,17 @@ namespace NotesWindowsFormsApp
         private DateTime chosenDate;
         private List<Task> listOfTodayAlerts = new List<Task>();        
         readonly TaskDatabaseRepository taskManager = new TaskDatabaseRepository();
+        readonly ExitTimeRepository timeRepository = new ExitTimeRepository();
         readonly NoteRepository noteRepository = new NoteRepository();
         readonly WeatherInfoProvider weatherInfoProvider = new WeatherInfoProvider();        
         private void MainForm_Load(object sender, EventArgs e)
         {
             myNote = noteRepository.Get();
             notesRichTextBox.Text = myNote.Text;
-            notesToolStripMenuItem.PerformClick();            
+            notesToolStripMenuItem.PerformClick();
 
-            
-            //while (true)
-            //{
-            //    var listOfPossiblyMissedEvents = taskManager.FindAllPast();
-            //    int countPME = listOfPossiblyMissedEvents.Count;
-
-            //    foreach (var task in listOfPossiblyMissedEvents)
-            //    {
-            //        taskManager.ChangeAlarmIfNeeded(task);
-            //    }
-
-            //    var listOfPossiblyMissedEvents2 = taskManager.FindAllPast();
-            //    int countPME2 = listOfPossiblyMissedEvents2.Count;
-
-            //    if (countPME == countPME2)
-            //        break;                
-            //}
+            DateTime lastExitTime = timeRepository.Get();
+            taskManager.RecountAllMissedAlarms(lastExitTime);
         }
         private void TasksToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -145,7 +132,7 @@ namespace NotesWindowsFormsApp
         private void ColorDates()
         {
             myCalendar.BoldedDates = null;
-            myCalendar.BoldedDates = taskManager.FindAllNotEmptyDates()?.ToArray();
+            myCalendar.BoldedDates = taskManager.FindAllActualDates()?.ToArray();
         }
         private void UpdateMyTasks()
         {
@@ -181,6 +168,7 @@ namespace NotesWindowsFormsApp
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveNote();
+            timeRepository.Update(DateTime.Now);
         }      
         private void WeatherToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -220,8 +208,7 @@ namespace NotesWindowsFormsApp
             listOfTodayAlerts = taskManager.GetTodayAlerts();            
         }
         private void EveryMinuteTimer_Tick(object sender, EventArgs e)
-        {
-            
+        {            
             if (listOfTodayAlerts.Count != 0)
             {
                 var now = DateTime.Now;
@@ -232,7 +219,7 @@ namespace NotesWindowsFormsApp
                     {                        
                         taskManager.CountNextAlarmTime(taskfromlist);
                         AlertForm alertForm = new AlertForm();
-                        alertForm.AlertMessageLabel.Text = String.Format("{0}, {1},{2}", taskfromlist.NextDate.ToShortDateString(), taskfromlist.Time, taskfromlist.Text);
+                        alertForm.AlertMessageLabel.Text = String.Format("{0}, {1},{2}", taskfromlist.FirstDate.ToShortDateString(), taskfromlist.Time, taskfromlist.Text);
                         alertForm.TopMost = true;
                         alertForm.Show();                      
                         return;
