@@ -7,8 +7,8 @@ namespace NotesWindowsFormsApp
     public partial class TaskForm : Form
     {
         public Task newTask = new Task();
-        public List<Tags> tags;
-        public List<Tags> checkedTags = new List<Tags>();
+        public List<Tag> tags=new List<Tag>();
+        public List<Tag> checkedTags = new List<Tag>();
         public TaskForm()
         {
             InitializeComponent();
@@ -19,6 +19,12 @@ namespace NotesWindowsFormsApp
         }
         private void TaskForm_Load(object sender, EventArgs e)
         {
+            //using (TaskDatabaseRepository taskManager = new TaskDatabaseRepository())
+            //{
+            //    tags = context.Ta
+            //    context.Tags.Add(new Tag { Text = newTagTextBox.Text });
+            //    context.SaveChanges();
+            //}
             foreach (var tag in tags)
             {
                 tagsCheckedListBox.Items.Add(tag.Text);
@@ -35,9 +41,9 @@ namespace NotesWindowsFormsApp
 
             newTask.Time = HoursComboBox.Text + ":" + MinutesComboBox.Text;
             newTask.Text = CommentTextBox.Text;
-            newTask.Date = TaskDateTimePicker.Value.Date;
+            newTask.NextDate = TaskDateTimePicker.Value.Date;
             newTask.Repeating = repeatingComboBox.Text;
-            newTask.Alarming = alarmingComboBox.Text;
+            newTask.Alarming = alarmingComboBox.Text;          
 
             var errors = Validation.Check(newTask);
 
@@ -51,45 +57,7 @@ namespace NotesWindowsFormsApp
                         tags.RemoveAt(i);
                     }
                 }
-                newTask.Tags = tags;
-
-                DateTime timeOfStart = newTask.Date.Add(DateTime.Parse(newTask.Time).TimeOfDay);
-
-                //Dictionary<int, TimeSpan> x = new Dictionary<int, TimeSpan>();
-                //x.Add(0, TimeSpan.Zero);
-                //x.Add(1, TimeSpan.FromMinutes(-5));
-                //x.Add(2, TimeSpan.FromMinutes(-15));
-                //x.Add(3, TimeSpan.FromMinutes(-30));
-                //x.Add(4, TimeSpan.FromHours(-1));
-                //x.Add(5, TimeSpan.FromDays(-1));
-                //x.Add(6, TimeSpan.FromDays(-7));               
-
-                switch (newTask.Alarming)
-                {
-                    case "В момент начала":
-                        newTask.AlarmTime = timeOfStart;
-                        break;
-                    case "5 мин.":
-                        newTask.AlarmTime = timeOfStart.AddMinutes(-5);
-                        break;
-                    case "15 мин.":
-                        newTask.AlarmTime = timeOfStart.AddMinutes(-15);
-                        break;
-                    case "30 мин.":
-                        newTask.AlarmTime = timeOfStart.AddMinutes(-30);
-                        break;
-                    case "1 час":
-                        newTask.AlarmTime = timeOfStart.AddHours(-1);
-                        break;
-                    case "1 день":
-                        newTask.AlarmTime = timeOfStart.AddDays(-1);
-                        break;
-                    case "1 неделя":
-                        newTask.AlarmTime = timeOfStart.AddDays(-7);
-                        break;
-                    case "Не напоминать":
-                        break;
-                }
+                newTask.Tags = tags;            
 
                 DialogResult = DialogResult.OK;
                 Close();

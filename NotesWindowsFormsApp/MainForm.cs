@@ -25,22 +25,22 @@ namespace NotesWindowsFormsApp
             notesToolStripMenuItem.PerformClick();            
 
             
-            while (true)
-            {
-                var listOfPossiblyMissedEvents = taskManager.FindAllPast();
-                int countPME = listOfPossiblyMissedEvents.Count;
+            //while (true)
+            //{
+            //    var listOfPossiblyMissedEvents = taskManager.FindAllPast();
+            //    int countPME = listOfPossiblyMissedEvents.Count;
 
-                foreach (var task in listOfPossiblyMissedEvents)
-                {
-                    taskManager.ChangeAlarmIfNeeded(task);
-                }
+            //    foreach (var task in listOfPossiblyMissedEvents)
+            //    {
+            //        taskManager.ChangeAlarmIfNeeded(task);
+            //    }
 
-                var listOfPossiblyMissedEvents2 = taskManager.FindAllPast();
-                int countPME2 = listOfPossiblyMissedEvents2.Count;
+            //    var listOfPossiblyMissedEvents2 = taskManager.FindAllPast();
+            //    int countPME2 = listOfPossiblyMissedEvents2.Count;
 
-                if (countPME == countPME2)
-                    break;                
-            }
+            //    if (countPME == countPME2)
+            //        break;                
+            //}
         }
         private void TasksToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -100,10 +100,8 @@ namespace NotesWindowsFormsApp
             }
 
             if (taskform.ShowDialog(this) == DialogResult.OK)
-            {
-                var editedTask = taskform.newTask;                                              
-                taskManager.Add(editedTask);
-                
+            {                                                        
+                taskManager.Add(taskform.newTask);                
                 UpdateMyTasks();
             }
         }
@@ -124,9 +122,8 @@ namespace NotesWindowsFormsApp
             taskform.repeatingComboBox.Text = task.Repeating;
 
             if (taskform.ShowDialog(this) == DialogResult.OK)
-            {
-                task = taskform.newTask;                                
-                taskManager.Update(task);
+            {                                           
+                taskManager.Update(taskform.newTask);
                 UpdateMyTasks();
             }
         }
@@ -148,7 +145,7 @@ namespace NotesWindowsFormsApp
         private void ColorDates()
         {
             myCalendar.BoldedDates = null;
-            myCalendar.BoldedDates = taskManager.FindAllActual()?.ToArray();
+            myCalendar.BoldedDates = taskManager.FindAllNotEmptyDates()?.ToArray();
         }
         private void UpdateMyTasks()
         {
@@ -233,9 +230,9 @@ namespace NotesWindowsFormsApp
                 {
                     if (taskfromlist.AlarmTime == nowShort)
                     {                        
-                        taskManager.ChangeAlarmIfNeeded(taskfromlist);
+                        taskManager.CountNextAlarmTime(taskfromlist);
                         AlertForm alertForm = new AlertForm();
-                        alertForm.AlertMessageLabel.Text = String.Format("{0}, {1},{2}", taskfromlist.Date.ToShortDateString(), taskfromlist.Time, taskfromlist.Text);
+                        alertForm.AlertMessageLabel.Text = String.Format("{0}, {1},{2}", taskfromlist.NextDate.ToShortDateString(), taskfromlist.Time, taskfromlist.Text);
                         alertForm.TopMost = true;
                         alertForm.Show();                      
                         return;

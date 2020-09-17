@@ -74,12 +74,13 @@
     </Compile>
     <Compile Include="FileProvider.cs" />
     <Compile Include="ITagRepository.cs" />
-    <Compile Include="Migrations\202009142217039_Migration.cs" />
-    <Compile Include="Migrations\202009142217039_Migration.designer.cs">
-      <DependentUpon>202009142217039_Migration.cs</DependentUpon>
+    <Compile Include="Migrations\202009161956419_Migration.cs" />
+    <Compile Include="Migrations\202009161956419_Migration.Designer.cs">
+      <DependentUpon>202009161956419_Migration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="NoteRepository.cs" />
+    <Compile Include="Tag.cs" />
     <Compile Include="TagDatabaseRepository.cs" />
     <Compile Include="TagsForm.cs">
       <SubType>Form</SubType>
@@ -120,8 +121,8 @@
     <EmbeddedResource Include="MainForm.ru.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009142217039_Migration.resx">
-      <DependentUpon>202009142217039_Migration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202009161956419_Migration.resx">
+      <DependentUpon>202009161956419_Migration.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

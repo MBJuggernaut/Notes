@@ -8,45 +8,49 @@ namespace NotesWindowsFormsApp
 {
     class TaskDatabaseRepository : ITaskRepository
     {
-        private readonly TaskContext taskContext = new TaskContext();
+        private readonly TaskContext context = new TaskContext();
         public void Add(Task task)
         {
-            taskContext.Tasks.Add(task);
-            taskContext.SaveChanges();
+            SetAllDates(task);
+            CountNextAlarmTime(task);
+            context.Tasks.Add(task);
+            context.SaveChanges();
         }
         public void Delete(int id)
         {
-            taskContext.Tasks.Remove(FindById(id));
-            taskContext.SaveChanges();
+            context.Tasks.Remove(FindById(id));
+            context.SaveChanges();
         }
-        public List<DateTime> FindAllActual()
-        {            
-            var listofactual = taskContext.Tasks.Where(t => DateTime.Compare(t.Date, DateTime.Today) >= 0).ToList();
+        public void Delete(Task task)
+        {
+            context.Tasks.Remove(task);
+            context.SaveChanges();
+        }
+        public List<DateTime> FindAllNotEmptyDates()
+        {
+            var listofactual = context.Dates.Where(t => t.Tasks.Count > 0);
             List<DateTime> listofdates = new List<DateTime>();
-            foreach (var task in listofactual)
+            foreach (var date in listofactual)
             {
-                listofdates.Add(task.Date);
+                listofdates.Add(date.Day);
             }
             return listofdates;
         }
-        public List<Task> FindAllPast()
-        {
-            return taskContext.Tasks.Where(t => DateTime.Compare(t.Date, DateTime.Today) < 0).ToList();
-        }
         public Task FindById(int id)
         {
-            var thisTask = taskContext.Tasks.FirstOrDefault(t => t.Id == id);
+            var thisTask = context.Tasks.FirstOrDefault(t => t.Id == id);
             return thisTask;
         }
         public List<Task> GetByDate(DateTime date)
         {
-            var listOfTasks = taskContext.Tasks.Where(t => t.Date == date).ToList();
+            var day = context.Dates.FirstOrDefault(t => t.Day == date);
+            var listOfTasks = day.Tasks;
             return listOfTasks.OrderBy(t => t.Time).ToList();
         }
-        public List<Tags> GetAllTags()
+        public List<Tag> GetAllTags()
         {
-            var listOfTags = new List<Tags>();
-            foreach (var t in taskContext.Tags)
+            var listOfTags = new List<Tag>();
+            foreach (var t in context.Tags)
             {
                 listOfTags.Add(t);
             }
@@ -54,59 +58,140 @@ namespace NotesWindowsFormsApp
         }
         public void Update(Task task)
         {
-            var taskToChange = taskContext.Tasks.SingleOrDefault(t => t.Id == task.Id);
+            var taskToChange = context.Tasks.SingleOrDefault(t => t.Id == task.Id);
+
             if (taskToChange != null)
             {
+                foreach (var date in taskToChange.Dates)
+                {
+                    date.Tasks.Remove(task);
+                }
                 taskToChange.Tags.Clear();
-                taskToChange.Tags.AddRange(task.Tags);
+                taskToChange.Dates.Clear();
 
-                taskContext.Tasks.AddOrUpdate(task);
-                taskContext.SaveChanges();
+                taskToChange = task;
+
+                SetAllDates(taskToChange);
+
+                CountNextAlarmTime(taskToChange);
+
+                //  context.Tasks.Attach(taskToChange);
+                //context.Entry(taskToChange).State = EntityState.Modified;                
+
+                //context.Tasks.AddOrUpdate(FindById(taskToChange.Id));
+                context.SaveChanges();
             }
-        }
-        public void Delete(Task task)
-        {
-            taskContext.Tasks.Remove(task);
-            taskContext.SaveChanges();
         }
         public List<Task> GetTodayAlerts()
         {
-            var listOfAlerts = taskContext.Tasks.Where(t => DbFunctions.TruncateTime(t.AlarmTime) == DateTime.Today).ToList();
+            var listOfAlerts = context.Tasks.Where(t => DbFunctions.TruncateTime(t.AlarmTime) == DateTime.Today).ToList();
             return listOfAlerts;
         }
-        public void ChangeAlarmIfNeeded(Task task)
+        public void PickNextDate(Task task)
         {
-            var taskToChange = taskContext.Tasks.SingleOrDefault(t => t.Id == task.Id);
-            var newtask = taskToChange;
-            switch (taskToChange.Repeating)
+            task.NextDate = task.Dates.FirstOrDefault(t => DateTime.Compare(t.Day, DateTime.Today) >= 0).Day;
+        }
+        public void CountNextAlarmTime(Task task)
+        {
+            PickNextDate(task);
+            DateTime timeOfStart = task.NextDate.Add(DateTime.Parse(task.Time).TimeOfDay);
+            switch (task.Alarming)
             {
-                case "Один раз":
+                case "В момент начала":
+                    task.AlarmTime = timeOfStart;
                     break;
-                case "Каждый день":
-                    newtask.Date = taskToChange.Date.AddDays(1);
-                    newtask.AlarmTime = taskToChange.AlarmTime.AddDays(1);
-                   
+                case "5 мин.":
+                    task.AlarmTime = timeOfStart.AddMinutes(-5);
                     break;
-                case "Каждую неделю":
-                    newtask.Date = taskToChange.Date.AddDays(7);
-                    newtask.AlarmTime = taskToChange.AlarmTime.AddDays(7);
-                  
+                case "15 мин.":
+                    task.AlarmTime = timeOfStart.AddMinutes(-15);
                     break;
-                case "Каждый месяц":
-                    newtask.Date = taskToChange.Date.AddMonths(1);
-                    newtask.AlarmTime = taskToChange.AlarmTime.AddMonths(1);
-                  
+                case "30 мин.":
+                    task.AlarmTime = timeOfStart.AddMinutes(-30);
                     break;
-                case "Каждый год":
-                    newtask.Date = taskToChange.Date.AddYears(1);
-                    newtask.AlarmTime = taskToChange.AlarmTime.AddYears(1);
-                   
+                case "1 час":
+                    task.AlarmTime = timeOfStart.AddHours(-1);
+                    break;
+                case "1 день":
+                    task.AlarmTime = timeOfStart.AddDays(-1);
+                    break;
+                case "1 неделя":
+                    task.AlarmTime = timeOfStart.AddDays(-7);
+                    break;
+                case "Не напоминать":
                     break;
             }
+        }
+        public void SetAllDates(Task task)
+        {
+            var day = task.NextDate;
+            List<Date> dates = new List<Date>();
 
-            taskContext.Tasks.AddOrUpdate(newtask);
-            taskContext.SaveChanges();
+            switch (task.Repeating)
+            {
+                case "Один раз":
 
+                    var date = context.Dates.FirstOrDefault(t => t.Day == day);
+                    if (date != null)
+                        dates.Add(date);
+                    break;
+                case "Каждый день":
+                    while (true)
+                    {
+                        date = context.Dates.FirstOrDefault(t => t.Day == day);
+                        if (date != null)
+                        {
+                            dates.Add(date);
+                            day = day.AddDays(1);
+                        }
+                        else break;
+                    }
+                    break;
+                case "Каждую неделю":
+                    while (true)
+                    {
+                        date = context.Dates.FirstOrDefault(t => t.Day == day);
+                        if (date != null)
+                        {
+                            dates.Add(date);
+                            day = day.AddDays(7);
+                        }
+                        else break;
+                    }
+                    break;
+                case "Каждый месяц":
+                    while (true)
+                    {
+                        date = context.Dates.FirstOrDefault(t => t.Day == day);
+                        if (date != null)
+                        {
+                            dates.Add(date);
+                            day = day.AddMonths(1);
+                        }
+                        else break;
+                    }
+
+                    break;
+                case "Каждый год":
+                    while (true)
+                    {
+                        date = context.Dates.FirstOrDefault(t => t.Day == day);
+                        if (date != null)
+                        {
+                            dates.Add(date);
+                            day = day.AddYears(1);
+                        }
+                        else break;
+                    }
+
+                    break;
+            }
+            task.Dates.AddRange(dates);
+
+            foreach (var date in dates)
+            {
+                date.Tasks.Add(task);
+            }
         }
     }
 }

@@ -30,7 +30,7 @@ namespace NotesWindowsFormsApp
 
                 using (var context = new TaskContext())
                 {
-                    context.Tags.Add(new Tags { Text = newTagTextBox.Text });
+                    context.Tags.Add(new Tag { Text = newTagTextBox.Text });
                     context.SaveChanges();
                 }
                 newTagTextBox.Text = null;

@@ -8,8 +8,7 @@ namespace NotesWindowsFormsApp
         List<Task> GetByDate(DateTime date);
         void Update(Task task);
         void Delete(int id);
-        void Add(Task task);
-        List<DateTime> FindAllActual();
+        void Add(Task task);        
         Task FindById(int id);
     }
 }

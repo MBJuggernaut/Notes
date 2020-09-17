@@ -11,9 +11,8 @@ namespace NotesWindowsFormsApp
         [Key]
         public int Id { get; set; }
 
-        [Required]
-        [Column(TypeName = "datetime")]
-        public DateTime Date { get; set; }
+        [Required]       
+        public DateTime NextDate { get; set; }
 
         [Required]
         [StringLength(5, MinimumLength = 5)]       
@@ -31,27 +30,31 @@ namespace NotesWindowsFormsApp
         [Required]
         [StringLength(15, MinimumLength = 5)]
         public string Alarming { get; set; }
-        public virtual List<Tags> Tags { get; set; }
+        public virtual List<Tag> Tags { get; set; }
+        public virtual List<Date> Dates { get; set; }
+
 
         public Task()
         {
-            Tags = new List<Tags>();
+            Tags = new List<Tag>();
+            Dates = new List<Date>();
         }       
     }
-    public class Tags
+
+    public class Date
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]        
+        [Key]
         public int Id { get; set; }
-
-        [StringLength(20, MinimumLength = 1, ErrorMessage = "Тэг может содержать максимум 20 символов.")]
-        public string Text { get; set; }
+        [Required]
+        public DateTime Day { get; set; }
 
         public virtual List<Task> Tasks { get; set; }
 
-        public Tags()
+        public Date()
         {
             Tasks = new List<Task>();
-        }        
+        }
+
     }
 }
