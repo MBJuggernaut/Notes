@@ -190,6 +190,7 @@
             this.TaskDateTimePicker.Name = "TaskDateTimePicker";
             this.TaskDateTimePicker.Size = new System.Drawing.Size(135, 22);
             this.TaskDateTimePicker.TabIndex = 9;
+            this.TaskDateTimePicker.ValueChanged += new System.EventHandler(this.TaskDateTimePicker_ValueChanged);
             // 
             // thisisDateChooseLabel
             // 

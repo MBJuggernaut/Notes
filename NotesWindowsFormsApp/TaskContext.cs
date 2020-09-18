@@ -9,6 +9,7 @@ namespace NotesWindowsFormsApp
         public TaskContext(): base ("DBConnection")
         {
             Database.SetInitializer(new TagsDbInitializer());
+
         }
 
         public DbSet<Task> Tasks { get; set; }

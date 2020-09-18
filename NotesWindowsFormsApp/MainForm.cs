@@ -87,10 +87,11 @@ namespace NotesWindowsFormsApp
                 taskform.HoursComboBox.Text = nexthour.ToString("D2");
                 taskform.MinutesComboBox.Text = DateTime.Now.ToString("mm");
                 taskform.tags = taskManager.GetAllTags();
+                taskform.newTask.FirstDate = chosenDate;
             }
 
             if (taskform.ShowDialog(this) == DialogResult.OK)
-            {                                                        
+            {                
                 taskManager.Add(taskform.newTask);                
                 UpdateMyTasks();
             }
@@ -177,6 +178,7 @@ namespace NotesWindowsFormsApp
         {
             notesPanel.Hide();
             todolistPanel.Hide();
+            GetWeather();
             weatherPanel.Show();
             weatherPanel.Dock = DockStyle.Fill;
         }
@@ -210,9 +212,10 @@ namespace NotesWindowsFormsApp
             midnightTimer.Interval = (int)(DateTime.Today.AddDays(1) - DateTime.Now).TotalMilliseconds;
             listOfTodayAlerts = taskManager.GetTodayAlerts(); 
             
-            if (DateTime.Compare(timeToUpdate, today)>=0)
+            if (DateTime.Compare(timeToUpdate, today)<=0)
             {
-                taskManager.AddDates();
+                var countdays = (today - timeToUpdate).Days+31;
+                taskManager.AddDates(countdays);
 
                 var newtimetoupdate = timeToUpdate.AddMonths(1);
                 updateRepository.Update(newtimetoupdate);

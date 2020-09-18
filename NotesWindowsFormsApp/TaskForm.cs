@@ -34,8 +34,7 @@ namespace NotesWindowsFormsApp
         {
 
             newTask.Time = HoursComboBox.Text + ":" + MinutesComboBox.Text;
-            newTask.Text = CommentTextBox.Text;
-            newTask.FirstDate = TaskDateTimePicker.Value.Date;
+            newTask.Text = CommentTextBox.Text;            
             newTask.Repeating = repeatingComboBox.Text;
             newTask.Alarming = alarmingComboBox.Text;          
 
@@ -68,9 +67,12 @@ namespace NotesWindowsFormsApp
         {
             var tagsform = new TagsForm();
 
-            foreach (var tag in tags)
+            using (TaskContext context = new TaskContext())
             {
-                tagsform.tagsDataGridView.Rows.Add(tag.Text);
+                foreach (var tag in context.Tags)
+                {
+                    tagsform.tagsDataGridView.Rows.Add(tag.Text);
+                }
             }
             tagsform.ShowDialog(this);
             
@@ -82,6 +84,11 @@ namespace NotesWindowsFormsApp
                     tagsCheckedListBox.Items.Add(t.Text);
                 }
             }                               
+        }
+
+        private void TaskDateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            newTask.FirstDate = TaskDateTimePicker.Value;
         }
     }
 }

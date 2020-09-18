@@ -1,9 +1,8 @@
 ﻿namespace NotesWindowsFormsApp.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
-    public partial class Migration : DbMigration
+
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -21,9 +20,9 @@
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        FirstDate = c.DateTime(nullable: false),
+                        FirstDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         Time = c.String(nullable: false, maxLength: 5),
-                        AlarmTime = c.DateTime(nullable: false),
+                        AlarmTime = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         Text = c.String(nullable: false, maxLength: 50),
                         Repeating = c.String(nullable: false, maxLength: 15),
                         Alarming = c.String(nullable: false, maxLength: 15),
