@@ -8,7 +8,7 @@ namespace NotesWindowsFormsApp
 {
     class TaskDatabaseRepository : ITaskRepository
     {
-        private readonly TaskContext context = new TaskContext();
+        internal TaskContext context;
         public void Add(Task task)
         {
             SetAllDates(task);
@@ -20,12 +20,7 @@ namespace NotesWindowsFormsApp
         {
             context.Tasks.Remove(FindById(id));
             context.SaveChanges();
-        }
-        public void Delete(Task task)
-        {
-            context.Tasks.Remove(task);
-            context.SaveChanges();
-        }
+        }      
         public List<DateTime> FindAllActualDates()
         {
             var listofactual = context.Dates.Where((t => DateTime.Compare(t.Day, DateTime.Today) >= 0)).Where(t => t.Tasks.Count > 0);
@@ -44,10 +39,10 @@ namespace NotesWindowsFormsApp
         }
         public List<Task> GetByDate(DateTime date)
         {
-            Date day = context.Dates.FirstOrDefault(t => t.Day == date);
+            TaskDate day = context.Dates.FirstOrDefault(t => t.Day == date);
             if (day == null)
             {
-                context.Dates.Add(new Date { Day = date });
+                context.Dates.Add(new TaskDate { Day = date });
                 context.SaveChanges();
                 day = context.Dates.FirstOrDefault(t => t.Day == date);
             }
@@ -63,16 +58,7 @@ namespace NotesWindowsFormsApp
                 CountNextAlarmTime(task);
                 context.SaveChanges();
             }
-        }
-        public List<Tag> GetAllTags()
-        {
-            var listOfTags = new List<Tag>();
-            foreach (var t in context.Tags)
-            {
-                listOfTags.Add(t);
-            }
-            return listOfTags;
-        }
+        }       
         public void Update(Task task)
         {
             var taskToChange = context.Tasks.SingleOrDefault(t => t.Id == task.Id);
@@ -123,33 +109,34 @@ namespace NotesWindowsFormsApp
             var date = task.FirstDate;
             DateTime timeOfStart = date.Add(DateTime.Parse(task.Time).TimeOfDay);
             var supposedTime = DateTime.MinValue;
+
+            var alarmingParts = task.Alarming.Split(' ');
+            var count = Int32.Parse(alarmingParts[0]);
+            var span = alarmingParts[1];
+            
+
             while (true)
             {
-                switch (task.Alarming)
+                switch (span)
                 {
-                    case "В момент начала":
-                        supposedTime = timeOfStart;
+                    case "мин.":
+                        supposedTime = timeOfStart.AddMinutes(-count);
                         break;
-                    case "5 мин.":
-                        supposedTime = timeOfStart.AddMinutes(-5);
+                    case "ч.":
+                        supposedTime = timeOfStart.AddHours(-count);
                         break;
-                    case "15 мин.":
-                        supposedTime = timeOfStart.AddMinutes(-15);
+                    case "д.":
+                        supposedTime = timeOfStart.AddDays(-count);
                         break;
-                    case "30 мин.":
-                        supposedTime = timeOfStart.AddMinutes(-30);
+                    case "нед.":
+                        supposedTime = timeOfStart.AddDays(-7*count);
                         break;
-                    case "1 час":
-                        supposedTime = timeOfStart.AddHours(-1);
+                    case "мес.":
+                        supposedTime = timeOfStart.AddMonths(-count);
                         break;
-                    case "1 день":
-                        supposedTime = timeOfStart.AddDays(-1);
-                        break;
-                    case "1 неделя":
-                        supposedTime = timeOfStart.AddDays(-7);
-                        break;
-                    case "Не напоминать":
-                        break;
+                    case "г.":
+                        supposedTime = timeOfStart.AddYears(-count);
+                        break;                    
                 }
 
                 if (DateTime.Compare(supposedTime, DateTime.Now) > 0)
@@ -164,14 +151,13 @@ namespace NotesWindowsFormsApp
                 }
 
                 timeOfStart = date.Add(DateTime.Parse(task.Time).TimeOfDay);
-
             }
             task.AlarmTime = supposedTime;
         }
         public void SetAllDates(Task task)
         {
             var day = task.FirstDate;
-            List<Date> dates = new List<Date>();
+            List<TaskDate> dates = new List<TaskDate>();
 
             switch (task.Repeating)
             {
@@ -246,7 +232,7 @@ namespace NotesWindowsFormsApp
            
             for (int i = 0; i <= countdays; i++)
             {                
-                context.Dates.AddOrUpdate(t => t.Day, new Date { Day = day });
+                context.Dates.AddOrUpdate(t => t.Day, new TaskDate { Day = day });
                 context.SaveChanges();
                 day = day.AddDays(1);
             }          

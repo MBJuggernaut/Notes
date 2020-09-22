@@ -1,41 +1,34 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NotesWindowsFormsApp
 {
     class TagDatabaseRepository : ITagRepository
     {
-        //private readonly TaskContext taskContext = new TaskContext();
-        //public void AddAttachedTask(Tags tag, Task task)
-        //{
-        //  //  tag.Tasks.Add(task);
-        //}
+        internal TaskContext context;
+        public void Add(Tag tag)
+        {
+            context.Tags.Add(tag);
+            context.SaveChanges();
+        }
+        public Tag FindByText(string text)
+        {
+            return context.Tags.FirstOrDefault(t => t.Text == text);
+        }
+        public List<Tag> GetAll()
+        {
+            var listOfTags = new List<Tag>();
+            foreach (var t in context.Tags)
+            {
+                listOfTags.Add(t);
+            }
+            return listOfTags;
+        }
+        public void Delete(Tag tagToDelete)
+        {            
+            context.Tags.Remove(tagToDelete);
+            context.SaveChanges();
+        }
 
-        //public Tags FindByText(string text)
-        //{
-        //    return taskContext.Tags.FirstOrDefault(t => t.Text == text);
-        //}
-
-        //public List<Tags> GetAll()
-        //{
-        //    var listOfTags = new List<Tags>();
-        //    foreach (var t in taskContext.Tags)
-        //    {
-        //        listOfTags.Add(t);
-        //    }
-        //    return listOfTags;
-        //}
-
-        //public void UpdateAll(List<Tags> listofTags, Task task)
-        //{
-        //    foreach (var tag in listofTags)
-        //    {                
-        //        AddAttachedTask(tag, task);
-        //    }
-        //}
     }
 }

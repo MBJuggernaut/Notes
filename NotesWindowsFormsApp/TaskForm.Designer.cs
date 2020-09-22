@@ -39,11 +39,12 @@
             this.thisisTimeLabel = new System.Windows.Forms.Label();
             this.thisisCommentLabel = new System.Windows.Forms.Label();
             this.tagsCheckedListBox = new System.Windows.Forms.CheckedListBox();
-            this.alarmingComboBox = new System.Windows.Forms.ComboBox();
             this.thisisAlertLabel = new System.Windows.Forms.Label();
             this.addTagButton = new System.Windows.Forms.Button();
             this.repeatingComboBox = new System.Windows.Forms.ComboBox();
             this.thisIsRepeatingLabel = new System.Windows.Forms.Label();
+            this.alertSpanComboBox = new System.Windows.Forms.ComboBox();
+            this.alertCountTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // okButton
@@ -227,32 +228,14 @@
             this.tagsCheckedListBox.Size = new System.Drawing.Size(162, 89);
             this.tagsCheckedListBox.TabIndex = 13;
             // 
-            // alarmingComboBox
-            // 
-            this.alarmingComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.alarmingComboBox.FormattingEnabled = true;
-            this.alarmingComboBox.Items.AddRange(new object[] {
-            "В момент начала",
-            "5 мин.",
-            "15 мин.",
-            "30 мин.",
-            "1 час",
-            "1 день",
-            "1 неделя",
-            "Не напоминать"});
-            this.alarmingComboBox.Location = new System.Drawing.Point(297, 140);
-            this.alarmingComboBox.Name = "alarmingComboBox";
-            this.alarmingComboBox.Size = new System.Drawing.Size(162, 24);
-            this.alarmingComboBox.TabIndex = 14;
-            // 
             // thisisAlertLabel
             // 
             this.thisisAlertLabel.AutoSize = true;
-            this.thisisAlertLabel.Location = new System.Drawing.Point(332, 105);
+            this.thisisAlertLabel.Location = new System.Drawing.Point(322, 105);
             this.thisisAlertLabel.Name = "thisisAlertLabel";
-            this.thisisAlertLabel.Size = new System.Drawing.Size(93, 17);
+            this.thisisAlertLabel.Size = new System.Drawing.Size(112, 17);
             this.thisisAlertLabel.TabIndex = 15;
-            this.thisisAlertLabel.Text = "Оповещение";
+            this.thisisAlertLabel.Text = "Оповещение за";
             // 
             // addTagButton
             // 
@@ -289,16 +272,41 @@
             this.thisIsRepeatingLabel.TabIndex = 18;
             this.thisIsRepeatingLabel.Text = "Напомнить";
             // 
+            // alertSpanComboBox
+            // 
+            this.alertSpanComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.alertSpanComboBox.FormattingEnabled = true;
+            this.alertSpanComboBox.Items.AddRange(new object[] {
+            "мин.",
+            "ч.",
+            "д.",
+            "нед.",
+            "мес.",
+            "г."});
+            this.alertSpanComboBox.Location = new System.Drawing.Point(388, 140);
+            this.alertSpanComboBox.Name = "alertSpanComboBox";
+            this.alertSpanComboBox.Size = new System.Drawing.Size(61, 24);
+            this.alertSpanComboBox.TabIndex = 19;
+            // 
+            // alertCountTextBox
+            // 
+            this.alertCountTextBox.Location = new System.Drawing.Point(335, 142);
+            this.alertCountTextBox.Name = "alertCountTextBox";
+            this.alertCountTextBox.Size = new System.Drawing.Size(47, 22);
+            this.alertCountTextBox.TabIndex = 20;
+            this.alertCountTextBox.Text = "00";
+            // 
             // TaskForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(515, 450);
+            this.Controls.Add(this.alertCountTextBox);
+            this.Controls.Add(this.alertSpanComboBox);
             this.Controls.Add(this.thisIsRepeatingLabel);
             this.Controls.Add(this.repeatingComboBox);
             this.Controls.Add(this.addTagButton);
             this.Controls.Add(this.thisisAlertLabel);
-            this.Controls.Add(this.alarmingComboBox);
             this.Controls.Add(this.tagsCheckedListBox);
             this.Controls.Add(this.thisisCommentLabel);
             this.Controls.Add(this.thisisTimeLabel);
@@ -332,10 +340,11 @@
         private System.Windows.Forms.Label thisisTimeLabel;
         private System.Windows.Forms.Label thisisCommentLabel;
         private System.Windows.Forms.CheckedListBox tagsCheckedListBox;
-        public System.Windows.Forms.ComboBox alarmingComboBox;
         private System.Windows.Forms.Label thisisAlertLabel;
         private System.Windows.Forms.Button addTagButton;
         public System.Windows.Forms.ComboBox repeatingComboBox;
         private System.Windows.Forms.Label thisIsRepeatingLabel;
+        public System.Windows.Forms.ComboBox alertSpanComboBox;
+        public System.Windows.Forms.TextBox alertCountTextBox;
     }
 }

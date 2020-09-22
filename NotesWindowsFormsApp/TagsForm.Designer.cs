@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.tagsDataGridView = new System.Windows.Forms.DataGridView();
-            this.TagsFormText = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TagsFormDeleteButton = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.tagsFormText = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tagsFormDeleteButton = new System.Windows.Forms.DataGridViewButtonColumn();
             this.newTagTextBox = new System.Windows.Forms.TextBox();
             this.addTagButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
@@ -42,8 +42,8 @@
             this.tagsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tagsDataGridView.ColumnHeadersVisible = false;
             this.tagsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.TagsFormText,
-            this.TagsFormDeleteButton});
+            this.tagsFormText,
+            this.tagsFormDeleteButton});
             this.tagsDataGridView.Location = new System.Drawing.Point(0, 0);
             this.tagsDataGridView.MultiSelect = false;
             this.tagsDataGridView.Name = "tagsDataGridView";
@@ -58,22 +58,22 @@
             // 
             // TagsFormText
             // 
-            this.TagsFormText.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.TagsFormText.HeaderText = "Text";
-            this.TagsFormText.MinimumWidth = 6;
-            this.TagsFormText.Name = "TagsFormText";
-            this.TagsFormText.ReadOnly = true;
+            this.tagsFormText.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.tagsFormText.HeaderText = "Text";
+            this.tagsFormText.MinimumWidth = 6;
+            this.tagsFormText.Name = "TagsFormText";
+            this.tagsFormText.ReadOnly = true;
             // 
             // TagsFormDeleteButton
             // 
-            this.TagsFormDeleteButton.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.TagsFormDeleteButton.HeaderText = "Delete";
-            this.TagsFormDeleteButton.MinimumWidth = 6;
-            this.TagsFormDeleteButton.Name = "TagsFormDeleteButton";
-            this.TagsFormDeleteButton.ReadOnly = true;
-            this.TagsFormDeleteButton.Text = "Удалить";
-            this.TagsFormDeleteButton.UseColumnTextForButtonValue = true;
-            this.TagsFormDeleteButton.Width = 60;
+            this.tagsFormDeleteButton.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.tagsFormDeleteButton.HeaderText = "Delete";
+            this.tagsFormDeleteButton.MinimumWidth = 6;
+            this.tagsFormDeleteButton.Name = "TagsFormDeleteButton";
+            this.tagsFormDeleteButton.ReadOnly = true;
+            this.tagsFormDeleteButton.Text = "Удалить";
+            this.tagsFormDeleteButton.UseColumnTextForButtonValue = true;
+            this.tagsFormDeleteButton.Width = 60;
             // 
             // newTagTextBox
             // 
@@ -102,7 +102,7 @@
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 3;
             this.okButton.Text = "Ok";
-            this.okButton.UseVisualStyleBackColor = true;
+            this.okButton.UseVisualStyleBackColor = true;            
             // 
             // TagsForm
             // 
@@ -115,8 +115,7 @@
             this.Controls.Add(this.newTagTextBox);
             this.Controls.Add(this.tagsDataGridView);
             this.Name = "TagsForm";
-            this.Text = "TagsForm";
-            this.Load += new System.EventHandler(this.TagsForm_Load);
+            this.Text = "TagsForm";           
             ((System.ComponentModel.ISupportInitialize)(this.tagsDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -128,8 +127,8 @@
         public System.Windows.Forms.DataGridView tagsDataGridView;
         private System.Windows.Forms.TextBox newTagTextBox;
         private System.Windows.Forms.Button addTagButton;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TagsFormText;
-        private System.Windows.Forms.DataGridViewButtonColumn TagsFormDeleteButton;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tagsFormText;
+        private System.Windows.Forms.DataGridViewButtonColumn tagsFormDeleteButton;
         private System.Windows.Forms.Button okButton;
     }
 }

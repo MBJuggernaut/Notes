@@ -14,15 +14,23 @@ namespace NotesWindowsFormsApp
         private Note myNote = new Note();
         private DateTime today;
         private DateTime chosenDate;
-        private List<Task> listOfTodayAlerts = new List<Task>();        
+        private List<Task> listOfTodayAlerts = new List<Task>();
+
         readonly TaskDatabaseRepository taskManager = new TaskDatabaseRepository();
-        readonly ExitTimeRepository timeRepository = new ExitTimeRepository();
-        EveryMonthUpdateRepository updateRepository = new EveryMonthUpdateRepository();
+        readonly TagDatabaseRepository tagManager = new TagDatabaseRepository();
+
+        readonly ExitTimeRepository timeRepository = new ExitTimeRepository();        
+        readonly EveryMonthUpdateRepository updateRepository = new EveryMonthUpdateRepository();
         readonly NoteRepository noteRepository = new NoteRepository();
         readonly WeatherInfoProvider weatherInfoProvider = new WeatherInfoProvider();
         private DateTime timeToUpdate;
+
+        readonly TaskContext context = new TaskContext();
         private void MainForm_Load(object sender, EventArgs e)
         {
+            taskManager.context = context;
+            tagManager.context = context;
+
             myNote = noteRepository.Get();
             notesRichTextBox.Text = myNote.Text;
             notesToolStripMenuItem.PerformClick();
@@ -64,7 +72,7 @@ namespace NotesWindowsFormsApp
         {
             Show();
             this.WindowState = FormWindowState.Normal;
-            trayIcon.Visible = false;
+            trayIcon.Visible = false;           
         }
         private void MyCalendar_DateSelected(object sender, DateRangeEventArgs e)
         {
@@ -85,10 +93,11 @@ namespace NotesWindowsFormsApp
                     taskform.TaskDateTimePicker.Value = DateTime.Now.AddDays(1);
 
                 taskform.HoursComboBox.Text = nexthour.ToString("D2");
-                taskform.MinutesComboBox.Text = DateTime.Now.ToString("mm");
-                taskform.tags = taskManager.GetAllTags();
-                taskform.newTask.FirstDate = chosenDate;
+                taskform.MinutesComboBox.Text = DateTime.Now.ToString("mm");               
             }
+
+            taskform.tags = tagManager.GetAll();
+            taskform.newTask.FirstDate = DateTime.Parse(taskform.TaskDateTimePicker.Value.ToShortDateString());
 
             if (taskform.ShowDialog(this) == DialogResult.OK)
             {                
@@ -106,11 +115,17 @@ namespace NotesWindowsFormsApp
             taskform.MinutesComboBox.Text = time[1];
             taskform.CommentTextBox.Text = task.Text;
             taskform.TaskDateTimePicker.Value = Convert.ToDateTime(chosenDate);
-            taskform.tags = taskManager.GetAllTags();
+            taskform.tags = tagManager.GetAll();
             taskform.newTask.Id = task.Id;
             taskform.checkedTags = task.Tags;
-            taskform.alarmingComboBox.Text = task.Alarming;
             taskform.repeatingComboBox.Text = task.Repeating;
+            
+
+            var alarmingParts = task.Alarming.Split(' ');
+            var count = alarmingParts[0];
+            var span = alarmingParts[1];
+            taskform.alertCountTextBox.Text = count;
+            taskform.alertSpanComboBox.Text = span;            
 
             if (taskform.ShowDialog(this) == DialogResult.OK)
             {                                           
@@ -173,6 +188,8 @@ namespace NotesWindowsFormsApp
         {
             SaveNote();
             timeRepository.Update(DateTime.Now);
+            trayIcon.Visible = false;
+            trayIcon.Dispose();
         }      
         private void WeatherToolStripMenuItem_Click(object sender, EventArgs e)
         {

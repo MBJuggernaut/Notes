@@ -14,7 +14,7 @@ namespace NotesWindowsFormsApp
 
         public DbSet<Task> Tasks { get; set; }
         public DbSet<Tag> Tags { get; set; }
-        public DbSet<Date> Dates { get; set; }
+        public DbSet<TaskDate> Dates { get; set; }
 
     }
     class TagsDbInitializer: CreateDatabaseIfNotExists<TaskContext>
@@ -30,10 +30,10 @@ namespace NotesWindowsFormsApp
             context.Tags.AddRange(new List<Tag> { tags1, tags2, tags3, tags4, tags5 });
 
             var day = DateTime.Today;
-            List<Date> dates = new List<Date>();
+            List<TaskDate> dates = new List<TaskDate>();
             for (int i = 0; i<3650;i++)
             {                             
-                dates.Add(new Date { Day = day });
+                dates.Add(new TaskDate { Day = day });
                 day = day.AddDays(1);
             }
             context.Dates.AddRange(dates);
