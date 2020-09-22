@@ -4,7 +4,7 @@ namespace NotesWindowsFormsApp
 {
     class EveryMonthUpdateRepository
     {
-        readonly string timetoupdatepath = "timetoupdate.json";
+        readonly string timetoupdatepath = "timetoupdate.txt";
         public DateTime Get()
         {
             DateTime time;
@@ -12,7 +12,11 @@ namespace NotesWindowsFormsApp
 
             if (stringFromFile != "")
                 time = DateTime.Parse(stringFromFile);
-            else time = DateTime.Now.AddMonths(1);
+            else
+            {
+                time = DateTime.Now.AddMonths(1);
+                Update(time);
+            }
 
             return time;
         }

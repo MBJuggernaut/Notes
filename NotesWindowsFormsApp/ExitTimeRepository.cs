@@ -8,7 +8,7 @@ namespace NotesWindowsFormsApp
 {
     class ExitTimeRepository
     {
-        readonly string timepath = "timeofexit.json";
+        readonly string timepath = "timeofexit.txt";
         public DateTime Get()
         {
             DateTime time;
