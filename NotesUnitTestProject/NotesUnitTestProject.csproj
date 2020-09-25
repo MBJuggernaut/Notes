@@ -5,11 +5,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{97EF90A3-8D03-4C48-B5BF-B84B2C643174}</ProjectGuid>
+    <ProjectGuid>{FCBF66EC-B737-45B0-A6FE-37EB3C6A1468}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NotesTests</RootNamespace>
-    <AssemblyName>NotesTests</AssemblyName>
+    <RootNamespace>NotesUnitTestProject</RootNamespace>
+    <AssemblyName>NotesUnitTestProject</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -49,7 +49,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TaskDatabaseRepositoryTest.cs" />
+    <Compile Include="TaskDatabaseRepositoryUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

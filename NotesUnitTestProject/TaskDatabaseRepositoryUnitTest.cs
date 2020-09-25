@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace NotesTests
+namespace NotesUnitTestProject
 {
     [TestClass]
-    public class TaskDatabaseRepositoryTest
+    public class TaskDatabaseRepositoryUnitTest
     {
         [TestMethod]
         public void TestMethod1()

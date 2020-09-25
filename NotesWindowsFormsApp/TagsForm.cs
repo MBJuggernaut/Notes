@@ -6,9 +6,11 @@ namespace NotesWindowsFormsApp
     public partial class TagsForm : Form
     {
         readonly TagDatabaseRepository tagManager = new TagDatabaseRepository();
+        
         public TagsForm()
         {
             InitializeComponent();
+           // tagManager.context = new TaskContext();
         }
         private void AddTagButton_Click(object sender, EventArgs e)
         {
