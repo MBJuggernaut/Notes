@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Windows.Forms;
 
 namespace NotesWindowsFormsApp
@@ -16,7 +14,12 @@ namespace NotesWindowsFormsApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+
+            IServiceCollection services = new ServiceCollection();
+            services.AddSingleton(new TaskContext());
+            var provider = services.BuildServiceProvider();
+
+            Application.Run(new MainForm() {Provider = provider });
         }
     }
 }

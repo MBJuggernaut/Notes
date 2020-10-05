@@ -6,33 +6,41 @@ namespace NotesWindowsFormsApp
 {
     public partial class TaskForm : Form
     {
-        public Task newTask = new Task();
-        public List<Tag> tags = new List<Tag>();
-        public List<Tag> checkedTags = new List<Tag>();
-        public TaskForm()
+        public Task newTask;
+        private List<Tag> tags;
+        public List<Tag> checkedTags;
+        readonly TagDatabaseRepository tagManager;
+        public TaskForm(TagDatabaseRepository tagDatabaseRepository)
         {
             InitializeComponent();
-            HoursComboBox.Text = "00";
-            MinutesComboBox.Text = "00";           
-            alertSpanComboBox.Text = alertSpanComboBox.Items[0].ToString();
-            repeatingComboBox.Text = repeatingComboBox.Items[0].ToString();
+            tagManager = tagDatabaseRepository;
+            newTask = new Task()
+            {
+                Time = "00:00",
+                Repeating = "Один раз",
+                Alarming = "00 мин."
+            };
+        }
+        public TaskForm(TagDatabaseRepository tagDatabaseRepository, Task task)
+        {
+            InitializeComponent();
+            tagManager = tagDatabaseRepository;
+            newTask = task;
         }
         private void TaskForm_Load(object sender, EventArgs e)
         {
-            foreach (var tag in tags)
-            {
-                tagsCheckedListBox.Items.Add(tag.Text);
-            }
+            ShowAllTags();
+            checkedTags = newTask.Tags;
             foreach (var tag in checkedTags)
             {
                 int index = tags.FindIndex(t => t == tag);
 
                 tagsCheckedListBox.SetItemCheckState(index, CheckState.Checked);
             }
+            Set();
         }
         private void OkButton_Click(object sender, EventArgs e)
         {
-
             newTask.Time = HoursComboBox.Text + ":" + MinutesComboBox.Text;
             newTask.Text = CommentTextBox.Text;
             newTask.Repeating = repeatingComboBox.Text;
@@ -74,30 +82,41 @@ namespace NotesWindowsFormsApp
         }
         private void AddTagButton_Click(object sender, EventArgs e)
         {
-            var tagsform = new TagsForm();
+            var tagsform = new TagsForm(tagManager);
 
-            using (TaskContext context = new TaskContext())
-            {
-                foreach (var tag in context.Tags)
-                {
-                    tagsform.tagsDataGridView.Rows.Add(tag.Text);
-                }
-            }
             tagsform.ShowDialog(this);
 
             tagsCheckedListBox.Items.Clear();
-            using (var context = new TaskContext())
-            {
-                foreach (var t in context.Tags)
-                {
-                    tagsCheckedListBox.Items.Add(t.Text);
-                }
-            }
+            ShowAllTags();
         }
-
         private void TaskDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
             newTask.FirstDate = TaskDateTimePicker.Value;
         }
+        private void ShowAllTags()
+        {
+
+            tags = tagManager.GetAll();
+            foreach (var tag in tags)
+            {
+                tagsCheckedListBox.Items.Add(tag.Text);
+            }
+        }
+        private void Set()
+        {
+            var time = newTask.Time.Split(':');
+            HoursComboBox.Text = time[0];
+            MinutesComboBox.Text = time[1];
+            CommentTextBox.Text = newTask.Text;
+            repeatingComboBox.Text = newTask.Repeating;
+            var alarmingParts = newTask.Alarming.Split(' ');
+            var count = alarmingParts[0];
+            var span = alarmingParts[1];
+            alertCountTextBox.Text = count;
+            alertSpanComboBox.Text = span;
+        }
+
+
+
     }
 }

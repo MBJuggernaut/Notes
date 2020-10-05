@@ -1,16 +1,24 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Windows.Forms;
 
 namespace NotesWindowsFormsApp
 {
     public partial class TagsForm : Form
-    {
-        readonly TagDatabaseRepository tagManager = new TagDatabaseRepository();
-        
-        public TagsForm()
+    {        
+        readonly TagDatabaseRepository tagManager;
+
+        public TagsForm(TagDatabaseRepository tagDatabaseRepository)
         {
             InitializeComponent();
-           // tagManager.context = new TaskContext();
+            tagManager = tagDatabaseRepository;
+
+            var allTags = tagManager.GetAll();
+            foreach (var tag in allTags)
+            {
+                tagsDataGridView.Rows.Add(tag.Text);
+            }
+
         }
         private void AddTagButton_Click(object sender, EventArgs e)
         {
@@ -37,8 +45,11 @@ namespace NotesWindowsFormsApp
                     if (MessageBox.Show("Вы точно хотите удалить этот тэг?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         var tagToDelete = tagManager.FindByText(textOfTagToDelete);
-                        tagManager.Delete(tagToDelete);
-                        tagsDataGridView.Rows.RemoveAt(e.RowIndex);
+                        if (tagToDelete != null)
+                        {
+                            tagManager.Delete(tagToDelete);
+                            tagsDataGridView.Rows.RemoveAt(e.RowIndex);
+                        }
                     }
                 }
 

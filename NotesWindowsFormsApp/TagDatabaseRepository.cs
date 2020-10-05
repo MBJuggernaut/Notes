@@ -1,14 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace NotesWindowsFormsApp
 {
-    class TagDatabaseRepository : ITagRepository
+    public class TagDatabaseRepository : ITagRepository
     {
-        internal TaskContext context;
-        public void Add(Tag tag)
+        private readonly TaskContext context;
+        public TagDatabaseRepository(IServiceProvider provider)
         {
-            context.Tags.Add(tag);
+            this.context = (TaskContext)provider.GetService(typeof(TaskContext));
+        }
+        public void Add(Tag tag)
+        {                      
+            context.Tags.Add(tag);                      
             context.SaveChanges();
         }
         public Tag FindByText(string text)
@@ -25,7 +30,7 @@ namespace NotesWindowsFormsApp
             return listOfTags;
         }
         public void Delete(Tag tagToDelete)
-        {            
+        {
             context.Tags.Remove(tagToDelete);
             context.SaveChanges();
         }
