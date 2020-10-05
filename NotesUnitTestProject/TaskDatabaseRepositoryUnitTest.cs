@@ -11,22 +11,19 @@ namespace NotesUnitTestProject
     [TestClass]
     public class TaskDatabaseRepositoryUnitTest
     {
-        IServiceCollection services = new ServiceCollection();
-        IServiceProvider provider;
-        TaskDatabaseRepository repository;
-        DateTime date = DateTime.Today;
+        readonly IServiceCollection services = new ServiceCollection();
+        readonly IServiceProvider provider;
+        readonly TaskDatabaseRepository repository;
+        readonly DateTime date = DateTime.Today;
         public TaskDatabaseRepositoryUnitTest()
         {
             services.AddSingleton(new TaskContext());
             provider = services.BuildServiceProvider();
             repository = new TaskDatabaseRepository(provider);
-        }
-        //Arrange
-        //Act
-        //Assert
+        }     
 
         [TestMethod]
-        public void Add_OneTask_TaskAdded()
+        public void TryToAdd_OneTask_TaskAdded()
         {
             //Arrange                       
             var taskToAdd = new Task
@@ -40,16 +37,39 @@ namespace NotesUnitTestProject
 
             //Act
 
-            repository.Add(taskToAdd);
+            repository.TryToAdd(taskToAdd);
 
             //Assert
             
             var ourtask = repository.GetAll().FirstOrDefault(t => t.Text == "Comment");
 
             Assert.IsNotNull(ourtask);
-            Assert.AreEqual(ourtask.FirstDate, date);           
+            Assert.AreEqual(ourtask.Text, taskToAdd.Text);         
         }
+        [TestMethod]
+        public void TryToAdd_NotValidateableTask_TaskNotAdded()
+        {
+            //Arrange                       
+            var taskToAdd = new Task
+            {
+                Time = "00:00",
+                Alarming = "00 мин.",
+                Text = "This is not validateable task"                               
+            };
 
+            var taskcount1 = repository.GetAll().Count;
+            //Act
+
+            repository.TryToAdd(taskToAdd);
+
+            //Assert
+
+            var taskcount2 = repository.GetAll().Count;
+            var ourtask = repository.GetAll().FirstOrDefault(t => t.Text == taskToAdd.Text);
+
+            Assert.IsNull(ourtask);
+            Assert.AreEqual(taskcount1, taskcount2);
+        }
         [TestMethod]
         public void Delete_AddThenDeleteOneTask_TaskDeleted()
         {
@@ -65,7 +85,7 @@ namespace NotesUnitTestProject
 
             //Act
 
-            repository.Add(taskToAdd);            
+            repository.TryToAdd(taskToAdd);            
             var tasktodelete = repository.GetAll().FirstOrDefault(t => t.Text == taskToAdd.Text);
             repository.Delete(tasktodelete.Id);
 
@@ -74,7 +94,6 @@ namespace NotesUnitTestProject
 
             Assert.IsNull(tasktodelete);
         }
-
         [TestMethod]
         public void Delete_DeleteNotExistingTask_CountDidntChange()
         {
@@ -114,7 +133,7 @@ namespace NotesUnitTestProject
 
             //Act
 
-            repository.Add(taskToAdd);
+            repository.TryToAdd(taskToAdd);
 
             var tasktochange = repository.GetAll().FirstOrDefault(t => t == taskToAdd);
 
@@ -133,6 +152,48 @@ namespace NotesUnitTestProject
             Assert.AreEqual(ourtask.Text, "This should be as result");               
         }
         [TestMethod]
+        public void Update_AddTaskThenTryToChngeForBadTask_TaskNotChanged()
+        {
+            //Arrange
+
+            var taskToAdd = new Task
+            {
+                Time = "00:00",
+                Alarming = "00 мин.",
+                Text = "This shouldn't be changed",
+                Repeating = "Один раз",
+                FirstDate = date
+            };
+
+            var newTask = new Task
+            {
+                Time = "02:00",                
+                Text = "This shouldn't be as result",
+                Repeating = "Один раз",
+               
+            };
+
+            //Act
+
+            repository.TryToAdd(taskToAdd);
+
+            var tasktochange = repository.GetAll().FirstOrDefault(t => t == taskToAdd);
+
+            newTask.Id = tasktochange.Id;
+
+            repository.Update(newTask);
+
+            //Assert
+
+            var ourtask = repository.GetAll().FirstOrDefault(t => t.Id == tasktochange.Id);
+
+            Assert.IsNotNull(ourtask);
+
+            Assert.AreEqual(ourtask.Time, "00:00");
+            Assert.AreEqual(ourtask.Alarming, "00 мин.");
+            Assert.AreEqual(ourtask.Text, "This shouldn't be changed");
+        }
+        [TestMethod]
         public void GetTodayAlerts_AddThenGetTodayAlert_NotNull()
         {
             //Arrange
@@ -148,12 +209,16 @@ namespace NotesUnitTestProject
 
             //Act
 
-            repository.Add(taskToAdd);
+            repository.TryToAdd(taskToAdd);
             var listoftodayalerts = repository.GetTodayAlerts();            
 
             //Assert            
 
             Assert.IsNotNull(listoftodayalerts);            
         }
+
+        //Arrange
+        //Act
+        //Assert
     }
 }

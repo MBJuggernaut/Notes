@@ -96,7 +96,7 @@ namespace NotesWindowsFormsApp
             if (taskform.ShowDialog(this) == DialogResult.OK)
             {
                 taskform.newTask.FirstDate = DateTime.Parse(taskform.TaskDateTimePicker.Value.ToShortDateString());
-                taskManager.Add(taskform.newTask);
+                taskManager.TryToAdd(taskform.newTask);
                 UpdateMyTasks();
             }
         }

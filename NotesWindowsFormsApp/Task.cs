@@ -14,7 +14,7 @@ namespace NotesWindowsFormsApp
         [Required]
         [StringLength(5, MinimumLength = 5)]
         public string Time { get; set; }
-        [Required]
+        
         [Column(TypeName = "datetime2")]
         public DateTime AlarmTime { get; set; }
 
@@ -25,6 +25,7 @@ namespace NotesWindowsFormsApp
         [Required]
         [StringLength(15, MinimumLength = 5)]
         public string Repeating { get; set; }
+
         [Required]
         [StringLength(15, MinimumLength = 5)]
         public string Alarming { get; set; }

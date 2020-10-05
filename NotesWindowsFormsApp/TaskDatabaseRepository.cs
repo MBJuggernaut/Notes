@@ -13,16 +13,20 @@ namespace NotesWindowsFormsApp
         {
             this.context = (TaskContext)provider.GetService(typeof(TaskContext));
         }
-        public void Add(Task task)
+        private void Add(Task task)
+        {
+            SetAllDates(task);
+            task.CountNextAlarmTime();
+            context.Tasks.Add(task);
+            context.SaveChanges();
+        }
+        public void TryToAdd(Task task)
         {
             if (task != null)
             {
                 if (task.Validate().Count == 0)
                 {
-                    SetAllDates(task);
-                    task.CountNextAlarmTime();
-                    context.Tasks.Add(task);
-                    context.SaveChanges();
+                    Add(task);
                 }
             }
         }
@@ -82,99 +86,105 @@ namespace NotesWindowsFormsApp
         }
         public void Update(Task task)
         {
-            var taskToChange = context.Tasks.SingleOrDefault(t => t.Id == task.Id);
-
-            if (taskToChange != null)
+            if (task.Validate().Count == 0)
             {
-                foreach (var date in taskToChange.Dates)
+                var taskToChange = context.Tasks.SingleOrDefault(t => t.Id == task.Id);
+
+                if (taskToChange != null)
                 {
-                    date.Tasks.Remove(taskToChange);
+                    foreach (var date in taskToChange.Dates)
+                    {
+                        date.Tasks.Remove(taskToChange);
+                    }
+                    taskToChange.Dates.Clear();
+
+                    taskToChange.Repeating = task.Repeating;
+                    SetAllDates(taskToChange);
+
+                    taskToChange.Time = task.Time;
+                    taskToChange.Alarming = task.Alarming;
+                    taskToChange.CountNextAlarmTime();
+
+                    taskToChange.Text = task.Text;
+                    taskToChange.Tags = task.Tags;
+
+                    context.SaveChanges();
                 }
-                taskToChange.Dates.Clear();
-
-                taskToChange.Repeating = task.Repeating;
-                SetAllDates(taskToChange);
-
-                taskToChange.Time = task.Time;
-                taskToChange.Alarming = task.Alarming;
-                taskToChange.CountNextAlarmTime();
-
-                taskToChange.Text = task.Text;
-                taskToChange.Tags = task.Tags;
-
-                context.SaveChanges();
             }
         }
-        public List<Task> GetTodayAlerts() =>context.Tasks.Where(t => DbFunctions.TruncateTime(t.AlarmTime) == DateTime.Today).ToList();        
+        public List<Task> GetTodayAlerts() => context.Tasks.Where(t => DbFunctions.TruncateTime(t.AlarmTime) == DateTime.Today).ToList();
         public void SetAllDates(Task task)
         {
-            var day = task.FirstDate;
-            List<TaskDate> dates = new List<TaskDate>();
-
-            switch (task.Repeating)
+            if (task != null)
             {
-                case "Один раз":
+                var day = task.FirstDate;
+                List<TaskDate> dates = new List<TaskDate>();
 
-                    var date = context.Dates.FirstOrDefault(t => t.Day == day);
-                    if (date != null)
-                        dates.Add(date);
-                    break;
-                case "Каждый день":
-                    while (true)
-                    {
-                        date = context.Dates.FirstOrDefault(t => t.Day == day);
-                        if (date != null)
-                        {
-                            dates.Add(date);
-                            day = day.AddDays(1);
-                        }
-                        else break;
-                    }
-                    break;
-                case "Каждую неделю":
-                    while (true)
-                    {
-                        date = context.Dates.FirstOrDefault(t => t.Day == day);
-                        if (date != null)
-                        {
-                            dates.Add(date);
-                            day = day.AddDays(7);
-                        }
-                        else break;
-                    }
-                    break;
-                case "Каждый месяц":
-                    while (true)
-                    {
-                        date = context.Dates.FirstOrDefault(t => t.Day == day);
-                        if (date != null)
-                        {
-                            dates.Add(date);
-                            day = day.AddMonths(1);
-                        }
-                        else break;
-                    }
+                switch (task.Repeating)
+                {
+                    case "Один раз":
 
-                    break;
-                case "Каждый год":
-                    while (true)
-                    {
-                        date = context.Dates.FirstOrDefault(t => t.Day == day);
+                        var date = context.Dates.FirstOrDefault(t => t.Day == day);
                         if (date != null)
-                        {
                             dates.Add(date);
-                            day = day.AddYears(1);
+                        break;
+                    case "Каждый день":
+                        while (true)
+                        {
+                            date = context.Dates.FirstOrDefault(t => t.Day == day);
+                            if (date != null)
+                            {
+                                dates.Add(date);
+                                day = day.AddDays(1);
+                            }
+                            else break;
                         }
-                        else break;
-                    }
+                        break;
+                    case "Каждую неделю":
+                        while (true)
+                        {
+                            date = context.Dates.FirstOrDefault(t => t.Day == day);
+                            if (date != null)
+                            {
+                                dates.Add(date);
+                                day = day.AddDays(7);
+                            }
+                            else break;
+                        }
+                        break;
+                    case "Каждый месяц":
+                        while (true)
+                        {
+                            date = context.Dates.FirstOrDefault(t => t.Day == day);
+                            if (date != null)
+                            {
+                                dates.Add(date);
+                                day = day.AddMonths(1);
+                            }
+                            else break;
+                        }
 
-                    break;
-            }
-            task.Dates.AddRange(dates);
+                        break;
+                    case "Каждый год":
+                        while (true)
+                        {
+                            date = context.Dates.FirstOrDefault(t => t.Day == day);
+                            if (date != null)
+                            {
+                                dates.Add(date);
+                                day = day.AddYears(1);
+                            }
+                            else break;
+                        }
 
-            foreach (var date in dates)
-            {
-                date.Tasks.Add(task);
+                        break;
+                }
+                task.Dates.AddRange(dates);
+
+                foreach (var date in dates)
+                {
+                    date.Tasks.Add(task);
+                }
             }
         }
         public void AddDates(int countdays)
