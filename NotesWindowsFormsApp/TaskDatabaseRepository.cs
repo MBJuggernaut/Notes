@@ -15,15 +15,33 @@ namespace NotesWindowsFormsApp
         }
         public void Add(Task task)
         {
-            SetAllDates(task);
-            task.CountNextAlarmTime();
-            context.Tasks.Add(task);
-            context.SaveChanges();
+            if (task != null)
+            {
+                if (task.Validate().Count == 0)
+                {
+                    SetAllDates(task);
+                    task.CountNextAlarmTime();
+                    context.Tasks.Add(task);
+                    context.SaveChanges();
+                }
+            }
         }
         public void Delete(int id)
         {
-            context.Tasks.Remove(FindById(id));
-            context.SaveChanges();
+            var tasktoDelete = FindById(id);
+            if (tasktoDelete != null)
+            {
+                context.Tasks.Remove(tasktoDelete);
+                context.SaveChanges();
+            }
+        }
+        /// <summary>
+        /// For tests only
+        /// </summary>
+        /// <returns></returns>
+        public List<Task> GetAll()
+        {
+            return context.Tasks.ToList();
         }
         public List<DateTime> FindAllActualDates()
         {
@@ -87,8 +105,7 @@ namespace NotesWindowsFormsApp
                 context.SaveChanges();
             }
         }
-        public List<Task> GetTodayAlerts() =>context.Tasks.Where(t => DbFunctions.TruncateTime(t.AlarmTime) == DateTime.Today).ToList();
-        
+        public List<Task> GetTodayAlerts() =>context.Tasks.Where(t => DbFunctions.TruncateTime(t.AlarmTime) == DateTime.Today).ToList();        
         public void SetAllDates(Task task)
         {
             var day = task.FirstDate;

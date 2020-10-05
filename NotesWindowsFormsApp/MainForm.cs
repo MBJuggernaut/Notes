@@ -243,7 +243,5 @@ namespace NotesWindowsFormsApp
         private void ТестToolStripMenuItem_Click(object sender, EventArgs e)
         {
         }
-
-        
     }
 }

@@ -54,9 +54,7 @@ namespace NotesWindowsFormsApp
             else
                 MessageBox.Show("В ячейке со сроком должны быть цифры", "Что-то не так", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-
-            var errors = Validation.Check(newTask);
-
+            var errors = newTask.Validate();
             if (errors.Count == 0)
             {
 

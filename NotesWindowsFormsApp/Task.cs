@@ -101,6 +101,9 @@ namespace NotesWindowsFormsApp
             }
             AlarmTime = supposedTime;
         }
-
+        public List<string> Validate()
+        {
+           return Validation.Check(this);
+        }
     }
 }
