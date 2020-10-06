@@ -1,11 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
+﻿using System;
 using System.Windows.Forms;
 
 namespace NotesWindowsFormsApp
 {
     public partial class TagsForm : Form
-    {        
+    {
         readonly TagDatabaseRepository tagManager;
 
         public TagsForm(TagDatabaseRepository tagDatabaseRepository)
@@ -44,16 +43,16 @@ namespace NotesWindowsFormsApp
                 {
                     if (MessageBox.Show("Вы точно хотите удалить этот тэг?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        var tagToDelete = tagManager.FindByText(textOfTagToDelete);
-                        if (tagToDelete != null)
-                        {
-                            tagManager.Delete(tagToDelete);
-                            tagsDataGridView.Rows.RemoveAt(e.RowIndex);
-                        }
+                        tagManager.Delete(textOfTagToDelete);
+                        tagsDataGridView.Rows.RemoveAt(e.RowIndex);
                     }
                 }
-
+                else
+                {
+                    MessageBox.Show("Такой тэг не найден", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
+
         }
     }
 }

@@ -29,10 +29,14 @@ namespace NotesWindowsFormsApp
             }
             return listOfTags;
         }
-        public void Delete(Tag tagToDelete)
+        public void Delete(string textOfTagToDelete)
         {
-            context.Tags.Remove(tagToDelete);
-            context.SaveChanges();
+            var tagToDelete = FindByText(textOfTagToDelete);
+            if (tagToDelete != null)
+            {
+                context.Tags.Remove(tagToDelete);
+                context.SaveChanges();
+            }
         }
 
     }
