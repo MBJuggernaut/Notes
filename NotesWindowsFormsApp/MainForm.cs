@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Forms;
@@ -7,27 +8,27 @@ namespace NotesWindowsFormsApp
 {
     public partial class MainForm : Form
     {
-        public MainForm()
-        {
-            InitializeComponent();
-        }
         private Note myNote = new Note();
         private DateTime today;
-        private DateTime chosenDate;
-        internal IServiceProvider Provider;
+        private DateTime chosenDate;       
         private List<Task> listOfTodayAlerts = new List<Task>();
-        private TaskDatabaseRepository taskManager;
-        private TagDatabaseRepository tagManager;
+        readonly TaskDatabaseRepository taskManager;
+        readonly TagDatabaseRepository tagManager;
         readonly ExitTimeRepository timeRepository = new ExitTimeRepository();
         readonly EveryMonthUpdateRepository updateRepository = new EveryMonthUpdateRepository();
         readonly NoteRepository noteRepository = new NoteRepository();
         readonly WeatherInfoProvider weatherInfoProvider = new WeatherInfoProvider();
         private DateTime timeToUpdate;
-        private void MainForm_Load(object sender, EventArgs e)
+        public MainForm(IServiceProvider provider)
         {
-            taskManager = new TaskDatabaseRepository(Provider);
-            tagManager = new TagDatabaseRepository(Provider);
-
+            InitializeComponent();
+            taskManager = provider.GetService<TaskDatabaseRepository>();
+            tagManager = provider.GetService<TagDatabaseRepository>();
+        }
+            private void MainForm_Load(object sender, EventArgs e)
+        {
+           
+            //TaskContext x = (TaskContext)Program.ServiceProvider.GetService(typeof(TaskContext));           
             myNote = noteRepository.Get();
             notesRichTextBox.Text = myNote.Text;
             notesToolStripMenuItem.PerformClick();

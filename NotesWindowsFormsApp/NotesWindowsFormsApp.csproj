@@ -94,6 +94,7 @@
       <DependentUpon>AlertForm.cs</DependentUpon>
     </Compile>
     <Compile Include="BaseEntity.cs" />
+    <Compile Include="MyContainer.cs" />
     <Compile Include="Migrations\202009202138147_Initial.cs" />
     <Compile Include="Migrations\202009202138147_Initial.designer.cs">
       <DependentUpon>202009202138147_Initial.cs</DependentUpon>

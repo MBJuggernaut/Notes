@@ -9,9 +9,9 @@ namespace NotesWindowsFormsApp
     public class TaskDatabaseRepository : ITaskRepository
     {
         private readonly TaskContext context;
-        public TaskDatabaseRepository(IServiceProvider provider)
+        public TaskDatabaseRepository(TaskContext context)
         {
-            this.context = (TaskContext)provider.GetService(typeof(TaskContext));
+            this.context = context;
         }
         private void Add(Task task)
         {

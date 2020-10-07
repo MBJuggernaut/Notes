@@ -72,8 +72,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TagDatabaseRepositoryUnitTest.cs" />
-    <Compile Include="TaskDatabaseRepositoryUnitTest.cs" />
+    <Compile Include="TagDatabaseRepositoryTest.cs" />
+    <Compile Include="TaskDatabaseRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

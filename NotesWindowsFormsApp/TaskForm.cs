@@ -28,7 +28,7 @@ namespace NotesWindowsFormsApp
             newTask = task;
         }
         private void TaskForm_Load(object sender, EventArgs e)
-        {
+        {          
             ShowAllTags();
             checkedTags = newTask.Tags;
             foreach (var tag in checkedTags)

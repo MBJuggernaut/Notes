@@ -7,16 +7,13 @@ using System.Linq;
 namespace NotesUnitTestProject
 {
     [TestClass]
-    public class TagDatabaseRepositoryUnitTest
-    {
-        readonly IServiceCollection services = new ServiceCollection();
-        readonly IServiceProvider provider;
-        readonly TagDatabaseRepository repository;
-        public TagDatabaseRepositoryUnitTest()
+    public class TagDatabaseRepositoryTest
+    {               
+        private TagDatabaseRepository repository;
+        public TagDatabaseRepositoryTest()
         {
-            services.AddSingleton(new TaskContext());
-            provider = services.BuildServiceProvider();
-            repository = new TagDatabaseRepository(provider);
+            IServiceProvider provider = MyContainer.Initialize();
+            repository = provider.GetService<TagDatabaseRepository>();
         }       
         [TestMethod]
         public void Add_OneTag_AddedTagToDataBase()
@@ -55,18 +52,7 @@ namespace NotesUnitTestProject
             //Assert
             Assert.IsNull(tag);
         }
-        [TestMethod]
-        public void GetAll()
-        {
-            //Arrange
-            repository.Add(new Tag { Text = "To fill" });
-            
-            //Act
-            var alltags = repository.GetAll();
-            //Assert
-
-            Assert.IsNotNull(alltags);
-        }
+                
         [TestMethod]
         public void Delete_OneTag_TagDeleted()
         {

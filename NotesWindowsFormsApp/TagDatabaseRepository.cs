@@ -7,9 +7,9 @@ namespace NotesWindowsFormsApp
     public class TagDatabaseRepository : ITagRepository
     {
         private readonly TaskContext context;
-        public TagDatabaseRepository(IServiceProvider provider)
+        public TagDatabaseRepository(TaskContext context)
         {
-            this.context = (TaskContext)provider.GetService(typeof(TaskContext));
+            this.context = context;
         }
         public void Add(Tag tag)
         {                      

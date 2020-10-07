@@ -9,18 +9,15 @@ using NotesWindowsFormsApp;
 namespace NotesUnitTestProject
 {
     [TestClass]
-    public class TaskDatabaseRepositoryUnitTest
-    {
-        readonly IServiceCollection services = new ServiceCollection();
-        readonly IServiceProvider provider;
-        readonly TaskDatabaseRepository repository;
+    public class TaskDatabaseRepositoryTest
+    {      
         readonly DateTime date = DateTime.Today;
-        public TaskDatabaseRepositoryUnitTest()
+        readonly TaskDatabaseRepository repository;
+        public TaskDatabaseRepositoryTest()
         {
-            services.AddSingleton(new TaskContext());
-            provider = services.BuildServiceProvider();
-            repository = new TaskDatabaseRepository(provider);
-        }     
+            IServiceProvider provider = MyContainer.Initialize();
+            repository = (TaskDatabaseRepository)provider.GetService(typeof(TaskDatabaseRepository));
+        }
 
         [TestMethod]
         public void TryToAdd_OneTask_TaskAdded()

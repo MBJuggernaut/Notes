@@ -1,11 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
+﻿using System;
 using System.Windows.Forms;
 
 namespace NotesWindowsFormsApp
 {
     static class Program
     {
+        //public static IServiceProvider ServiceProvider { get; set; }
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -15,11 +15,8 @@ namespace NotesWindowsFormsApp
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            IServiceCollection services = new ServiceCollection();
-            services.AddSingleton(new TaskContext());
-            var provider = services.BuildServiceProvider();
-
-            Application.Run(new MainForm() {Provider = provider });
+            var provider = MyContainer.Initialize();
+            Application.Run(new MainForm(provider));
         }
     }
 }
