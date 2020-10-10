@@ -270,10 +270,12 @@
             // 
             // midnightTimer
             // 
+            this.midnightTimer.Enabled = true;
             this.midnightTimer.Tick += new System.EventHandler(this.MidnightTimer_Tick);
             // 
             // everyMinuteTimer
             // 
+            this.everyMinuteTimer.Enabled = true;
             this.everyMinuteTimer.Tick += new System.EventHandler(this.EveryMinuteTimer_Tick);
             // 
             // MainForm

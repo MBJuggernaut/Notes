@@ -1,6 +1,6 @@
 ﻿namespace NotesWindowsFormsApp
 {
-    interface ITaskUpdaterRepository
+    public interface ITaskUpdaterRepository
     {
         void Update();
         void Set();

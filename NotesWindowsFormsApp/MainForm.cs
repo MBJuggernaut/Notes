@@ -10,29 +10,29 @@ namespace NotesWindowsFormsApp
     {
         private DateTime today;
         private DateTime chosenDate;
-        private List<Task> listOfTodayAlerts = new List<Task>();
+        private List<Task> listOfTodayAlerts;
         readonly ITaskRepository taskManager;
         readonly ITagRepository tagManager;
         readonly ITaskUpdaterRepository taskUpdater;
         readonly INoteRepository noteRepository;
-        readonly WeatherInfoProvider weatherInfoProvider = new WeatherInfoProvider();
+        readonly IWeatherInfoProvider weatherInfoProvider;
         public MainForm(IServiceProvider provider)
         {
-            InitializeComponent();
             taskManager = provider.GetService<ITaskRepository>();
             tagManager = provider.GetService<ITagRepository>();
-            //taskUpdater = provider.GetService<ITaskUpdaterRepository>();
-            taskUpdater = new TaskUpdaterDatabaseRepository(provider.GetService<TaskContext>(), (TaskDatabaseRepository)taskManager);
+            taskUpdater = provider.GetService<ITaskUpdaterRepository>();
             noteRepository = provider.GetService<INoteRepository>();
+            weatherInfoProvider = provider.GetService<IWeatherInfoProvider>();
+            listOfTodayAlerts = taskManager.GetTodayAlerts();
+
+            InitializeComponent();           
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
             notesRichTextBox.Text = noteRepository.Get();
             notesToolStripMenuItem.PerformClick();
 
-            taskUpdater.Set();
-            midnightTimer.Enabled = true;
-            everyMinuteTimer.Enabled = true;
+            taskUpdater.Set();            
         }
         private void TasksToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -40,7 +40,6 @@ namespace NotesWindowsFormsApp
             todolistPanel.Show();
             notesPanel.Hide();
             weatherPanel.Hide();
-
 
             chosenDate = today;
             UpdateMyTasks();
@@ -207,17 +206,18 @@ namespace NotesWindowsFormsApp
         }
         private void EveryMinuteTimer_Tick(object sender, EventArgs e)
         {
+           
             if (listOfTodayAlerts.Count != 0)
-            {
-                var now = DateTime.Now;
-                var nowShort = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0);
-                foreach (var taskfromlist in listOfTodayAlerts)
+            {                
+                var nowShort = DateTime.Parse(DateTime.Now.ToShortTimeString());                
+                
+                foreach (var task in listOfTodayAlerts)
                 {
-                    if (taskfromlist.AlarmTime == nowShort)
+                    if (task.AlarmTime == nowShort)
                     {
-                        taskfromlist.CountNextAlarmTime();
+                        
                         AlertForm alertForm = new AlertForm();
-                        alertForm.AlertMessageLabel.Text = String.Format("{0}, {1},{2}", taskfromlist.FirstDate.ToShortDateString(), taskfromlist.Time, taskfromlist.Text);
+                        alertForm.AlertMessageLabel.Text = String.Format("{0}, {1},{2}", task.FirstDate.ToShortDateString(), task.Time, task.Text);
                         alertForm.TopMost = true;
                         alertForm.Show();
                         return;

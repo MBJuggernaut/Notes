@@ -13,7 +13,8 @@ namespace NotesWindowsFormsApp
             services.AddSingleton<ITagRepository, TagDatabaseRepository>();
             services.AddSingleton<ITaskUpdaterRepository, TaskUpdaterDatabaseRepository>();
             services.AddSingleton<INoteRepository, NoteDataBaseRepository>();
-
+            services.AddSingleton<IWeatherInfoProvider, WeatherInfoProvider>();
+            
             IServiceProvider provider = services.BuildServiceProvider();                        
             return provider;
         }

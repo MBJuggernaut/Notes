@@ -13,6 +13,7 @@ namespace NotesWindowsFormsApp
         public TaskForm(ITagRepository tagDatabaseRepository)
         {
             InitializeComponent();
+            
             tagManager = tagDatabaseRepository;
             newTask = new Task()
             {
@@ -20,12 +21,14 @@ namespace NotesWindowsFormsApp
                 Repeating = "Один раз",
                 Alarming = "00 мин."
             };
+            Set();
         }
         public TaskForm(ITagRepository tagDatabaseRepository, Task task)
         {
             InitializeComponent();
             tagManager = tagDatabaseRepository;
             newTask = task;
+            Set();
         }
         private void TaskForm_Load(object sender, EventArgs e)
         {          
@@ -37,7 +40,7 @@ namespace NotesWindowsFormsApp
 
                 tagsCheckedListBox.SetItemCheckState(index, CheckState.Checked);
             }
-            Set();
+           
         }
         private void OkButton_Click(object sender, EventArgs e)
         {

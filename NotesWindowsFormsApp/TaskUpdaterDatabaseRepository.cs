@@ -8,13 +8,11 @@ namespace NotesWindowsFormsApp
     public class TaskUpdaterDatabaseRepository: ITaskUpdaterRepository
     {
         private readonly TaskContext context;
-        readonly TaskUpdater updater;
-        readonly TaskDatabaseRepository taskDatabaseRepository;
-        public TaskUpdaterDatabaseRepository(TaskContext context, TaskDatabaseRepository taskRepository)
+        readonly TaskUpdater updater;        
+        public TaskUpdaterDatabaseRepository(TaskContext context)
         {
             this.context = context;
-            updater = context.Updater.First(t => t.Id == 1);
-            taskDatabaseRepository = taskRepository;
+            updater = context.Updater.First(t => t.Id == 1);          
         }
         public void ChangeExitTime()
         {
@@ -54,12 +52,6 @@ namespace NotesWindowsFormsApp
                 context.Dates.AddOrUpdate(t => t.Day, new TaskDate { Day = day });
                 context.SaveChanges();
                 day = day.AddDays(1);
-            }
-
-            foreach (var task in context.Tasks)
-            {
-                task.Dates.Clear();
-                taskDatabaseRepository.SetAllDates(task);
             }
 
             context.SaveChanges();

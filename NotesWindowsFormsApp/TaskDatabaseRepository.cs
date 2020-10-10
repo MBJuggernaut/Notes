@@ -38,11 +38,7 @@ namespace NotesWindowsFormsApp
                 context.Tasks.Remove(tasktoDelete);
                 context.SaveChanges();
             }
-        }
-        /// <summary>
-        /// For tests only
-        /// </summary>
-        /// <returns></returns>
+        }       
         public List<Task> GetAll()
         {
             return context.Tasks.ToList();
