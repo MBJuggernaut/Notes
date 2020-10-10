@@ -12,11 +12,11 @@ namespace NotesUnitTestProject
     public class TaskDatabaseRepositoryTest
     {      
         readonly DateTime date = DateTime.Today;
-        readonly TaskDatabaseRepository repository;
+        readonly ITaskRepository repository;
         public TaskDatabaseRepositoryTest()
         {
             IServiceProvider provider = MyContainer.Initialize();
-            repository = (TaskDatabaseRepository)provider.GetService(typeof(TaskDatabaseRepository));
+            repository = provider.GetService<ITaskRepository>();
         }
 
         [TestMethod]

@@ -8,34 +8,29 @@ namespace NotesWindowsFormsApp
 {
     public partial class MainForm : Form
     {
-        private Note myNote = new Note();
         private DateTime today;
-        private DateTime chosenDate;       
+        private DateTime chosenDate;
         private List<Task> listOfTodayAlerts = new List<Task>();
-        readonly TaskDatabaseRepository taskManager;
-        readonly TagDatabaseRepository tagManager;
-        readonly ExitTimeRepository timeRepository = new ExitTimeRepository();
-        readonly EveryMonthUpdateRepository updateRepository = new EveryMonthUpdateRepository();
-        readonly NoteRepository noteRepository = new NoteRepository();
+        readonly ITaskRepository taskManager;
+        readonly ITagRepository tagManager;
+        readonly ITaskUpdaterRepository taskUpdater;
+        readonly INoteRepository noteRepository;
         readonly WeatherInfoProvider weatherInfoProvider = new WeatherInfoProvider();
-        private DateTime timeToUpdate;
         public MainForm(IServiceProvider provider)
         {
             InitializeComponent();
-            taskManager = provider.GetService<TaskDatabaseRepository>();
-            tagManager = provider.GetService<TagDatabaseRepository>();
+            taskManager = provider.GetService<ITaskRepository>();
+            tagManager = provider.GetService<ITagRepository>();
+            //taskUpdater = provider.GetService<ITaskUpdaterRepository>();
+            taskUpdater = new TaskUpdaterDatabaseRepository(provider.GetService<TaskContext>(), (TaskDatabaseRepository)taskManager);
+            noteRepository = provider.GetService<INoteRepository>();
         }
-            private void MainForm_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
-           
-            //TaskContext x = (TaskContext)Program.ServiceProvider.GetService(typeof(TaskContext));           
-            myNote = noteRepository.Get();
-            notesRichTextBox.Text = myNote.Text;
+            notesRichTextBox.Text = noteRepository.Get();
             notesToolStripMenuItem.PerformClick();
 
-            DateTime lastExitTime = timeRepository.Get();
-            taskManager.RecountAllMissedAlarms(lastExitTime);
-            timeToUpdate = updateRepository.Get();
+            taskUpdater.Set();
             midnightTimer.Enabled = true;
             everyMinuteTimer.Enabled = true;
         }
@@ -93,7 +88,7 @@ namespace NotesWindowsFormsApp
 
                 taskform.HoursComboBox.Text = nexthour.ToString("D2");
                 taskform.MinutesComboBox.Text = DateTime.Now.ToString("mm");
-            }           
+            }
             if (taskform.ShowDialog(this) == DialogResult.OK)
             {
                 taskform.newTask.FirstDate = DateTime.Parse(taskform.TaskDateTimePicker.Value.ToShortDateString());
@@ -105,8 +100,8 @@ namespace NotesWindowsFormsApp
         {
             int idToFindBy = (int)tasksForDayDataGridView.SelectedRows[0].Cells[0].Value;
             var task = taskManager.FindById(idToFindBy);
-            TaskForm taskform = new TaskForm(tagManager, task);            
-            taskform.TaskDateTimePicker.Value = chosenDate;                 
+            TaskForm taskform = new TaskForm(tagManager, task);
+            taskform.TaskDateTimePicker.Value = chosenDate;
 
             if (taskform.ShowDialog(this) == DialogResult.OK)
             {
@@ -115,7 +110,7 @@ namespace NotesWindowsFormsApp
             }
         }
         private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
-        {           
+        {
             int taskId = (int)tasksForDayDataGridView.SelectedRows[0].Cells[0].Value;
             taskManager.Delete(taskId);
             UpdateMyTasks();
@@ -158,8 +153,7 @@ namespace NotesWindowsFormsApp
         }
         private void SaveNote()
         {
-            myNote.Text = notesRichTextBox.Text;
-            noteRepository.Update(myNote);
+            noteRepository.Update(notesRichTextBox.Text);
         }
         private void NotesRichTextBox_Leave(object sender, EventArgs e)
         {
@@ -168,7 +162,7 @@ namespace NotesWindowsFormsApp
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveNote();
-            timeRepository.Update(DateTime.Now);
+            taskUpdater.ChangeExitTime();
             trayIcon.Visible = false;
             trayIcon.Dispose();
         }
@@ -209,15 +203,7 @@ namespace NotesWindowsFormsApp
             today = DateTime.Today;
             midnightTimer.Interval = (int)(DateTime.Today.AddDays(1) - DateTime.Now).TotalMilliseconds;
             listOfTodayAlerts = taskManager.GetTodayAlerts();
-
-            if (DateTime.Compare(timeToUpdate, today) <= 0)
-            {
-                var countdays = (today - timeToUpdate).Days + 31;
-                taskManager.AddDates(countdays);
-
-                var newtimetoupdate = timeToUpdate.AddMonths(1);
-                updateRepository.Update(newtimetoupdate);
-            }
+            taskUpdater.Update();
         }
         private void EveryMinuteTimer_Tick(object sender, EventArgs e)
         {

@@ -5,9 +5,9 @@ namespace NotesWindowsFormsApp
 {
     public partial class TagsForm : Form
     {
-        readonly TagDatabaseRepository tagManager;
+        private readonly ITagRepository tagManager;
 
-        public TagsForm(TagDatabaseRepository tagDatabaseRepository)
+        public TagsForm(ITagRepository tagDatabaseRepository)
         {
             InitializeComponent();
             tagManager = tagDatabaseRepository;

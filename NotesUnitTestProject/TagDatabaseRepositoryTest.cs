@@ -8,12 +8,12 @@ namespace NotesUnitTestProject
 {
     [TestClass]
     public class TagDatabaseRepositoryTest
-    {               
-        private TagDatabaseRepository repository;
+    {
+        private readonly ITagRepository repository;
         public TagDatabaseRepositoryTest()
         {
             IServiceProvider provider = MyContainer.Initialize();
-            repository = provider.GetService<TagDatabaseRepository>();
+            repository = provider.GetService<ITagRepository>();
         }       
         [TestMethod]
         public void Add_OneTag_AddedTagToDataBase()

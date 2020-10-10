@@ -8,7 +8,7 @@ namespace NotesWindowsFormsApp
 {
     public class TaskDatabaseRepository : ITaskRepository
     {
-        private readonly TaskContext context;
+        readonly TaskContext context;
         public TaskDatabaseRepository(TaskContext context)
         {
             this.context = context;
@@ -73,17 +73,7 @@ namespace NotesWindowsFormsApp
             }
             var listOfTasks = day.Tasks;
             return listOfTasks.OrderBy(t => t.Time).ToList();
-        }
-        public void RecountAllMissedAlarms(DateTime lastExitTime)
-        {
-            //находим все события, будильники которых были установлены на время, пока программа была закрыта
-            List<Task> tasksWithMissedAlarms = context.Tasks.Where(t => DateTime.Compare(t.AlarmTime, DateTime.Now) < 0).Where(t => DateTime.Compare(t.AlarmTime, lastExitTime) > 0).ToList();
-            foreach (var task in tasksWithMissedAlarms)
-            {
-                task.CountNextAlarmTime();
-                context.SaveChanges();
-            }
-        }
+        }        
         public void Update(Task task)
         {
             if (task.Validate().Count == 0)
@@ -186,25 +176,6 @@ namespace NotesWindowsFormsApp
                     date.Tasks.Add(task);
                 }
             }
-        }
-        public void AddDates(int countdays)
-        {
-            var day = context.Dates.Max(t => t.Day);
-
-
-            for (int i = 0; i <= countdays; i++)
-            {
-                context.Dates.AddOrUpdate(t => t.Day, new TaskDate { Day = day });
-                context.SaveChanges();
-                day = day.AddDays(1);
-            }
-
-            foreach (var task in context.Tasks)
-            {
-                task.Dates.Clear();
-                SetAllDates(task);
-            }
-            context.SaveChanges();
-        }
+        }       
     }
 }

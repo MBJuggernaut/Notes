@@ -94,18 +94,17 @@
       <DependentUpon>AlertForm.cs</DependentUpon>
     </Compile>
     <Compile Include="BaseEntity.cs" />
-    <Compile Include="MyContainer.cs" />
-    <Compile Include="Migrations\202009202138147_Initial.cs" />
-    <Compile Include="Migrations\202009202138147_Initial.designer.cs">
-      <DependentUpon>202009202138147_Initial.cs</DependentUpon>
+    <Compile Include="ITaskUpdaterRepository.cs" />
+    <Compile Include="Migrations\202010092352363_Init.cs" />
+    <Compile Include="Migrations\202010092352363_Init.designer.cs">
+      <DependentUpon>202010092352363_Init.cs</DependentUpon>
     </Compile>
-    <Compile Include="TaskDate.cs" />
-    <Compile Include="EveryMonthUpdateRepository.cs" />
-    <Compile Include="ExitTimeRepository.cs" />
-    <Compile Include="FileProvider.cs" />
-    <Compile Include="ITagRepository.cs" />
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="NoteRepository.cs" />
+    <Compile Include="TaskUpdater.cs" />
+    <Compile Include="MyContainer.cs" />
+    <Compile Include="TaskDate.cs" />
+    <Compile Include="ITagRepository.cs" />
+    <Compile Include="NoteDataBaseRepository.cs" />
     <Compile Include="Tag.cs" />
     <Compile Include="TagDatabaseRepository.cs" />
     <Compile Include="TagsForm.cs">
@@ -116,6 +115,7 @@
     </Compile>
     <Compile Include="TaskContext.cs" />
     <Compile Include="TaskDatabaseRepository.cs" />
+    <Compile Include="TaskUpdaterDatabaseRepository.cs" />
     <Compile Include="WeatherInfo.cs" />
     <Compile Include="INoteRepository.cs" />
     <Compile Include="ITaskRepository.cs" />
@@ -147,8 +147,8 @@
     <EmbeddedResource Include="MainForm.ru.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009202138147_Initial.resx">
-      <DependentUpon>202009202138147_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202010092352363_Init.resx">
+      <DependentUpon>202010092352363_Init.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

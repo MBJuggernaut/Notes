@@ -2,7 +2,7 @@
 {
     interface INoteRepository
     {
-        Note Get();
-        void Update(Note note);
+        string Get();
+        void Update(string text);
     }
 }

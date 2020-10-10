@@ -9,8 +9,8 @@ namespace NotesWindowsFormsApp
         public Task newTask;
         private List<Tag> tags;
         public List<Tag> checkedTags;
-        readonly TagDatabaseRepository tagManager;
-        public TaskForm(TagDatabaseRepository tagDatabaseRepository)
+        readonly ITagRepository tagManager;
+        public TaskForm(ITagRepository tagDatabaseRepository)
         {
             InitializeComponent();
             tagManager = tagDatabaseRepository;
@@ -21,7 +21,7 @@ namespace NotesWindowsFormsApp
                 Alarming = "00 мин."
             };
         }
-        public TaskForm(TagDatabaseRepository tagDatabaseRepository, Task task)
+        public TaskForm(ITagRepository tagDatabaseRepository, Task task)
         {
             InitializeComponent();
             tagManager = tagDatabaseRepository;

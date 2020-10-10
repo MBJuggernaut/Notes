@@ -2,7 +2,7 @@
 
 namespace NotesWindowsFormsApp
 {
-    interface ITagRepository
+    public interface ITagRepository
     {
         List<Tag> GetAll();
         void Add(Tag tag);

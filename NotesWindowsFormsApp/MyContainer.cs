@@ -7,14 +7,14 @@ namespace NotesWindowsFormsApp
     {
         public static IServiceProvider Initialize()
         {
-            IServiceCollection services = new ServiceCollection();
-            var context = new TaskContext();            
-            TaskDatabaseRepository taskDatabaseRepository = new TaskDatabaseRepository(context);
-            TagDatabaseRepository tagDatabaseRepository = new TagDatabaseRepository(context);
-            services.AddSingleton(context);
-            services.AddSingleton(taskDatabaseRepository);
-            services.AddSingleton(tagDatabaseRepository);
-            IServiceProvider provider = services.BuildServiceProvider();            
+            IServiceCollection services = new ServiceCollection();            
+            services.AddSingleton<TaskContext>();
+            services.AddSingleton<ITaskRepository, TaskDatabaseRepository>();
+            services.AddSingleton<ITagRepository, TagDatabaseRepository>();
+            services.AddSingleton<ITaskUpdaterRepository, TaskUpdaterDatabaseRepository>();
+            services.AddSingleton<INoteRepository, NoteDataBaseRepository>();
+
+            IServiceProvider provider = services.BuildServiceProvider();                        
             return provider;
         }
     }
