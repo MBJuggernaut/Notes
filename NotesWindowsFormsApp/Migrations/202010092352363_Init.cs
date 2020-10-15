@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class Init : DbMigration
     {
         public override void Up()
         {
@@ -36,6 +36,25 @@
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Text = c.String(maxLength: 20),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Notes",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Text = c.String(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.TaskUpdaters",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        LastExitTime = c.DateTime(nullable: false),
+                        NextUpdateTime = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -79,6 +98,8 @@
             DropIndex("dbo.TaskTaskDates", new[] { "Task_Id" });
             DropTable("dbo.TagTasks");
             DropTable("dbo.TaskTaskDates");
+            DropTable("dbo.TaskUpdaters");
+            DropTable("dbo.Notes");
             DropTable("dbo.Tags");
             DropTable("dbo.Tasks");
             DropTable("dbo.TaskDates");

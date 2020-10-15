@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Forms;
@@ -7,38 +8,31 @@ namespace NotesWindowsFormsApp
 {
     public partial class MainForm : Form
     {
-        public MainForm()
-        {
-            InitializeComponent();
-        }
-        private Note myNote = new Note();
         private DateTime today;
         private DateTime chosenDate;
-        private List<Task> listOfTodayAlerts = new List<Task>();
+        private List<Task> listOfTodayAlerts;
+        readonly ITaskRepository taskManager;
+        readonly ITagRepository tagManager;
+        readonly ITaskUpdaterRepository taskUpdater;
+        readonly INoteRepository noteRepository;
+        readonly IWeatherInfoProvider weatherInfoProvider;
+        public MainForm(IServiceProvider provider)
+        {
+            taskManager = provider.GetService<ITaskRepository>();
+            tagManager = provider.GetService<ITagRepository>();
+            taskUpdater = provider.GetService<ITaskUpdaterRepository>();
+            noteRepository = provider.GetService<INoteRepository>();
+            weatherInfoProvider = provider.GetService<IWeatherInfoProvider>();
+            listOfTodayAlerts = taskManager.GetTodayAlerts();
 
-        readonly TaskDatabaseRepository taskManager = new TaskDatabaseRepository();
-        readonly TagDatabaseRepository tagManager = new TagDatabaseRepository();
-
-        readonly ExitTimeRepository timeRepository = new ExitTimeRepository();        
-        readonly EveryMonthUpdateRepository updateRepository = new EveryMonthUpdateRepository();
-        readonly NoteRepository noteRepository = new NoteRepository();
-        readonly WeatherInfoProvider weatherInfoProvider = new WeatherInfoProvider();
-        private DateTime timeToUpdate;
-
-        readonly TaskContext context = new TaskContext();
+            InitializeComponent();           
+        }
         private void MainForm_Load(object sender, EventArgs e)
         {
-            taskManager.context = context;
-            tagManager.context = context;
-
-            myNote = noteRepository.Get();
-            notesRichTextBox.Text = myNote.Text;
+            notesRichTextBox.Text = noteRepository.Get();
             notesToolStripMenuItem.PerformClick();
 
-            DateTime lastExitTime = timeRepository.Get();
-            taskManager.RecountAllMissedAlarms(lastExitTime);
-            timeToUpdate = updateRepository.Get();
-
+            taskUpdater.Set();            
         }
         private void TasksToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -46,7 +40,6 @@ namespace NotesWindowsFormsApp
             todolistPanel.Show();
             notesPanel.Hide();
             weatherPanel.Hide();
-            
 
             chosenDate = today;
             UpdateMyTasks();
@@ -72,7 +65,7 @@ namespace NotesWindowsFormsApp
         {
             Show();
             this.WindowState = FormWindowState.Normal;
-            trayIcon.Visible = false;           
+            trayIcon.Visible = false;
         }
         private void MyCalendar_DateSelected(object sender, DateRangeEventArgs e)
         {
@@ -81,7 +74,7 @@ namespace NotesWindowsFormsApp
         }
         private void AddTaskButton_Click(object sender, EventArgs e)
         {
-            TaskForm taskform = new TaskForm();
+            TaskForm taskform = new TaskForm(tagManager);
 
             taskform.TaskDateTimePicker.Value = chosenDate;
 
@@ -93,49 +86,31 @@ namespace NotesWindowsFormsApp
                     taskform.TaskDateTimePicker.Value = DateTime.Now.AddDays(1);
 
                 taskform.HoursComboBox.Text = nexthour.ToString("D2");
-                taskform.MinutesComboBox.Text = DateTime.Now.ToString("mm");               
+                taskform.MinutesComboBox.Text = DateTime.Now.ToString("mm");
             }
-
-            taskform.tags = tagManager.GetAll();
-            taskform.newTask.FirstDate = DateTime.Parse(taskform.TaskDateTimePicker.Value.ToShortDateString());
-
             if (taskform.ShowDialog(this) == DialogResult.OK)
-            {                
-                taskManager.Add(taskform.newTask);                
+            {
+                taskform.newTask.FirstDate = DateTime.Parse(taskform.TaskDateTimePicker.Value.ToShortDateString());
+                taskManager.TryToAdd(taskform.newTask);
                 UpdateMyTasks();
             }
         }
         private void ChangeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var task = taskManager.FindById((int)tasksForDayDataGridView.SelectedRows[0].Cells[0].Value);
-
-            TaskForm taskform = new TaskForm();
-            var time = task.Time.Split(':');
-            taskform.HoursComboBox.Text = time[0];
-            taskform.MinutesComboBox.Text = time[1];
-            taskform.CommentTextBox.Text = task.Text;
-            taskform.TaskDateTimePicker.Value = Convert.ToDateTime(chosenDate);
-            taskform.tags = tagManager.GetAll();
-            taskform.newTask.Id = task.Id;
-            taskform.checkedTags = task.Tags;
-            taskform.repeatingComboBox.Text = task.Repeating;
-            
-
-            var alarmingParts = task.Alarming.Split(' ');
-            var count = alarmingParts[0];
-            var span = alarmingParts[1];
-            taskform.alertCountTextBox.Text = count;
-            taskform.alertSpanComboBox.Text = span;            
+            int idToFindBy = (int)tasksForDayDataGridView.SelectedRows[0].Cells[0].Value;
+            var task = taskManager.FindById(idToFindBy);
+            TaskForm taskform = new TaskForm(tagManager, task);
+            taskform.TaskDateTimePicker.Value = chosenDate;
 
             if (taskform.ShowDialog(this) == DialogResult.OK)
-            {                                           
+            {
                 taskManager.Update(taskform.newTask);
                 UpdateMyTasks();
             }
         }
         private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int taskId = (int)tasksForDayDataGridView.CurrentRow.Cells[0].Value;
+            int taskId = (int)tasksForDayDataGridView.SelectedRows[0].Cells[0].Value;
             taskManager.Delete(taskId);
             UpdateMyTasks();
         }
@@ -174,11 +149,10 @@ namespace NotesWindowsFormsApp
         private void TasksContextMenuStrip_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (tasksForDayDataGridView.SelectedRows.Count != 1) e.Cancel = true;
-        }              
+        }
         private void SaveNote()
         {
-            myNote.Text = notesRichTextBox.Text;
-            noteRepository.Update(myNote);
+            noteRepository.Update(notesRichTextBox.Text);
         }
         private void NotesRichTextBox_Leave(object sender, EventArgs e)
         {
@@ -187,10 +161,10 @@ namespace NotesWindowsFormsApp
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveNote();
-            timeRepository.Update(DateTime.Now);
+            taskUpdater.ChangeExitTime();
             trayIcon.Visible = false;
             trayIcon.Dispose();
-        }      
+        }
         private void WeatherToolStripMenuItem_Click(object sender, EventArgs e)
         {
             notesPanel.Hide();
@@ -227,32 +201,25 @@ namespace NotesWindowsFormsApp
         {
             today = DateTime.Today;
             midnightTimer.Interval = (int)(DateTime.Today.AddDays(1) - DateTime.Now).TotalMilliseconds;
-            listOfTodayAlerts = taskManager.GetTodayAlerts(); 
-            
-            if (DateTime.Compare(timeToUpdate, today)<=0)
-            {
-                var countdays = (today - timeToUpdate).Days+31;
-                taskManager.AddDates(countdays);
-
-                var newtimetoupdate = timeToUpdate.AddMonths(1);
-                updateRepository.Update(newtimetoupdate);
-            }
+            listOfTodayAlerts = taskManager.GetTodayAlerts();
+            taskUpdater.Update();
         }
         private void EveryMinuteTimer_Tick(object sender, EventArgs e)
-        {            
+        {
+           
             if (listOfTodayAlerts.Count != 0)
-            {
-                var now = DateTime.Now;
-                var nowShort = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0);
-                foreach (var taskfromlist in listOfTodayAlerts)
+            {                
+                var nowShort = DateTime.Parse(DateTime.Now.ToShortTimeString());                
+                
+                foreach (var task in listOfTodayAlerts)
                 {
-                    if (taskfromlist.AlarmTime == nowShort)
-                    {                        
-                        taskManager.CountNextAlarmTime(taskfromlist);
+                    if (task.AlarmTime == nowShort)
+                    {
+                        
                         AlertForm alertForm = new AlertForm();
-                        alertForm.AlertMessageLabel.Text = String.Format("{0}, {1},{2}", taskfromlist.FirstDate.ToShortDateString(), taskfromlist.Time, taskfromlist.Text);
+                        alertForm.AlertMessageLabel.Text = String.Format("{0}, {1},{2}", task.FirstDate.ToShortDateString(), task.Time, task.Text);
                         alertForm.TopMost = true;
-                        alertForm.Show();                      
+                        alertForm.Show();
                         return;
                     }
                 }
@@ -261,7 +228,7 @@ namespace NotesWindowsFormsApp
             everyMinuteTimer.Interval = (60 - DateTime.Now.Second) * 1000;
         }
         private void ТестToolStripMenuItem_Click(object sender, EventArgs e)
-        {            
+        {
         }
     }
 }
