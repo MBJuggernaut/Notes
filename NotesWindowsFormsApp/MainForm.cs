@@ -18,6 +18,7 @@ namespace NotesWindowsFormsApp
         readonly IWeatherInfoProvider weatherInfoProvider;
         public MainForm(IServiceProvider provider)
         {
+         
             taskManager = provider.GetService<ITaskRepository>();
             tagManager = provider.GetService<ITagRepository>();
             taskUpdater = provider.GetService<ITaskUpdaterRepository>();
@@ -32,7 +33,7 @@ namespace NotesWindowsFormsApp
             notesRichTextBox.Text = noteRepository.Get();
             notesToolStripMenuItem.PerformClick();
 
-            taskUpdater.Set();            
+            taskUpdater.Set();                       
         }
         private void TasksToolStripMenuItem_Click(object sender, EventArgs e)
         {

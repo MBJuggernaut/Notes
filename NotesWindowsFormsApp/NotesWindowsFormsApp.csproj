@@ -99,6 +99,10 @@
     <Compile Include="Migrations\202010092352363_Init.designer.cs">
       <DependentUpon>202010092352363_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012161906337_Nullable note.cs" />
+    <Compile Include="Migrations\202012161906337_Nullable note.designer.cs">
+      <DependentUpon>202012161906337_Nullable note.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="TaskUpdater.cs" />
     <Compile Include="MyContainer.cs" />
@@ -149,6 +153,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202010092352363_Init.resx">
       <DependentUpon>202010092352363_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012161906337_Nullable note.resx">
+      <DependentUpon>202012161906337_Nullable note.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
