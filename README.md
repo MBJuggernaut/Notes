@@ -1,10 +1,13 @@
 ## Notes
-#A little application with options to write notes and remind about things you have to do. App uses API (openweather) and sql (works using databases). 
+# Приложение, позволяющее создавать заметки, задачи с напоминаниями, а также отслеживающее погоду через openweather. 
 
-On the front page you can see a note screen -- that's where app name is from. There are also tabs for creating and observing tasks and for weather check. 
+Работает на базах данных, связанных про принципу многие-ко-многим. 
 
-Tasks are sorted by dates. When creating new task, you can choose repeating and alarming options. There is only one tune available for now, more like a test option. 
-
+# Вот как это выглядит:
 ![](1.gif)
+
+Предполагается, что после запуска приложение висит в трее, но и при перезапуске приложения или компьютера при повторном включении программа вычисляет, о каких событиях вам нужно (было) напомнить. 
+
+
 
 
