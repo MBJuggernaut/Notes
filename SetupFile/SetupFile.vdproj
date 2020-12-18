@@ -21,6 +21,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_1497B78F8EA54DE7AFA9C9365605C26D"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_19C2B77BDE02B8E7B0B926F7E012602B"
         "OwnerKey" = "8:_2692C2F61FAF763F6A83A1EE1E31CBF3"
         "MsmSig" = "8:_UNDEFINED"
@@ -397,6 +403,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1497B78F8EA54DE7AFA9C9365605C26D"
+            {
+            "SourcePath" = "8:..\\NotesWindowsFormsApp\\1584903395_NationalMelody-16.wav"
+            "TargetName" = "8:1584903395_NationalMelody-16.wav"
+            "Tag" = "8:"
+            "Folder" = "8:_6CEA63BC19CB4422A38C76FB97EC223C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_19C2B77BDE02B8E7B0B926F7E012602B"
