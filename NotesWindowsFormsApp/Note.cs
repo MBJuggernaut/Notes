@@ -9,8 +9,7 @@ namespace NotesWindowsFormsApp
         [Key]        
         [Range(0, 2)]
         public int Id { get; set; }
-
-        [Required]
+        
         public string Text { get; set; }
     }
 }
