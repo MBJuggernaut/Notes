@@ -87,74 +87,75 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AlertForm.cs">
+    <Compile Include="Context\DbInitializer.cs" />
+    <Compile Include="Forms\AlertForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AlertForm.Designer.cs">
+    <Compile Include="Forms\AlertForm.Designer.cs">
       <DependentUpon>AlertForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="BaseEntity.cs" />
-    <Compile Include="ITaskUpdaterRepository.cs" />
-    <Compile Include="Migrations\202010092352363_Init.cs" />
-    <Compile Include="Migrations\202010092352363_Init.designer.cs">
+    <Compile Include="Models\BaseEntity.cs" />
+    <Compile Include="Repo\ITaskUpdaterRepository.cs" />
+    <Compile Include="Context\Migrations\202010092352363_Init.cs" />
+    <Compile Include="Context\Migrations\202010092352363_Init.designer.cs">
       <DependentUpon>202010092352363_Init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202012161906337_Nullable note.cs" />
-    <Compile Include="Migrations\202012161906337_Nullable note.designer.cs">
+    <Compile Include="Context\Migrations\202012161906337_Nullable note.cs" />
+    <Compile Include="Context\Migrations\202012161906337_Nullable note.designer.cs">
       <DependentUpon>202012161906337_Nullable note.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="TaskUpdater.cs" />
+    <Compile Include="Context\Migrations\Configuration.cs" />
+    <Compile Include="Models\TaskUpdater.cs" />
     <Compile Include="MyContainer.cs" />
-    <Compile Include="TaskDate.cs" />
-    <Compile Include="ITagRepository.cs" />
-    <Compile Include="NoteDataBaseRepository.cs" />
-    <Compile Include="Tag.cs" />
-    <Compile Include="TagDatabaseRepository.cs" />
-    <Compile Include="TagsForm.cs">
+    <Compile Include="Models\TaskDate.cs" />
+    <Compile Include="Repo\ITagRepository.cs" />
+    <Compile Include="Repo\NoteDataBaseRepository.cs" />
+    <Compile Include="Models\Tag.cs" />
+    <Compile Include="Repo\TagDatabaseRepository.cs" />
+    <Compile Include="Forms\TagsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TagsForm.Designer.cs">
+    <Compile Include="Forms\TagsForm.Designer.cs">
       <DependentUpon>TagsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="TaskContext.cs" />
-    <Compile Include="TaskDatabaseRepository.cs" />
-    <Compile Include="TaskUpdaterDatabaseRepository.cs" />
-    <Compile Include="WeatherInfo.cs" />
-    <Compile Include="INoteRepository.cs" />
-    <Compile Include="ITaskRepository.cs" />
-    <Compile Include="IWeatherInfoProvider.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Include="Context\TaskContext.cs" />
+    <Compile Include="Repo\TaskDatabaseRepository.cs" />
+    <Compile Include="Repo\TaskUpdaterDatabaseRepository.cs" />
+    <Compile Include="Models\WeatherInfo.cs" />
+    <Compile Include="Repo\INoteRepository.cs" />
+    <Compile Include="Repo\ITaskRepository.cs" />
+    <Compile Include="Providers\IWeatherInfoProvider.cs" />
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Note.cs" />
+    <Compile Include="Models\Note.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Task.cs" />
-    <Compile Include="TaskForm.cs">
+    <Compile Include="Models\Task.cs" />
+    <Compile Include="Forms\TaskForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TaskForm.Designer.cs">
+    <Compile Include="Forms\TaskForm.Designer.cs">
       <DependentUpon>TaskForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Validation.cs" />
-    <Compile Include="WeatherInfoProvider.cs" />
-    <EmbeddedResource Include="AlertForm.resx">
+    <Compile Include="Models\ModelValidator.cs" />
+    <Compile Include="Providers\WeatherInfoProvider.cs" />
+    <EmbeddedResource Include="Forms\AlertForm.resx">
       <DependentUpon>AlertForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.ru.resx">
+    <EmbeddedResource Include="Forms\MainForm.ru.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010092352363_Init.resx">
+    <EmbeddedResource Include="Context\Migrations\202010092352363_Init.resx">
       <DependentUpon>202010092352363_Init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012161906337_Nullable note.resx">
+    <EmbeddedResource Include="Context\Migrations\202012161906337_Nullable note.resx">
       <DependentUpon>202012161906337_Nullable note.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -166,13 +167,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="TagsForm.resx">
+    <EmbeddedResource Include="Forms\TagsForm.resx">
       <DependentUpon>TagsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TaskForm.resx">
+    <EmbeddedResource Include="Forms\TaskForm.resx">
       <DependentUpon>TaskForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include=".editorconfig" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -187,11 +187,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <AdditionalFiles Include="1584903395_NationalMelody-16.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </AdditionalFiles>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
