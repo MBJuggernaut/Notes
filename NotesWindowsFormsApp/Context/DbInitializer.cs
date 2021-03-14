@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 
-namespace NotesWindowsFormsApp
+namespace NotesWindowsFormsApp.Context
 {
     public class DbInitializer : CreateDatabaseIfNotExists<TaskContext>
     {
-        protected override void Seed(NotesWindowsFormsApp.TaskContext context)
+        protected override void Seed(TaskContext context)
         {
             Tag tags1 = new Tag { Id = 1, Text = "Домашнее" };
             Tag tags2 = new Tag { Id = 2, Text = "Работа" };

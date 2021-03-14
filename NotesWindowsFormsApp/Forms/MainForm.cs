@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Forms;
 
-namespace NotesWindowsFormsApp
+namespace NotesWindowsFormsApp.Forms
 {
     public partial class MainForm : Form
     {

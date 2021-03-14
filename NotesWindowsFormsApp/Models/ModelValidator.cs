@@ -1,21 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-public class ModelValidator
+namespace NotesWindowsFormsApp.Models
 {
-    public static List<string> Validate<T>(T obj)
-        where T: class
+    public class ModelValidator
     {
-        var validationResults = new List<ValidationResult>();
-        var context = new ValidationContext(obj);
-        var errors = new List<string>();
-        if (!Validator.TryValidateObject(obj, context, validationResults, true))
+        public static List<string> Validate<T>(T obj)
+            where T : class
         {
-            foreach (var error in validationResults)
+            var validationResults = new List<ValidationResult>();
+            var context = new ValidationContext(obj);
+            var errors = new List<string>();
+            if (!Validator.TryValidateObject(obj, context, validationResults, true))
             {
-                errors.Add(error.ErrorMessage);
+                foreach (var error in validationResults)
+                {
+                    errors.Add(error.ErrorMessage);
+                }
             }
+            return errors;
         }
-        return errors;
     }
 }

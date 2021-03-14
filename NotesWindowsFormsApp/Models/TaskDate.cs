@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace NotesWindowsFormsApp
+namespace NotesWindowsFormsApp.Models
 {
     public class TaskDate : BaseEntity
     {
         public DateTime Day { get; set; }
 
-        public virtual List<Task> Tasks { get; set; }
+        public virtual List<UserTask> Tasks { get; set; }
 
         public TaskDate()
         {
-            Tasks = new List<Task>();
+            Tasks = new List<UserTask>();
         }
 
     }

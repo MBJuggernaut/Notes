@@ -1,16 +1,16 @@
-﻿namespace NotesWindowsFormsApp
+﻿namespace NotesWindowsFormsApp.Models
 {
     public class WeatherInfo
-    {        
+    {
         public Weather[] Weather { get; set; }
         public Main Main { get; set; }
         public Wind Wind { get; set; }
         public Clouds Clouds { get; set; }
-        public int Dt { get; set; }        
+        public int Dt { get; set; }
         public int Timezone { get; set; }
         public string Name { get; set; }
-        public int Cod { get; set; }                  
-    }    
+        public int Cod { get; set; }
+    }
     public class Main
     {
         public float Temp { get; set; }

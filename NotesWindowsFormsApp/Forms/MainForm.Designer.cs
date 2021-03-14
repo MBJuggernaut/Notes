@@ -1,4 +1,4 @@
-﻿namespace NotesWindowsFormsApp
+﻿namespace NotesWindowsFormsApp.Forms
 {
     partial class MainForm
     {
@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.notesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tasksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -163,8 +163,8 @@
             this.tasksForDayDataGridView.ReadOnly = true;
             this.tasksForDayDataGridView.RowHeadersVisible = false;
             this.tasksForDayDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Silver;
-            this.tasksForDayDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Silver;
+            this.tasksForDayDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.tasksForDayDataGridView.RowTemplate.Height = 24;
             this.tasksForDayDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tasksForDayDataGridView.ShowCellErrors = false;

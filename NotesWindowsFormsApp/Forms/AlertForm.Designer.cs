@@ -1,4 +1,4 @@
-﻿namespace NotesWindowsFormsApp
+﻿namespace NotesWindowsFormsApp.Forms
 {
     partial class AlertForm
     {

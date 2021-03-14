@@ -1,18 +1,20 @@
-﻿using System;
+﻿using NotesWindowsFormsApp.Context;
+using NotesWindowsFormsApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
 
-namespace NotesWindowsFormsApp
+namespace NotesWindowsFormsApp.Repo
 {
-    public class TaskUpdaterDatabaseRepository: ITaskUpdaterRepository
+    public class TaskUpdaterDatabaseRepository : ITaskUpdaterRepository
     {
         private readonly TaskContext context;
-        readonly TaskUpdater updater;        
+        readonly TaskUpdater updater;
         public TaskUpdaterDatabaseRepository(TaskContext context)
         {
             this.context = context;
-            updater = context.Updater.First(t => t.Id == 1);          
+            updater = context.Updater.First(t => t.Id == 1);
         }
         public void ChangeExitTime()
         {
@@ -35,7 +37,7 @@ namespace NotesWindowsFormsApp
         public void Set()
         {
             //находим все события, будильники которых были установлены на время, пока программа была закрыта
-            List<Task> tasksWithMissedAlarms = context.Tasks.Where(t => DateTime.Compare(t.AlarmTime, DateTime.Now) < 0).Where(t => DateTime.Compare(t.AlarmTime, updater.LastExitTime) > 0).ToList();
+            List<UserTask> tasksWithMissedAlarms = context.Tasks.Where(t => DateTime.Compare(t.AlarmTime, DateTime.Now) < 0).Where(t => DateTime.Compare(t.AlarmTime, updater.LastExitTime) > 0).ToList();
             foreach (var task in tasksWithMissedAlarms)
             {
                 task.CountNextAlarmTime();

@@ -2,12 +2,12 @@
 using System.Media;
 using System.Windows.Forms;
 
-namespace NotesWindowsFormsApp
+namespace NotesWindowsFormsApp.Forms
 {
     public partial class AlertForm : Form
     {
-        SoundPlayer player = new SoundPlayer();
-        
+        private readonly SoundPlayer player = new SoundPlayer();
+
         public AlertForm()
         {
             InitializeComponent();
@@ -15,8 +15,8 @@ namespace NotesWindowsFormsApp
 
         private void AlertForm_Load(object sender, EventArgs e)
         {
-            player.SoundLocation = "1584903395_NationalMelody-16.wav";           
-            player.Play();
+            //player.SoundLocation = "";           
+            //player.Play();
         }
 
         private void OkButton_Click(object sender, EventArgs e)

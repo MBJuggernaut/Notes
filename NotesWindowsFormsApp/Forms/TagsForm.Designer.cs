@@ -102,7 +102,7 @@
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 3;
             this.okButton.Text = "Ok";
-            this.okButton.UseVisualStyleBackColor = true;            
+            this.okButton.UseVisualStyleBackColor = true;
             // 
             // TagsForm
             // 
@@ -115,7 +115,7 @@
             this.Controls.Add(this.newTagTextBox);
             this.Controls.Add(this.tagsDataGridView);
             this.Name = "TagsForm";
-            this.Text = "TagsForm";           
+            this.Text = "TagsForm";
             ((System.ComponentModel.ISupportInitialize)(this.tagsDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -1,25 +1,27 @@
-﻿using System;
+﻿using NotesWindowsFormsApp.Context;
+using NotesWindowsFormsApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
-namespace NotesWindowsFormsApp
+namespace NotesWindowsFormsApp.Repo
 {
     public class TaskDatabaseRepository : ITaskRepository
     {
-        readonly TaskContext context;
+        private readonly TaskContext context;
         public TaskDatabaseRepository(TaskContext context)
         {
             this.context = context;
         }
-        private void Add(Task task)
+        private void Add(UserTask task)
         {
             SetAllDates(task);
             task.CountNextAlarmTime();
             context.Tasks.Add(task);
             context.SaveChanges();
         }
-        public void TryToAdd(Task task)
+        public void TryToAdd(UserTask task)
         {
             if (task != null)
             {
@@ -37,8 +39,8 @@ namespace NotesWindowsFormsApp
                 context.Tasks.Remove(tasktoDelete);
                 context.SaveChanges();
             }
-        }       
-        public List<Task> GetAll()
+        }
+        public List<UserTask> GetAll()
         {
             return context.Tasks.ToList();
         }
@@ -52,12 +54,12 @@ namespace NotesWindowsFormsApp
             }
             return listofdates;
         }
-        public Task FindById(int id)
+        public UserTask FindById(int id)
         {
             var thisTask = context.Tasks.FirstOrDefault(t => t.Id == id);
             return thisTask;
         }
-        public List<Task> GetByDate(DateTime date)
+        public List<UserTask> GetByDate(DateTime date)
         {
             TaskDate day = context.Dates.FirstOrDefault(t => t.Day == date);
             if (day == null)
@@ -68,8 +70,8 @@ namespace NotesWindowsFormsApp
             }
             var listOfTasks = day.Tasks;
             return listOfTasks.OrderBy(t => t.Time).ToList();
-        }        
-        public void Update(Task task)
+        }
+        public void Update(UserTask task)
         {
             if (task.Validate().Count == 0)
             {
@@ -97,8 +99,8 @@ namespace NotesWindowsFormsApp
                 }
             }
         }
-        public List<Task> GetTodayAlerts() => context.Tasks.Where(t => DbFunctions.TruncateTime(t.AlarmTime) == DateTime.Today).ToList();
-        public void SetAllDates(Task task)
+        public List<UserTask> GetTodayAlerts() => context.Tasks.Where(t => DbFunctions.TruncateTime(t.AlarmTime) == DateTime.Today).ToList();
+        public void SetAllDates(UserTask task)
         {
             if (task != null)
             {
@@ -171,6 +173,6 @@ namespace NotesWindowsFormsApp
                     date.Tasks.Add(task);
                 }
             }
-        }       
+        }
     }
 }

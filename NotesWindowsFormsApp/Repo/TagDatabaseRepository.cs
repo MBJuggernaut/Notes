@@ -1,8 +1,9 @@
-﻿using System;
+﻿using NotesWindowsFormsApp.Context;
+using NotesWindowsFormsApp.Models;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NotesWindowsFormsApp
+namespace NotesWindowsFormsApp.Repo
 {
     public class TagDatabaseRepository : ITagRepository
     {
@@ -12,8 +13,8 @@ namespace NotesWindowsFormsApp
             this.context = context;
         }
         public void Add(Tag tag)
-        {                      
-            context.Tags.Add(tag);                      
+        {
+            context.Tags.Add(tag);
             context.SaveChanges();
         }
         public Tag FindByText(string text)

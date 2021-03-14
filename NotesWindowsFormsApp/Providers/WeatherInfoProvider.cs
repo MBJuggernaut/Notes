@@ -1,8 +1,9 @@
 ﻿using Newtonsoft.Json;
+using NotesWindowsFormsApp.Models;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace NotesWindowsFormsApp
+namespace NotesWindowsFormsApp.Providers
 {
     public class WeatherInfoProvider : IWeatherInfoProvider
     {

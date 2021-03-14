@@ -1,6 +1,7 @@
-﻿using System.Data.Entity;
+﻿using NotesWindowsFormsApp.Models;
+using System.Data.Entity;
 
-namespace NotesWindowsFormsApp
+namespace NotesWindowsFormsApp.Context
 {
     public class TaskContext : DbContext
     {
@@ -8,7 +9,7 @@ namespace NotesWindowsFormsApp
         {
             Database.SetInitializer(new DbInitializer());
         }
-        public DbSet<Task> Tasks { get; set; }
+        public DbSet<UserTask> Tasks { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<TaskDate> Dates { get; set; }
         public DbSet<TaskUpdater> Updater { get; set; }

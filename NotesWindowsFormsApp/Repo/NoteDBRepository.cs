@@ -1,14 +1,15 @@
-﻿using System.Data.Entity.Migrations;
+﻿using NotesWindowsFormsApp.Context;
+using NotesWindowsFormsApp.Models;
 using System.Linq;
 
-namespace NotesWindowsFormsApp
+namespace NotesWindowsFormsApp.Repo
 {
-    public class NoteDataBaseRepository : INoteRepository
+    public class NoteDBRepository : INoteRepository
     {
         private readonly TaskContext context;
         private readonly Note note;
 
-        public NoteDataBaseRepository(TaskContext context)
+        public NoteDBRepository(TaskContext context)
         {
             this.context = context;
             note = context.Note.First();

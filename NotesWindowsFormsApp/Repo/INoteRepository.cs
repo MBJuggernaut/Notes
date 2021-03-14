@@ -1,6 +1,6 @@
-﻿namespace NotesWindowsFormsApp
+﻿namespace NotesWindowsFormsApp.Repo
 {
-    interface INoteRepository
+    public interface INoteRepository
     {
         string Get();
         void Update(string text);

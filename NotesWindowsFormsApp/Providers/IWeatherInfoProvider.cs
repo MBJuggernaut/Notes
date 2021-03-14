@@ -1,6 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using NotesWindowsFormsApp.Models;
+using System.Threading.Tasks;
 
-namespace NotesWindowsFormsApp
+namespace NotesWindowsFormsApp.Providers
 {
     interface IWeatherInfoProvider
     {

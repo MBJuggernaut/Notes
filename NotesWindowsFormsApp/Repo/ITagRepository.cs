@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using NotesWindowsFormsApp.Models;
+using System.Collections.Generic;
 
-namespace NotesWindowsFormsApp
+namespace NotesWindowsFormsApp.Repo
 {
     public interface ITagRepository
     {

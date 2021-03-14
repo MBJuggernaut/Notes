@@ -1,4 +1,4 @@
-﻿namespace NotesWindowsFormsApp
+﻿namespace NotesWindowsFormsApp.Repo
 {
     public interface ITaskUpdaterRepository
     {

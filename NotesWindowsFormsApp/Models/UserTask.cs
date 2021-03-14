@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace NotesWindowsFormsApp
+namespace NotesWindowsFormsApp.Models
 {
-    public class Task : BaseEntity
+    public class UserTask : BaseEntity
     {
         [Required]
         [Column(TypeName = "datetime2")]
@@ -14,7 +14,7 @@ namespace NotesWindowsFormsApp
         [Required]
         [StringLength(5, MinimumLength = 5)]
         public string Time { get; set; }
-        
+
         [Column(TypeName = "datetime2")]
         public DateTime AlarmTime { get; set; }
 
@@ -34,7 +34,7 @@ namespace NotesWindowsFormsApp
         public virtual List<TaskDate> Dates { get; set; }
 
 
-        public Task()
+        public UserTask()
         {
             Tags = new List<Tag>();
             Dates = new List<TaskDate>();
@@ -104,7 +104,7 @@ namespace NotesWindowsFormsApp
         }
         public List<string> Validate()
         {
-           return ModelValidator.Validate(this);
+            return ModelValidator.Validate(this);
         }
     }
 }
