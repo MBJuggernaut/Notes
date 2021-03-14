@@ -1,4 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using NotesWindowsFormsApp.Models;
+using NotesWindowsFormsApp.Providers;
+using NotesWindowsFormsApp.Repo;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -10,15 +13,15 @@ namespace NotesWindowsFormsApp.Forms
     {
         private DateTime today;
         private DateTime chosenDate;
-        private List<Task> listOfTodayAlerts;
-        readonly ITaskRepository taskManager;
-        readonly ITagRepository tagManager;
-        readonly ITaskUpdaterRepository taskUpdater;
-        readonly INoteRepository noteRepository;
-        readonly IWeatherInfoProvider weatherInfoProvider;
+        private List<UserTask> listOfTodayAlerts;
+        private readonly ITaskRepository taskManager;
+        private readonly ITagRepository tagManager;
+        private readonly ITaskUpdaterRepository taskUpdater;
+        private readonly INoteRepository noteRepository;
+        private readonly IWeatherInfoProvider weatherInfoProvider;
         public MainForm(IServiceProvider provider)
         {
-         
+
             taskManager = provider.GetService<ITaskRepository>();
             tagManager = provider.GetService<ITagRepository>();
             taskUpdater = provider.GetService<ITaskUpdaterRepository>();
@@ -26,14 +29,14 @@ namespace NotesWindowsFormsApp.Forms
             weatherInfoProvider = provider.GetService<IWeatherInfoProvider>();
             listOfTodayAlerts = taskManager.GetTodayAlerts();
 
-            InitializeComponent();           
+            InitializeComponent();
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
             notesRichTextBox.Text = noteRepository.Get();
             notesToolStripMenuItem.PerformClick();
 
-            taskUpdater.Set();                       
+            taskUpdater.Set();
         }
         private void TasksToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -207,16 +210,16 @@ namespace NotesWindowsFormsApp.Forms
         }
         private void EveryMinuteTimer_Tick(object sender, EventArgs e)
         {
-           
+
             if (listOfTodayAlerts.Count != 0)
-            {                
-                var nowShort = DateTime.Parse(DateTime.Now.ToShortTimeString());                
-                
+            {
+                var nowShort = DateTime.Parse(DateTime.Now.ToShortTimeString());
+
                 foreach (var task in listOfTodayAlerts)
                 {
                     if (task.AlarmTime == nowShort)
                     {
-                        
+
                         AlertForm alertForm = new AlertForm();
                         alertForm.AlertMessageLabel.Text = String.Format("{0}, {1},{2}", task.FirstDate.ToShortDateString(), task.Time, task.Text);
                         alertForm.TopMost = true;

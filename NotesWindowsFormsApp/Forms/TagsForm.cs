@@ -1,4 +1,6 @@
-﻿using System;
+﻿using NotesWindowsFormsApp.Models;
+using NotesWindowsFormsApp.Repo;
+using System;
 using System.Windows.Forms;
 
 namespace NotesWindowsFormsApp

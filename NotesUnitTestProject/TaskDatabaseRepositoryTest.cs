@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NotesWindowsFormsApp;
+using NotesWindowsFormsApp.Models;
+using NotesWindowsFormsApp.Repo;
+using System;
+using System.Linq;
 
 namespace NotesUnitTestProject
 {
     [TestClass]
     public class TaskDatabaseRepositoryTest
-    {      
+    {
         readonly DateTime date = DateTime.Today;
         readonly ITaskRepository repository;
         public TaskDatabaseRepositoryTest()
@@ -23,7 +23,7 @@ namespace NotesUnitTestProject
         public void TryToAdd_OneTask_TaskAdded()
         {
             //Arrange                       
-            var taskToAdd = new Task
+            var taskToAdd = new UserTask
             {
                 Time = "00:00",
                 Alarming = "00 мин.",
@@ -37,21 +37,21 @@ namespace NotesUnitTestProject
             repository.TryToAdd(taskToAdd);
 
             //Assert
-            
+
             var ourtask = repository.GetAll().FirstOrDefault(t => t.Text == "Comment");
 
             Assert.IsNotNull(ourtask);
-            Assert.AreEqual(ourtask.Text, taskToAdd.Text);         
+            Assert.AreEqual(ourtask.Text, taskToAdd.Text);
         }
         [TestMethod]
         public void TryToAdd_NotValidateableTask_TaskNotAdded()
         {
             //Arrange                       
-            var taskToAdd = new Task
+            var taskToAdd = new UserTask
             {
                 Time = "00:00",
                 Alarming = "00 мин.",
-                Text = "This is not validateable task"                               
+                Text = "This is not validateable task"
             };
 
             var taskcount1 = repository.GetAll().Count;
@@ -71,7 +71,7 @@ namespace NotesUnitTestProject
         public void Delete_AddThenDeleteOneTask_TaskDeleted()
         {
             //Arrange                        
-            var taskToAdd = new Task
+            var taskToAdd = new UserTask
             {
                 Time = "12:00",
                 Alarming = "00 мин.",
@@ -82,7 +82,7 @@ namespace NotesUnitTestProject
 
             //Act
 
-            repository.TryToAdd(taskToAdd);            
+            repository.TryToAdd(taskToAdd);
             var tasktodelete = repository.GetAll().FirstOrDefault(t => t.Text == taskToAdd.Text);
             repository.Delete(tasktodelete.Id);
 
@@ -109,8 +109,8 @@ namespace NotesUnitTestProject
         public void Update_AddTaskThenChange_TaskChanged()
         {
             //Arrange
-           
-            var taskToAdd = new Task
+
+            var taskToAdd = new UserTask
             {
                 Time = "00:00",
                 Alarming = "00 мин.",
@@ -119,7 +119,7 @@ namespace NotesUnitTestProject
                 FirstDate = date
             };
 
-            var newTask = new Task
+            var newTask = new UserTask
             {
                 Time = "02:00",
                 Alarming = "5 мин.",
@@ -139,21 +139,21 @@ namespace NotesUnitTestProject
             repository.Update(newTask);
 
             //Assert
-            
+
             var ourtask = repository.GetAll().FirstOrDefault(t => t.Id == tasktochange.Id);
-           
+
             Assert.IsNotNull(ourtask);
 
             Assert.AreEqual(ourtask.Time, "02:00");
             Assert.AreEqual(ourtask.Alarming, "5 мин.");
-            Assert.AreEqual(ourtask.Text, "This should be as result");               
+            Assert.AreEqual(ourtask.Text, "This should be as result");
         }
         [TestMethod]
         public void Update_AddTaskThenTryToChngeForBadTask_TaskNotChanged()
         {
             //Arrange
 
-            var taskToAdd = new Task
+            var taskToAdd = new UserTask
             {
                 Time = "00:00",
                 Alarming = "00 мин.",
@@ -162,12 +162,12 @@ namespace NotesUnitTestProject
                 FirstDate = date
             };
 
-            var newTask = new Task
+            var newTask = new UserTask
             {
-                Time = "02:00",                
+                Time = "02:00",
                 Text = "This shouldn't be as result",
                 Repeating = "Один раз",
-               
+
             };
 
             //Act
@@ -195,27 +195,23 @@ namespace NotesUnitTestProject
         {
             //Arrange
 
-            var taskToAdd = new Task
+            var taskToAdd = new UserTask
             {
                 Time = "12:00",
                 Alarming = "15 мин.",
                 Text = "This will be today alarm",
                 Repeating = "Один раз",
                 FirstDate = date
-            };           
+            };
 
             //Act
 
             repository.TryToAdd(taskToAdd);
-            var listoftodayalerts = repository.GetTodayAlerts();            
+            var listoftodayalerts = repository.GetTodayAlerts();
 
             //Assert            
 
-            Assert.IsNotNull(listoftodayalerts);            
+            Assert.IsNotNull(listoftodayalerts);
         }
-
-        //Arrange
-        //Act
-        //Assert
     }
 }

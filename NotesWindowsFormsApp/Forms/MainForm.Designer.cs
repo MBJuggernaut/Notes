@@ -324,8 +324,6 @@
         private System.Windows.Forms.RichTextBox notesRichTextBox;
         private System.Windows.Forms.ToolStripMenuItem тестToolStripMenuItem;
         private System.Windows.Forms.DataGridView tasksForDayDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn time;
-        private System.Windows.Forms.DataGridViewTextBoxColumn task;
         private System.Windows.Forms.Panel weatherPanel;
         private System.Windows.Forms.Label temperatureLabel;
         private System.Windows.Forms.Label cloudsLabel;
@@ -334,7 +332,6 @@
         private System.Windows.Forms.ToolStripMenuItem weatherToolStripMenuItem;
         private System.Windows.Forms.Timer weatherTimer;
         private System.Windows.Forms.Label weatherErrorLabel;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn IdColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn TimeColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn TextColumn;

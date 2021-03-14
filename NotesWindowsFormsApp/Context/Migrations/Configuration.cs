@@ -1,18 +1,15 @@
-﻿namespace NotesWindowsFormsApp.Migrations
+﻿namespace NotesWindowsFormsApp.Context.Migrations
 {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<NotesWindowsFormsApp.TaskContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<TaskContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(NotesWindowsFormsApp.TaskContext context)
+        protected override void Seed(TaskContext context)
         {
             //  This method will be called after migrating to the latest version.
 

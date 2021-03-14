@@ -1,4 +1,6 @@
-﻿using System;
+﻿using NotesWindowsFormsApp.Models;
+using NotesWindowsFormsApp.Repo;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -6,16 +8,16 @@ namespace NotesWindowsFormsApp
 {
     public partial class TaskForm : Form
     {
-        public Task newTask;
+        public UserTask newTask;
         private List<Tag> tags;
         public List<Tag> checkedTags;
         readonly ITagRepository tagManager;
         public TaskForm(ITagRepository tagDatabaseRepository)
         {
             InitializeComponent();
-            
+
             tagManager = tagDatabaseRepository;
-            newTask = new Task()
+            newTask = new UserTask()
             {
                 Time = "00:00",
                 Repeating = "Один раз",
@@ -23,7 +25,7 @@ namespace NotesWindowsFormsApp
             };
             Set();
         }
-        public TaskForm(ITagRepository tagDatabaseRepository, Task task)
+        public TaskForm(ITagRepository tagDatabaseRepository, UserTask task)
         {
             InitializeComponent();
             tagManager = tagDatabaseRepository;
@@ -31,7 +33,7 @@ namespace NotesWindowsFormsApp
             Set();
         }
         private void TaskForm_Load(object sender, EventArgs e)
-        {          
+        {
             ShowAllTags();
             checkedTags = newTask.Tags;
             foreach (var tag in checkedTags)
@@ -40,7 +42,7 @@ namespace NotesWindowsFormsApp
 
                 tagsCheckedListBox.SetItemCheckState(index, CheckState.Checked);
             }
-           
+
         }
         private void OkButton_Click(object sender, EventArgs e)
         {

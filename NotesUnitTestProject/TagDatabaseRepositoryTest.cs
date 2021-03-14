@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NotesWindowsFormsApp;
+using NotesWindowsFormsApp.Models;
+using NotesWindowsFormsApp.Repo;
 using System;
 using System.Linq;
 
@@ -14,7 +16,7 @@ namespace NotesUnitTestProject
         {
             IServiceProvider provider = MyContainer.Initialize();
             repository = provider.GetService<ITagRepository>();
-        }       
+        }
         [TestMethod]
         public void Add_OneTag_AddedTagToDataBase()
         {
@@ -45,14 +47,14 @@ namespace NotesUnitTestProject
         public void FindByText_NotExistingText_Null()
         {
             //Arrange
-            
+
             var tag = new Tag() { Text = "2574" };
             //Act
             tag = repository.FindByText(tag.Text);
             //Assert
             Assert.IsNull(tag);
         }
-                
+
         [TestMethod]
         public void Delete_OneTag_TagDeleted()
         {
@@ -83,7 +85,7 @@ namespace NotesUnitTestProject
             var count2 = repository.GetAll().Count;
             Assert.IsNull(repository.FindByText(tag.Text));
             Assert.AreEqual(count1, count2);
-        }        
+        }
         //Arrange
         //Act
         //Assert
